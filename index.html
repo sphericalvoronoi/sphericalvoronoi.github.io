@@ -344,7 +344,7 @@
     <div class="container my-4">
 
         <hr class="section-line">
-        <h2 class="font-weight-bold text-center mb-3">Representing Funcitons on the Sphere</h2>
+        <h2 class="font-weight-bold mb-3">Representing Functions on the Sphere</h2>
         <img src="assets/img/convergence.png" class="img-fluid" alt="Window function visualization" />
                 <p class="mt-4">
                     We fit different spherical representations to the same functions starting from random initializations (samples shown in
@@ -933,12 +933,29 @@
                             <div class="carousel-container">
                                 <h4 class="text-center">Helmet</h4>
                                 <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
-                                    <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="2">Ours vs GShader</div>
+                                    <div class="thumb active" data-index="0">Ours Vs GT</div>
+                                    <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
+                                    <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
+                                    <div class="thumb" data-index="3">Ours vs GShader</div>
                                 </div>
                     
                                 <div class="comparison-wrapper">
+
+                                    <div class="comparison active" data-type="video">
+                                        <div class="image-container image-after">
+                                            <video src="./assets/video/gt_helmet.mp4" autoplay loop muted playsinline></video>
+                                        </div>
+                                        <div class="image-container image-before">
+                                            <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="labels-container">
+                                            <div class="label label-left">Ours</div>
+                                            <div class="label label-right">GT</div>
+                                        </div>
+                                        <button class="play-btn"><span>⏸</span> Pause</button>
+                                    </div>
+
                                     <div class="comparison active" data-type="video">
                                         <div class="image-container image-after">
                                             <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline></video>
