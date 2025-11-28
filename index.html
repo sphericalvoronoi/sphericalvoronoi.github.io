@@ -17,7 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Spherical Voronoi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet"
+        type="text/css">
     <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
@@ -28,10 +29,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/logo.png">
     <link rel="manifest" href="site.webmanifest">
 
-    <meta property="og:site_name" content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere" />
+    <meta property="og:site_name"
+        content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere" />
     <meta property="og:type" content="video.other" />
-    <meta property="og:title" content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere" />
-    <meta property="og:description" content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere, 2025." />
+    <meta property="og:title"
+        content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere" />
+    <meta property="og:description"
+        content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere, 2025." />
 
     <script src="assets/js/video_comparison.js"></script>
     <script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"></script>
@@ -48,6 +52,7 @@
             margin: 0 auto;
             overflow: hidden;
         }
+
         .small-bal-container img,
         .small-bal-container video {
             position: absolute;
@@ -70,6 +75,7 @@
             align-items: center;
             border: 3px solid white;
         }
+
         .carousel-control-prev-icon::after,
         .carousel-control-next-icon::after {
             content: '';
@@ -78,11 +84,13 @@
             height: 8px;
             border: solid white;
         }
+
         .carousel-control-prev-icon::after {
             border-width: 0 4px 4px 0;
             transform: rotate(135deg);
             margin-left: -3px;
         }
+
         .carousel-control-next-icon::after {
             border-width: 0 4px 4px 0;
             transform: rotate(-45deg);
@@ -94,12 +102,15 @@
             body {
                 font-size: 0.9rem;
             }
+
             h1 {
                 font-size: 1.75rem;
             }
+
             .author-container h6 {
                 font-size: 0.85rem;
             }
+
             .container,
             .container-fluid {
                 padding-left: 0.5rem;
@@ -113,9 +124,10 @@
     <div class="highlight-clean pb-3">
         <div class="container-fluid mb-3">
             <!-- <h2 class="text-center" style="font-weight: bold; color: #007bff; margin-bottom: 5px;">If accepted somewhere</h2> -->
-            <h1 class="text-center mb-2"><b>Spherical Voronoi</b> <br> Directional Appearance as a Differentiable Partition of the Sphere</h1>
+            <h1 class="text-center mb-2"><b>Spherical Voronoi</b> <br> Directional Appearance as a Differentiable
+                Partition of the Sphere</h1>
         </div>
-        
+
 
         <!-- Centered author section -->
         <div class="container author-container mt-4">
@@ -155,7 +167,7 @@
                         </a>
                     </h6>
                 </div>
-               
+
 
             </div>
 
@@ -212,26 +224,32 @@
 
         <div class="row">
             <div class="col-12">
-                <!-- <h2 class="font-weight-bold">Abstract</h2> -->
+                <h2 class="font-weight-bold">Abstract</h2> 
                 <p class="text-justify">
-                    Radiance field methods (e.g.~3D Gaussian Splatting) have emerged as a powerful paradigm for novel view
+                    Radiance field methods (e.g.~3D Gaussian Splatting) have emerged as a powerful paradigm for novel
+                    view
                     synthesis, yet
                     their appearance modeling often relies on Spherical Harmonics (SH), which impose fundamental
                     limitations.
-                    SH struggle with high-frequency signals, exhibit Gibbs ringing artifacts, and critically fail to capture
+                    SH struggle with high-frequency signals, exhibit Gibbs ringing artifacts, and critically fail to
+                    capture
                     specular
                     reflections -- a key component of realistic rendering.
-                    While alternatives like Spherical Gaussians offer improvements, they introduce significant optimization
+                    While alternatives like Spherical Gaussians offer improvements, they introduce significant
+                    optimization
                     complexity.
-                    We propose Spherical Voronoi (SV) as a unified framework for appearance representation in 3D Gaussian
+                    We propose Spherical Voronoi (SV) as a unified framework for appearance representation in 3D
+                    Gaussian
                     Splatting.
                     SV partitions the directional domain into learnable regions with smooth boundaries, providing an
                     intuitive and stable
                     parameterization for view-dependent effects.
-                    For diffuse appearance, SV achieves competitive results while maintaining simpler optimization compared
+                    For diffuse appearance, SV achieves competitive results while maintaining simpler optimization
+                    compared
                     to existing
                     alternatives.
-                    For reflections -- where SH fundamentally fail -- we leverage SV as learnable reflection probes, taking
+                    For reflections -- where SH fundamentally fail -- we leverage SV as learnable reflection probes,
+                    taking
                     reflected
                     directions as input following principles from traditional graphics.
                     This formulation achieves state-of-the-art results across both synthetic and real-world datasets,
@@ -252,89 +270,104 @@
             </video>
         </div>
         <p class="small text-muted mt-2" style="max-width: 1100px;">
-            Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics and 3D Computer
+            Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics
+            and 3D Computer
             Vision. Classical representations like Spherical Harmonics (SH) optimize well but struggle in representing
-            high-frequency functions. Explicit representations like Spherical Gaussians (SG) are capable of representing localized functions, but they are
-            difficult to optimize due to the locality of support of their bases. We propose Spherical Voronoi (SV) as a new explicit representation that is
-            capable of modeling high-frequencies effectively, provides an <i>adaptive</i> decomposition of the spherical domain, and is <i>easier</i> to optimize.
+            high-frequency functions. Explicit representations like Spherical Gaussians (SG) are capable of representing
+            localized functions, but they are
+            difficult to optimize due to the locality of support of their bases. We propose Spherical Voronoi (SV) as a
+            new explicit representation that is
+            capable of modeling high-frequencies effectively, provides an <i>adaptive</i> decomposition of the spherical
+            domain, and is <i>easier</i> to optimize.
         </p>
     </div>
 
 
-        <div class="container my-5" style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
-                <hr class="section-line">
-            <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizer</h2>
-            <p style="color:#555; font-size:14px; text-align:center; max-width:700px; margin:0 auto 30px;">
-                This interactive viewer displays a <strong>soft Voronoi partition</strong> on a unit circle.
-                You can adjust the <em>number of sites</em>, <em>temperature</em> (softness of boundaries), and
-                <em>jitter</em> (angular randomness). Each site is represented by a colored arrow,
-                and the black curve shows the reconstructed function.
-            </p>
-        
-            <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
-            
-                <!-- Controls bar (una riga, full width) -->
-                <div style="
-                    display:flex;
-                    flex-wrap:wrap;
-                    align-items:center;
-                    justify-content:space-between;
-                    gap:12px;
-                    width:100%;
-                    padding:12px 16px;
-                    background:#f9fafb;
-                    border:1px solid #e5e7eb;
-                    border-radius:12px;
-                ">
-            
-                    <div style="display:flex; align-items:center; gap:8px; flex:1 1 180px; min-width:180px;">
-                        <label for="numSites" style="white-space:nowrap; font-size:14px;">Number of sites:</label>
-                        <input type="range" id="numSites" min="2" max="32" value="8" style="flex:1;" />
-                        <span id="numSitesLabel" style="width:32px; text-align:right; font-size:14px;">8</span>
-                    </div>
-            
-                    <div style="display:flex; align-items:center; gap:8px; flex:1 1 180px; min-width:180px;">
-                        <label for="temperature" style="white-space:nowrap; font-size:14px;">Temperature:</label>
-                        <input type="range" id="temperature" min="0" max="500" value="40" style="flex:1;" />
-                        <span id="temperatureLabel" style="width:32px; text-align:right; font-size:14px;">40</span>
-                    </div>
-            
-                    <div style="display:flex; align-items:center; gap:8px; flex:1 1 180px; min-width:180px;">
-                        <label for="jitter" style="white-space:nowrap; font-size:14px;">Jitter (°):</label>
-                        <input type="range" id="jitter" min="0" max="45" value="10" style="flex:1;" />
-                        <span id="jitterLabel" style="width:32px; text-align:right; font-size:14px;">10°</span>
-                    </div>
-            
-                    <button id="randomizeAmplitudes" style="
-                        padding:6px 14px;
-                        border-radius:8px;
-                        border:1px solid #d1d5db;
-                        background:#ffffff;
-                        cursor:pointer;
-                        font-size:14px;
-                        white-space:nowrap;
-                    ">
-                        Randomize amplitudes
-                    </button>
-                </div>
-            
-                <!-- Visualizer sotto, full width -->
-                <div style="width:100%; text-align:center;">
-                    <canvas id="voronoiCanvas" width="600" height="600" style="
-                            width:100%;
-                            max-width:600px;
-                            height:auto;
-                            aspect-ratio:1 / 1;
-                            border-radius:16px;
-                            background:#f8f9fb;
-                            display:block;
-                            margin:0 auto;
-                        ">
-                    </canvas>
-                </div>
+    <div class="container my-5"
+        style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
+        <hr class="section-line">
+        <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizer</h2>
+        <p style="color:#555; font-size:14px; text-align:center; max-width:700px; margin:0 auto 30px;">
+            This interactive viewer displays a <strong>soft Voronoi partition</strong> on a unit circle.
+            You can adjust the <em>number of sites</em>, <em>temperature</em> (softness of boundaries), and
+            <em>jitter</em> (angular randomness). Each site is represented by a colored arrow,
+            and the black curve shows the reconstructed function.
+        </p>
 
+        <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
+
+            <div class="container-fluid">
+                <div class="row align-items-stretch">
+                    <div class="col-lg-8 mb-3 mb-lg-0">
+                        <div class="w-100 text-center">
+                            <canvas id="voronoiCanvas" width="600" height="600" style="
+                                    width:100%;
+                                    max-width:600px;
+                                    height:auto;
+                                    aspect-ratio:1 / 1;
+                                    border-radius:16px;
+                                    background:#f8f9fb;
+                                    display:block;
+                                    margin:0 auto;
+                                "></canvas>
+                        </div>
+                    </div>
             
+                    <div class="col-lg-4">
+                        <div class="p-3 border rounded" style="background:#f9fafb;">
+                            <div class="form-group">
+                                <label for="numSites" class="d-block mb-1" style="font-size:14px;">
+                                    Number of sites:
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="numSites" min="2" max="32" value="8" class="custom-range flex-grow-1" />
+                                    <span id="numSitesLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
+                                        8
+                                    </span>
+                                </div>
+                            </div>
+            
+                            <!-- Temperature -->
+                            <div class="form-group">
+                                <label for="temperature" class="d-block mb-1" style="font-size:14px;">
+                                    Temperature:
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="temperature" min="0" max="500" value="40"
+                                        class="custom-range flex-grow-1" />
+                                    <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
+                                        40
+                                    </span>
+                                </div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="jitter" class="d-block mb-1" style="font-size:14px;">
+                                    Jitter (°):
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="jitter" min="0" max="45" value="10" class="custom-range flex-grow-1" />
+                                    <span id="jitterLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
+                                        10°
+                                    </span>
+                                </div>
+                            </div>
+            
+                            <button id="randomizeAmplitudes" class="btn btn-light btn-block mt-2" style="
+                                    border-radius:8px;
+                                    border:1px solid #d1d5db;
+                                    font-size:14px;
+                                    white-space:nowrap;
+                                ">
+                                Randomize amplitudes
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+        </div>
 
 
 
@@ -346,125 +379,141 @@
         <hr class="section-line">
         <h2 class="font-weight-bold mb-3">Representing Functions on the Sphere</h2>
         <img src="assets/img/convergence.png" class="img-fluid" alt="Window function visualization" />
-                <p class="mt-4">
-                    We fit different spherical representations to the same functions starting from random initializations (samples shown in
-                    the bottom-left plots).
-                    To measure the robustness of optimization we repeat the fitting 100 times from random initializations, and report the
-                    PSNR attained at the end of optimization (bottom-right plots).
-                    Spherical Harmonics converge to a unique solution due to the orthogonality of its bases, but its band-limited
-                    characteristics result in Gibbs fitting artifacts.
-                    Spherical Gaussian and Betas can represent locally supported functions, as well as discontinuities, but their
-                    optimization is not stable and prone to local minima. Spherical Voronoi <i>consistently</i> converges to a <i>better</i> reconstruction.
-                </p>
+        <p class="mt-4">
+            We fit different spherical representations to the same functions starting from random initializations
+            (samples shown in
+            the bottom-left plots).
+            To measure the robustness of optimization we repeat the fitting 100 times from random initializations, and
+            report the
+            PSNR attained at the end of optimization (bottom-right plots).
+            Spherical Harmonics converge to a unique solution due to the orthogonality of its bases, but its
+            band-limited
+            characteristics result in Gibbs fitting artifacts.
+            Spherical Gaussian and Betas can represent locally supported functions, as well as discontinuities, but
+            their
+            optimization is not stable and prone to local minima. Spherical Voronoi <i>consistently</i> converges to a
+            <i>better</i> reconstruction.
+        </p>
     </div>
 
-        <div class="container mb-4">
-            <hr class="section-line">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="font-weight-bold">Methodology</h2>
-        
-                    <h4 class="mt-3">View-direction Modeling</h4>
-                    <p class="text-justify">
-                        We represent view-dependent appearance using a <strong>soft Spherical Voronoi (SV)</strong> function on
-                        the unit sphere.
-                        Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values \( c_k \in \mathbb{R}
-                        \), and evaluates radiance as
-                        \( f_{\text{SV}}(\omega; \tau, s, c) = \sum_k w_k(\omega; \tau)\, c_k \), with
-                        \( w_k = \frac{\exp(\tau\, s_k \cdot \omega)}{\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)} \).
-                        The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness: low values produce
-                        broad, smooth lobes,
-                        while high values yield narrow, highly directional responses.
-                        In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV, obtaining a
-                        fully explicit, differentiable and more flexible view-directional model.
+    <div class="container mb-4">
+        <hr class="section-line">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Methodology</h2>
+
+                <h4 class="mt-3">View-direction Modeling</h4>
+                <p class="text-justify">
+                    We represent view-dependent appearance using a <strong>soft Spherical Voronoi (SV)</strong> function
+                    on
+                    the unit sphere.
+                    Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values \( c_k \in
+                    \mathbb{R}
+                    \), and evaluates radiance as
+                    \( f_{\text{SV}}(\omega; \tau, s, c) = \sum_k w_k(\omega; \tau)\, c_k \), with
+                    \( w_k = \frac{\exp(\tau\, s_k \cdot \omega)}{\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)} \).
+                    The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness: low values produce
+                    broad, smooth lobes,
+                    while high values yield narrow, highly directional responses.
+                    In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV, obtaining a
+                    fully explicit, differentiable and more flexible view-directional model.
+                </p>
+
+                <h4 class="mt-4">Reflections, Learnable Probes &amp; Deferred Rendering</h4>
+
+                <!-- Reflections à la Ref-NeRF -->
+                <p class="text-justify">
+                    In the spirit of <em>Ref-NeRF</em>, we extend the same formulation to <strong>reflections</strong>
+                    by
+                    querying the SV with the
+                    <strong>reflected direction</strong> \( \omega_r = 2(\omega \cdot \mathbf{n})\mathbf{n} - \omega \).
+                    Instead of modeling only \( f(\omega) \), we directly represent \( f(\omega_r) \), allowing us to
+                    capture view-dependent specular effects through the same explicit SV function.
+                    Thanks to its partition-of-unity structure and learnable sites, the Spherical Voronoi representation
+                    can
+                    model <strong>highly complex reflection patterns</strong>,
+                    including sharp peaks, multiple specular lobes, and even angular discontinuities, while remaining
+                    fully
+                    differentiable.
+                </p>
+
+                <!-- Probes: what they are -->
+                <p class="text-justify">
+                    To handle <strong>spatially varying reflections</strong>, we implement a fully explicit,
+                    differentiable
+                    pipeline based on
+                    <strong>learnable light probes</strong>. Each probe is defined by a spatial position \( p_i \in
+                    \mathbb{R}^3 \),
+                    an SV function (its own set of Voronoi sites and values), and an intensity weight \( \alpha_i \in
+                    [0,1]
+                    \).
+                    These probes act as local reflection fields: for a query point, we gather nearby probes, evaluate
+                    their
+                    SVs along the relevant direction (e.g., \( \omega_r \)),
+                    and blend their contributions via inverse-distance weighting to obtain a <strong>near-field specular
+                        color</strong> \( C_n(x) \).
+                    All probe parameters — positions, SV coefficients, and intensities — are explicit and jointly
+                    optimized
+                    with the rest of the scene.
+                </p>
+
+                <!-- Deferred rendering + envmap -->
+                <p class="text-justify">
+                    On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
+                    The 2D Gaussian splat scene is first rasterized into geometry buffers (per-pixel positions \( P(x)
+                    \),
+                    normals \( N(x) \), roughness \( \rho(x) \), and albedo \( A(x) \)).
+                    In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
+                    with
+                    <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(x) \).
+                    A spatially varying mixing coefficient \( \alpha(x) \), obtained by interpolating probe intensities,
+                    blends these two contributions:
+                </p>
+
+                <p class="text-center">
+                    \( C_{\text{spec}}(x) = \alpha(x) C_n(x) + (1 - \alpha(x)) C_f(x). \)
+                </p>
+
+                <div class="text-center mb-4">
+                    <img src="assets/img/deferred_pipeline.png" class="img-fluid rounded shadow-sm"
+                        alt="Deferred rendering pipeline" style="max-width: 90%;" />
+                    <p class="small text-muted mt-2 mb-5" style="max-width: 70%; margin: 0 auto; text-align: center;">
+                        <em>Deferred rendering pipeline</em> — The 2DGS scene is rasterized into
+                        buffers of positions, normals, roughness, and albedos.
+                        In the lighting pass, learnable Spherical Voronoi light probes (near-field) and an environment
+                        cubemap (far-field) jointly produce diffuse and specular shading,
+                        blended to form the final output. All components are fully explicit and optimized end-to-end.
                     </p>
-        
-                    <h4 class="mt-4">Reflections, Learnable Probes &amp; Deferred Rendering</h4>
-        
-                    <!-- Reflections à la Ref-NeRF -->
-                    <p class="text-justify">
-                        In the spirit of <em>Ref-NeRF</em>, we extend the same formulation to <strong>reflections</strong> by
-                        querying the SV with the
-                        <strong>reflected direction</strong> \( \omega_r = 2(\omega \cdot \mathbf{n})\mathbf{n} - \omega \).
-                        Instead of modeling only \( f(\omega) \), we directly represent \( f(\omega_r) \), allowing us to
-                        capture view-dependent specular effects through the same explicit SV function.
-                        Thanks to its partition-of-unity structure and learnable sites, the Spherical Voronoi representation can
-                        model <strong>highly complex reflection patterns</strong>,
-                        including sharp peaks, multiple specular lobes, and even angular discontinuities, while remaining fully
-                        differentiable.
-                    </p>
-        
-                    <!-- Probes: what they are -->
-                    <p class="text-justify">
-                        To handle <strong>spatially varying reflections</strong>, we implement a fully explicit, differentiable
-                        pipeline based on
-                        <strong>learnable light probes</strong>. Each probe is defined by a spatial position \( p_i \in
-                        \mathbb{R}^3 \),
-                        an SV function (its own set of Voronoi sites and values), and an intensity weight \( \alpha_i \in [0,1]
-                        \).
-                        These probes act as local reflection fields: for a query point, we gather nearby probes, evaluate their
-                        SVs along the relevant direction (e.g., \( \omega_r \)),
-                        and blend their contributions via inverse-distance weighting to obtain a <strong>near-field specular
-                            color</strong> \( C_n(x) \).
-                        All probe parameters — positions, SV coefficients, and intensities — are explicit and jointly optimized
-                        with the rest of the scene.
-                    </p>
-        
-                    <!-- Deferred rendering + envmap -->
-                    <p class="text-justify">
-                        On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
-                        The 2D Gaussian splat scene is first rasterized into geometry buffers (per-pixel positions \( P(x) \),
-                        normals \( N(x) \), roughness \( \rho(x) \), and albedo \( A(x) \)).
-                        In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes with
-                        <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(x) \).
-                        A spatially varying mixing coefficient \( \alpha(x) \), obtained by interpolating probe intensities,
-                        blends these two contributions:
-                    </p>
-        
-                    <p class="text-center">
-                        \( C_{\text{spec}}(x) = \alpha(x) C_n(x) + (1 - \alpha(x)) C_f(x). \)
-                    </p>
-        
-                    <div class="text-center mb-4">
-                        <img src="assets/img/deferred_pipeline.png" class="img-fluid rounded shadow-sm"
-                            alt="Deferred rendering pipeline" style="max-width: 90%;" />
-                        <p class="small text-muted mt-2 mb-5" style="max-width: 70%; margin: 0 auto; text-align: center;">
-                            <em>Deferred rendering pipeline</em> — The 2DGS scene is rasterized into
-                            buffers of positions, normals, roughness, and albedos.
-                            In the lighting pass, learnable Spherical Voronoi light probes (near-field) and an environment
-                            cubemap (far-field) jointly produce diffuse and specular shading,
-                            blended to form the final output. All components are fully explicit and optimized end-to-end.
+                </div>
+
+                <div class="row justify-content-center mb-4">
+                    <!-- Video 1: probes motion -->
+                    <div class="col-md-6 text-center mb-3 mb-md-0">
+                        <video class="rounded shadow-sm w-100" autoplay muted loop playsinlinee height="250px">
+                            <source src="assets/video/probes_motion.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="small text-muted mt-2">
+                            Motion and optimization of learnable Spherical Voronoi light probes.
                         </p>
                     </div>
-        
-                    <div class="row justify-content-center mb-4">
-                        <!-- Video 1: probes motion -->
-                        <div class="col-md-6 text-center mb-3 mb-md-0">
-                            <video controls class="rounded shadow-sm w-100" autoplay muted loop playsinlinee height="250px">
-                                <source src="assets/video/probes_motion.mp4" type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
-                            <p class="small text-muted mt-2">
-                                Motion and optimization of learnable Spherical Voronoi light probes.
-                            </p>
-                        </div>
-        
-                        <!-- Video 2: temperature effect -->
-                        <div class="col-md-6 text-center">
-                            <video controls class="rounded shadow-sm w-100" autoplay muted loop playsinline height="250px">
-                                <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
-                            <p class="small text-muted mt-2">
-                                Effect of the temperature \( \tau \) on SV sharpness, from smooth
-                                diffuse-like lobes to sharp, highly specular peaks.
-                            </p>
-                        </div>
+
+                    <!-- Video 2: temperature effect -->
+                    <div class="col-md-6 text-center">
+                        <video class="rounded shadow-sm w-100" autoplay muted loop playsinline height="250px">
+                            <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="small text-muted mt-2">
+                            Effect of the temperature \( \tau \) on SV sharpness, from smooth
+                            diffuse-like lobes to sharp, highly specular peaks.
+                        </p>
                     </div>
-        
                 </div>
+
             </div>
         </div>
+    </div>
 
 
     <!-- Results -->
@@ -472,7 +521,8 @@
         <hr class="section-line">
         <h2 class="font-weight-bold">Results - Modeling Reflections</h2>
         <h4 class="mt-4">Scene Decomposition</h4>
-        <p>Our method allows for a detailed scene decomposition into physically interpretable components, such as albedo, specular, surface normals, and roughness.</p>
+        <p>Our method allows for a detailed scene decomposition into physically interpretable components, such as
+            albedo, specular, surface normals, and roughness.</p>
         <div class="">
             <video width="100%" autoplay muted loop playsinline>
                 <source src="assets/video/gardenspheres_decomposition.mp4" type="video/mp4">
@@ -516,502 +566,510 @@
             </video>
         </div> -->
         <h4 class="mt-4">Comparison with SoTA</h4>
-        <p>Our method produces slightly better results than Ref-GS on standard reflective benchmarks, while significantly
-            outperforming other baseline methods. It is a <i>fully explicit</i> approach based on learnable light probes parameterized
+        <p>Our method produces slightly better results than Ref-GS on standard reflective benchmarks, while
+            significantly
+            outperforming other baseline methods. It is a <i>fully explicit</i> approach based on learnable light probes
+            parameterized
             by a Spherical Voronoi function.</p>
 
-                    <div class="row mt-5">
-                        <div class="col-lg-12">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Gardenspheres</h4>
-                                <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
-                                    <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="2">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Car</h4>
-                                <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours vs GT</div>
-                                    <div class="thumb" data-index="1">Ours vs Ref-GS</div>
-                                    <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="3">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gt_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GT</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Teapot</h4>
-                                <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
-                                    <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="2">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_teapot.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_teapot.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_teapot.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    
-                    
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div class="carousel-container">
+                    <h4 class="text-center">Gardenspheres</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
+                        <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Ball</h4>
-                                <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours vs GT</div>
-                                    <div class="thumb" data-index="1">Ours vs Ref-GS</div>
-                                    <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="3">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gt_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GT</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
+                    <div class="comparison-wrapper">
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
 
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Toaster</h4>
-                                <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours Vs GT</div>
-                                    <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
-                                    <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="3">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-                                    
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gt_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GT</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
                         </div>
-                    
-                    
-                    
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="carousel-container">
+                    <h4 class="text-center">Car</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb" data-index="1">Ours vs Ref-GS</div>
+                        <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Bell</h4>
-                                <div class="thumbnails">
-                   
-                                    <div class="thumb active" data-index="0">Ours vs Ref-GS</div>
-                                    <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="2">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_bell.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_bell.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_bell.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
+                    <div class="comparison-wrapper">
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gt_car.mp4" autoplay loop muted playsinline></video>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="carousel-container">
-                                <h4 class="text-center">Helmet</h4>
-                                <div class="thumbnails">
-                                    <div class="thumb active" data-index="0">Ours Vs GT</div>
-                                    <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
-                                    <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
-                                    <div class="thumb" data-index="3">Ours vs GShader</div>
-                                </div>
-                    
-                                <div class="comparison-wrapper">
-
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gt_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GT</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-
-                                    <div class="comparison active" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">Ref-GS</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/3dgsdr_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">3DGS-DR</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                    
-                                    <div class="comparison" data-type="video">
-                                        <div class="image-container image-after">
-                                            <video src="./assets/video/gshader_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="image-container image-before">
-                                            <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="labels-container">
-                                            <div class="label label-left">Ours</div>
-                                            <div class="label label-right">GShader</div>
-                                        </div>
-                                        <button class="play-btn"><span>⏸</span> Pause</button>
-                                    </div>
-                                </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
                             </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
                         </div>
-                    
-                    
-                    
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_car.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_car.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_car.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="carousel-container">
+                    <h4 class="text-center">Teapot</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
+                        <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
 
+                    <div class="comparison-wrapper">
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_teapot.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_teapot.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_teapot.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-                    <!-- Carousel 2 - Images -->
-                    <!-- <div class="carousel-container">
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="carousel-container">
+                    <h4 class="text-center">Ball</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb" data-index="1">Ours vs Ref-GS</div>
+                        <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="3">Ours vs GShader</div>
+                    </div>
+
+                    <div class="comparison-wrapper">
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gt_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="carousel-container">
+                    <h4 class="text-center">Toaster</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Ours Vs GT</div>
+                        <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
+                        <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="3">Ours vs GShader</div>
+                    </div>
+
+                    <div class="comparison-wrapper">
+
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gt_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="carousel-container">
+                    <h4 class="text-center">Bell</h4>
+                    <div class="thumbnails">
+
+                        <div class="thumb active" data-index="0">Ours vs Ref-GS</div>
+                        <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="2">Ours vs GShader</div>
+                    </div>
+
+                    <div class="comparison-wrapper">
+
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_bell.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_bell.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_bell.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="carousel-container">
+                    <h4 class="text-center">Helmet</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Ours Vs GT</div>
+                        <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
+                        <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
+                        <div class="thumb" data-index="3">Ours vs GShader</div>
+                    </div>
+
+                    <div class="comparison-wrapper">
+
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gt_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison active" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Ref-GS</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/3dgsdr_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">3DGS-DR</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+
+                        <div class="comparison" data-type="video">
+                            <div class="image-container image-after">
+                                <video src="./assets/video/gshader_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="image-container image-before">
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GShader</div>
+                            </div>
+                            <button class="play-btn"><span>⏸</span> Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <!-- Carousel 2 - Images -->
+        <!-- <div class="carousel-container">
                         <div class="thumbnails">
                             <div class="thumb active" data-index="0">Indoor A</div>
                             <div class="thumb" data-index="1">Indoor B</div>
@@ -1068,10 +1126,10 @@
     <footer class="footer">
         <div class="container">
             <div class="content has-text-centered">
-                <a class="icon-link" href="assets/videos/nerfies_paper.pdf">
+                <a class="icon-link" href="">
                     <i class="fas fa-file-pdf"></i>
                 </a>
-                <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+                <a class="icon-link" href="" class="external-link" disabled>
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -1096,7 +1154,7 @@
     <script src="assets/js/voronoi.js"></script>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
-            initVoronoiPolarViewer(); 
+            initVoronoiPolarViewer();
         });
     </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -1111,7 +1169,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
     <script src="assets/js/comparison.js"></script>
-    
+
     <script>
         document.querySelectorAll('.carousel-container').forEach(container => {
             const thumbs = container.querySelectorAll('.thumb');
