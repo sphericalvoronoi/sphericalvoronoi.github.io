@@ -224,7 +224,7 @@
 
         <div class="row">
             <div class="col-12">
-                <h2 class="font-weight-bold">Abstract</h2> 
+                <h2 class="font-weight-bold">Abstract</h2>
                 <p class="text-justify">
                     Radiance field methods (e.g.~3D Gaussian Splatting) have emerged as a powerful paradigm for novel
                     view
@@ -312,7 +312,7 @@
                                 "></canvas>
                         </div>
                     </div>
-            
+
                     <div class="col-lg-4">
                         <div class="p-3 border rounded" style="background:#f9fafb;">
                             <div class="form-group">
@@ -320,13 +320,15 @@
                                     Number of sites:
                                 </label>
                                 <div class="d-flex align-items-center">
-                                    <input type="range" id="numSites" min="2" max="32" value="8" class="custom-range flex-grow-1" />
-                                    <span id="numSitesLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
+                                    <input type="range" id="numSites" min="2" max="32" value="8"
+                                        class="custom-range flex-grow-1" />
+                                    <span id="numSitesLabel" class="ml-2 text-right"
+                                        style="width:40px; font-size:14px;">
                                         8
                                     </span>
                                 </div>
                             </div>
-            
+
                             <!-- Temperature -->
                             <div class="form-group">
                                 <label for="temperature" class="d-block mb-1" style="font-size:14px;">
@@ -335,24 +337,26 @@
                                 <div class="d-flex align-items-center">
                                     <input type="range" id="temperature" min="0" max="500" value="40"
                                         class="custom-range flex-grow-1" />
-                                    <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
+                                    <span id="temperatureLabel" class="ml-2 text-right"
+                                        style="width:40px; font-size:14px;">
                                         40
                                     </span>
                                 </div>
                             </div>
-            
+
                             <div class="form-group">
                                 <label for="jitter" class="d-block mb-1" style="font-size:14px;">
                                     Jitter (°):
                                 </label>
                                 <div class="d-flex align-items-center">
-                                    <input type="range" id="jitter" min="0" max="45" value="10" class="custom-range flex-grow-1" />
+                                    <input type="range" id="jitter" min="0" max="45" value="10"
+                                        class="custom-range flex-grow-1" />
                                     <span id="jitterLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
                                         10°
                                     </span>
                                 </div>
                             </div>
-            
+
                             <button id="randomizeAmplitudes" class="btn btn-light btn-block mt-2" style="
                                     border-radius:8px;
                                     border:1px solid #d1d5db;
@@ -518,6 +522,252 @@
 
     <!-- Results -->
     <div class="container my-4">
+        <hr class="section-line">
+        <h2 class="font-weight-bold">Results - Modeling Radiance</h2>
+        <p>Our method achieves comparable quality to Zip-NeRF on the Mip-NeRF360 dataset, while delivering significantly
+            higher
+            accuracy on other standard benchmarks such as NeRF Synthetic and Tanks & Temples.</p>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="carousel-container">
+                    <h4>Comparison with Zip-NeRF</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Bonsai</div>
+                        <div class="thumb" data-index="1">Bicycle</div>
+                        <div class="thumb" data-index="2">Kitchen</div>
+                        <div class="thumb" data-index="3">Counter</div>
+                        <div class="thumb" data-index="4">Garden</div>
+                        <div class="thumb" data-index="5">Room</div>
+                        <div class="thumb" data-index="6">Stump</div>
+                    </div>
+
+                    <div class="comparison-wrapper">
+                        <div class="comparison active" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_bonsai.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_bonsai.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_bicycle.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_bicycle.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_kitchen.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_kitchen.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_counter.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_counter.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_garden.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_garden.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_room.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_room.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/zipnerf_stump.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_stump.png"  alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">Zip-NeRF</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+            </div>
+
+
+            <div class="col-lg-12">
+                <div class="carousel-container">
+                    <h4>Comparison with GT</h4>
+                    <div class="thumbnails">
+                        <div class="thumb active" data-index="0">Bonsai</div>
+                        <div class="thumb" data-index="1">Bicycle</div>
+                        <div class="thumb" data-index="2">Kitchen</div>
+                        <div class="thumb" data-index="3">Counter</div>
+                        <div class="thumb" data-index="4">Garden</div>
+                        <div class="thumb" data-index="5">Room</div>
+                        <div class="thumb" data-index="6">Stump</div>
+                    </div>
+
+                    <div class="comparison-wrapper">
+                        <div class="comparison active" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_bonsai.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_bonsai.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison active" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_bicycle.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_bicycle.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison " data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_kitchen.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_kitchen.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison " data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_counter.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_counter.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison " data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_garden.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_garden.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison " data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_room.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_room.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                        <div class="comparison" data-type="image">
+                            <div class="image-container image-after">
+                                <img src="./assets/img/gt_stump.png" alt="Right">
+                            </div>
+                            <div class="image-container image-before">
+                                <img src="./assets/img/ours_stump.png" alt="Left">
+                            </div>
+                            <div class="divider"></div>
+                            <div class="labels-container">
+                                <div class="label label-left">Ours</div>
+                                <div class="label label-right">GT</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <hr class="section-line">
         <h2 class="font-weight-bold">Results - Modeling Reflections</h2>
         <h4 class="mt-4">Scene Decomposition</h4>
