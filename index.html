@@ -43,6 +43,54 @@
     <script src="assets/js/bulma-slider.min.js"></script>
 
     <style>
+        .table-paper {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            margin: 2em 0;
+        }
+    
+        .table-paper th,
+        .table-paper td {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+        }
+    
+        .table-paper thead th {
+            border-bottom: 2px solid #000;
+            font-weight: 600;
+        }
+    
+        .table-paper tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+    
+        .table-paper tbody tr:nth-child(even) {
+            background-color: #fff;
+        }
+    
+        .table-paper td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+    
+        .table-paper td[rowspan] {
+            vertical-align: middle;
+            font-weight: 600;
+        }
+    
+        .table-paper tfoot td {
+            border-top: 2px solid #000;
+        }
+    
+        .highlight {
+            background-color: #f4cccc;
+        }
+    </style>
+
+    <style>
         /* 1. Fluid aspect-ratio “before/after” container */
         .small-bal-container {
             width: 100%;
@@ -261,6 +309,9 @@
         </div>
     </div>
 
+    
+
+
 
     <div class="container">
         <div class="mt-4 mb-4">
@@ -269,7 +320,7 @@
                 Your browser does not support the video tag.
             </video>
         </div>
-        <p class="small text-muted mt-2" style="max-width: 1100px;">
+        <p class="text-muted mt-2" style="max-width: 1100px;">
             Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics
             and 3D Computer
             Vision. Classical representations like Spherical Harmonics (SH) optimize well but struggle in representing
@@ -280,7 +331,24 @@
             capable of modeling high-frequencies effectively, provides an <i>adaptive</i> decomposition of the spherical
             domain, and is <i>easier</i> to optimize.
         </p>
+
+
+        <div class="text-center mt-5">
+            <img src="assets/img/radiance_table.png" class="img-fluid" alt="Window function visualization" />
+            <p class="text-muted mt-2" style="max-width: 1100px;"></p>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-9">
+                <img src="assets/img/reflection_table.png" class="img-fluid" alt="Window function visualization" />
+                <p class="text-muted mt-2" style="max-width: 1100px;">
+            </div>
+        </div>
+        </p>
     </div>
+
+
+
+    
 
 
     <div class="container my-5"
@@ -289,10 +357,12 @@
         <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizer</h2>
         <p style="color:#555; font-size:14px; text-align:center; max-width:700px; margin:0 auto 30px;">
             This interactive viewer displays a <strong>soft Voronoi partition</strong> on a unit circle.
-            You can adjust the <em>number of sites</em>, <em>temperature</em> (softness of boundaries), and
-            <em>jitter</em> (angular randomness). Each site is represented by a colored arrow,
-            and the black curve shows the reconstructed function.
+            You can set the <em>number of sites</em> and generate a new random configuration with the
+            <strong>Generate Voronoi</strong> button. The <em>temperature</em> slider controls the softness
+            of the boundaries without changing the sites. Each site is represented by a colored arrow,
+            and the black curve shows the resulting function.
         </p>
+
 
         <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
 
@@ -301,70 +371,49 @@
                     <div class="col-lg-8 mb-3 mb-lg-0">
                         <div class="w-100 text-center">
                             <canvas id="voronoiCanvas" width="600" height="600" style="
-                                    width:100%;
-                                    max-width:600px;
-                                    height:auto;
-                                    aspect-ratio:1 / 1;
-                                    border-radius:16px;
-                                    background:#f8f9fb;
-                                    display:block;
-                                    margin:0 auto;
-                                "></canvas>
+                      width:100%;
+                      max-width:600px;
+                      height:auto;
+                      aspect-ratio:1 / 1;
+                      border-radius:16px;
+                      background:#f8f9fb;
+                      display:block;
+                      margin:0 auto;
+                    "></canvas>
                         </div>
                     </div>
-
+            
                     <div class="col-lg-4">
                         <div class="p-3 border rounded" style="background:#f9fafb;">
-                            <div class="form-group">
-                                <label for="numSites" class="d-block mb-1" style="font-size:14px;">
-                                    Number of sites:
-                                </label>
-                                <div class="d-flex align-items-center">
-                                    <input type="range" id="numSites" min="2" max="32" value="8"
-                                        class="custom-range flex-grow-1" />
-                                    <span id="numSitesLabel" class="ml-2 text-right"
-                                        style="width:40px; font-size:14px;">
-                                        8
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Temperature -->
+            
                             <div class="form-group">
                                 <label for="temperature" class="d-block mb-1" style="font-size:14px;">
                                     Temperature:
                                 </label>
                                 <div class="d-flex align-items-center">
-                                    <input type="range" id="temperature" min="0" max="500" value="40"
+                                    <input type="range" id="temperature" min="0" max="500" value="250"
                                         class="custom-range flex-grow-1" />
                                     <span id="temperatureLabel" class="ml-2 text-right"
-                                        style="width:40px; font-size:14px;">
-                                        40
-                                    </span>
+                                        style="width:40px; font-size:14px;">40</span>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="jitter" class="d-block mb-1" style="font-size:14px;">
-                                    Jitter (°):
+            
+                            <div class="form-group mt-3">
+                                <label for="numSitesInput" class="d-block mb-1" style="font-size:14px;">
+                                    Number of sites:
                                 </label>
-                                <div class="d-flex align-items-center">
-                                    <input type="range" id="jitter" min="0" max="45" value="10"
-                                        class="custom-range flex-grow-1" />
-                                    <span id="jitterLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
-                                        10°
-                                    </span>
-                                </div>
+                                <input type="number" id="numSitesInput" min="2" max="64" value="16" class="form-control"
+                                    style="font-size:14px;" />
                             </div>
-
-                            <button id="randomizeAmplitudes" class="btn btn-light btn-block mt-2" style="
-                                    border-radius:8px;
-                                    border:1px solid #d1d5db;
-                                    font-size:14px;
-                                    white-space:nowrap;
-                                ">
-                                Randomize amplitudes
+            
+                            <button id="generateVoronoi" class="btn btn-light btn-block mt-3" style="
+                      border-radius:8px;
+                      border:1px solid #d1d5db;
+                      font-size:14px;
+                    ">
+                                Generate Voronoi
                             </button>
+            
                         </div>
                     </div>
                 </div>
@@ -383,7 +432,7 @@
         <hr class="section-line">
         <h2 class="font-weight-bold mb-3">Representing Functions on the Sphere</h2>
         <img src="assets/img/convergence.png" class="img-fluid" alt="Window function visualization" />
-        <p class="mt-4">
+        <p class="text-muted mt-2">
             We fit different spherical representations to the same functions starting from random initializations
             (samples shown in
             the bottom-left plots).
@@ -455,7 +504,7 @@
                     their
                     SVs along the relevant direction (e.g., \( \omega_r \)),
                     and blend their contributions via inverse-distance weighting to obtain a <strong>near-field specular
-                        color</strong> \( C_n(x) \).
+                        color</strong> \( C_n(u,v) \).
                     All probe parameters — positions, SV coefficients, and intensities — are explicit and jointly
                     optimized
                     with the rest of the scene.
@@ -464,24 +513,24 @@
                 <!-- Deferred rendering + envmap -->
                 <p class="text-justify">
                     On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
-                    The 2D Gaussian splat scene is first rasterized into geometry buffers (per-pixel positions \( P(x)
+                    The 2D Gaussian splat scene is first rasterized into geometry buffers (per-pixel positions \( P(u,v)
                     \),
-                    normals \( N(x) \), roughness \( \rho(x) \), and albedo \( A(x) \)).
+                    normals \( N(u,v) \), roughness \( \rho(u,v) \), and albedo \( A(u,v) \)).
                     In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
                     with
-                    <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(x) \).
-                    A spatially varying mixing coefficient \( \alpha(x) \), obtained by interpolating probe intensities,
+                    <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(u,v) \).
+                    A spatially varying mixing coefficient \( \alpha(u,v) \), obtained by interpolating probe intensities,
                     blends these two contributions:
                 </p>
 
                 <p class="text-center">
-                    \( C_{\text{spec}}(x) = \alpha(x) C_n(x) + (1 - \alpha(x)) C_f(x). \)
+                    \( C_{\text{spec}}(u,v) = \alpha(u,v) C_n(u,v) + (1 - \alpha(u,v)) C_f(u,v). \)
                 </p>
 
                 <div class="text-center mb-4">
-                    <img src="assets/img/deferred_pipeline.png" class="img-fluid rounded shadow-sm"
+                    <img src="assets/img/deferred_pipeline.png" class="img-fluid"
                         alt="Deferred rendering pipeline" style="max-width: 90%;" />
-                    <p class="small text-muted mt-2 mb-5" style="max-width: 70%; margin: 0 auto; text-align: center;">
+                    <p class=" text-muted mt-2 mb-5" style="max-width: 70%; margin: 0 auto; text-align: center;">
                         <em>Deferred rendering pipeline</em> — The 2DGS scene is rasterized into
                         buffers of positions, normals, roughness, and albedos.
                         In the lighting pass, learnable Spherical Voronoi light probes (near-field) and an environment
@@ -489,26 +538,30 @@
                         blended to form the final output. All components are fully explicit and optimized end-to-end.
                     </p>
                 </div>
+                
 
                 <div class="row justify-content-center mb-4">
                     <!-- Video 1: probes motion -->
-                    <div class="col-md-6 text-center mb-3 mb-md-0">
-                        <video class="rounded shadow-sm w-100" autoplay muted loop playsinlinee height="250px">
+                    <div class="col-md-9 text-center mb-3 mb-md-0">
+                        <video class="w-100" autoplay muted loop playsinlinee height="250px">
                             <source src="assets/video/probes_motion.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-                        <p class="small text-muted mt-2">
-                            Motion and optimization of learnable Spherical Voronoi light probes.
+                        <p class=" text-muted mt-2">
+                            When illumination is spatially varying but a spatially-invariant model is used, conflicting measurements are averaged,
+                            resulting in a blurry reconstruction (left).
+                            Conversely, when a spatially varying model is used, crisp functions can be recovered.
                         </p>
                     </div>
+                    
 
                     <!-- Video 2: temperature effect -->
-                    <div class="col-md-6 text-center">
-                        <video class="rounded shadow-sm w-100" autoplay muted loop playsinline height="250px">
+                    <div class="col-md-3 text-center">
+                        <video class="w-100" autoplay muted loop playsinline height="250px">
                             <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-                        <p class="small text-muted mt-2">
+                        <p class=" text-muted mt-2">
                             Effect of the temperature \( \tau \) on SV sharpness, from smooth
                             diffuse-like lobes to sharp, highly specular peaks.
                         </p>
