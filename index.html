@@ -572,7 +572,7 @@
                 On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
                 The 2D Gaussian splat scene is first rasterized into geometry buffers
                 (per-pixel positions \( P(u,v) \), normals \( N(u,v) \),
-                roughness \( \rho(u,v) \), and albedo \( A(u,v) \)).
+                roughness \( \rho(u,v) \), and diffuse color \( A(u,v) \)).
                 In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
                 with <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(u,v) \).
                 A spatially varying mixing coefficient \( \alpha(u,v) \),
@@ -592,7 +592,7 @@
                     style="max-width: 90%;" />
                 <p class="text-muted mt-2 font-italic text-justify">
                     The 2DGS scene is rasterized into
-                    buffers of positions, normals, roughness, and albedos.
+                    buffers of positions, normals, roughness, and diffuse colors.
                     In the lighting pass, learnable Spherical Voronoi light probes (near-field)
                     and an environment cubemap (far-field) jointly produce diffuse and specular shading,
                     blended to form the final output. All components are fully explicit and optimized end-to-end.
@@ -882,7 +882,7 @@
         <h2 class="font-weight-bold">Results - Modeling Reflections</h2>
         <h4 class="mt-4">Scene Decomposition</h4>
         <p>Our method allows for a detailed scene decomposition into physically interpretable components, such as
-            albedo, specular, surface normals, and roughness.</p>
+            diffuse, specular, surface normals, and roughness.</p>
         <div class="">
             <video width="100%" autoplay muted loop playsinline>
                 <source src="assets/video/gardenspheres_decomposition.mp4" type="video/mp4">
