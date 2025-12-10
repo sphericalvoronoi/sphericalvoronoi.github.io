@@ -321,13 +321,13 @@
 
 
     <div class="container">
-        <div class="mt-4 mb-4">
+        <div class="mt-4">
             <video width="100%" autoplay muted loop playsinline>
                 <source src="assets/video/voronoi_training.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
-        <p class="text-muted mt-2 font-italic text-justify" style="max-width: 1100px;">
+        <p class="text-muted font-italic text-justify" style="max-width: 1100px;">
             Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics
             and 3D Computer
             Vision. Classical representations like Spherical Harmonics (SH) optimize well but struggle in representing
@@ -342,7 +342,7 @@
 
         <div class="text-center mt-5">
             <img src="assets/img/radiance_table.png" class="img-fluid" alt="Window function visualization" />
-            <p class="text-muted mt-2 font-italic text-justify" style="max-width: 1100px;">
+            <p class="text-muted font-italic text-justify" style="max-width: 1100px;">
                 Our Spherical Voronoi model (Ours) consistently improves performance over existing color parameterizations.
                 Remarkably, it is the first non–neural-field formulation capable of surpassing strong neural baselines such as Zip-NeRF
                 on the MipNeRF-360 dataset.
@@ -590,7 +590,7 @@
             <div class="text-center mb-4 mt-5">
                 <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
                     style="max-width: 90%;" />
-                <p class="text-muted mt-2 font-italic text-justify">
+                <p class="text-muted font-italic text-justify">
                     The 2DGS scene is rasterized into
                     buffers of positions, normals, roughness, and diffuse colors.
                     In the lighting pass, learnable Spherical Voronoi light probes (near-field)
@@ -599,13 +599,13 @@
                 </p>
             </div>
 
-            <div class="row justify-content-center mb-4 mt-5">
-                <div class="col-md-9 text-center mb-3 mb-md-0">
-                    <video class="w-100" autoplay muted loop playsinline height="250px">
+            <div class="row justify-content-between mb-4 mt-5 align-items-center">
+                <div class="col-md-8 text-center mb-3 mb-md-0">
+                    <video class="w-100" autoplay muted loop playsinline>
                         <source src="assets/video/probes_motion.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
-                    <p class="text-muted mt-2 font-italic text-justify">
+                    <p class="text-muted font-italic text-justify">
                         When illumination is spatially varying but a spatially-invariant model is used,
                         conflicting measurements are averaged, resulting in a blurry reconstruction (left).
                         Conversely, when a spatially varying model is used, crisp functions can be recovered.
@@ -613,11 +613,11 @@
                 </div>
 
                 <div class="col-md-3 text-center">
-                    <video class="w-100" autoplay muted loop playsinline height="250px">
+                    <video class="w-100" autoplay muted loop playsinline>
                         <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
-                    <p class="text-muted mt-2 font-italic text-justify">
+                    <p class="text-muted font-italic text-justify">
                         Effect of the temperature \( \tau \) on SV sharpness, from smooth
                         diffuse-like lobes to sharp, highly specular peaks.
                     </p>
