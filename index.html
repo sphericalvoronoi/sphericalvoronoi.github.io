@@ -572,7 +572,7 @@
                 On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
                 The 2D Gaussian splat scene is first rasterized into geometry buffers
                 (per-pixel positions \( P(u,v) \), normals \( N(u,v) \),
-                roughness \( \rho(u,v) \), and diffuse color \( A(u,v) \)).
+                roughness \( \rho(u,v) \), and diffuse color \( D(u,v) \)).
                 In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
                 with <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(u,v) \).
                 A spatially varying mixing coefficient \( \alpha(u,v) \),
