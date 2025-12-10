@@ -9,12 +9,12 @@
         const MIN_SITES = options.minSites || 2;
 
         // Ora la temperatura slider va 0..MAX_TEMPERATURE (default 5000)
-        const MAX_TEMPERATURE = options.maxTemperature || 5000;
+        const MAX_TEMPERATURE = options.maxTemperature || 2500;
         const DEFAULT_TEMPERATURE = options.defaultTemperature || 250;
 
         // Intervallo effettivo di beta usato nel modello
-        const BETA_MIN = options.minBeta || 0.1;
-        const BETA_MAX = options.maxBeta || 5000.0;
+        const BETA_MIN = options.minBeta || 0.01;
+        const BETA_MAX = options.maxBeta || 2500.0;
 
         const canvasId = options.canvasId || "voronoiCanvas";
         const numSitesInputId = options.numSitesInputId || "numSitesInput";

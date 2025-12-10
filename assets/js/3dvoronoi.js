@@ -8,8 +8,8 @@
     const ENV_W = 2048;
     const ENV_H = 1024;
 
-    const BETA_MIN = 0.1;
-    const BETA_MAX = 5000.0; 
+    const BETA_MIN = 0.01;
+    const BETA_MAX = 2500.0; 
 
     const canvas = document.getElementById("voronoi3dCanvas");
     const tempSlider = document.getElementById("voronoi3dTemperature");
