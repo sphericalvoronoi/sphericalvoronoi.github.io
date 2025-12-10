@@ -1,7 +1,6 @@
 (function () {
-    // Controlla che Three.js sia caricato
     if (typeof THREE === "undefined") {
-        console.error("THREE.js non trovato - controlla lo <script> three.min.js in fondo alla pagina.");
+        console.error("Three.js not found.");
         return;
     }
 
@@ -9,7 +8,9 @@
     const ENV_W = 2048;
     const ENV_H = 1024;
 
-    // === DOM references (3D, nomi univoci) ===
+    const BETA_MIN = 0.1;
+    const BETA_MAX = 5000.0; 
+
     const canvas = document.getElementById("voronoi3dCanvas");
     const tempSlider = document.getElementById("voronoi3dTemperature");
     const tempLabel = document.getElementById("voronoi3dTemperatureLabel");
@@ -17,9 +18,24 @@
     const genButton = document.getElementById("voronoi3dGenerate");
 
     if (!canvas || !tempSlider || !tempLabel || !sitesInput || !genButton) {
-        // Se la sezione non esiste (ad es. in una pagina diversa), esci senza errori
         console.warn("[3D Voronoi] UI elements not found, skipping initialization.");
         return;
+    }
+
+    function sliderToBeta(sliderValue) {
+        const v = Math.max(0, Math.min(BETA_MAX, sliderValue || 0)); // clamp 0..5000
+        const t = v / BETA_MAX; // [0,1]
+        const logMin = Math.log(BETA_MIN);
+        const logMax = Math.log(BETA_MAX);
+        return Math.exp(logMin + t * (logMax - logMin));
+    }
+
+    function betaToSlider(beta) {
+        const b = Math.max(BETA_MIN, Math.min(BETA_MAX, beta));
+        const logMin = Math.log(BETA_MIN);
+        const logMax = Math.log(BETA_MAX);
+        const t = (Math.log(b) - logMin) / (logMax - logMin); // [0,1]
+        return t * BETA_MAX; // 0..5000
     }
 
     const TAB20 = [
@@ -31,10 +47,11 @@
     ];
 
     let currentNumSites = parseInt(sitesInput.value || "16", 10);
-    let currentBeta = parseFloat(tempSlider.value || "250");
-    tempLabel.textContent = String(currentBeta);
 
-    // === Three.js setup ===
+    const initialSliderVal = parseFloat(tempSlider.value || "500");
+    let currentBeta = sliderToBeta(initialSliderVal);
+    tempLabel.textContent = currentBeta.toFixed(2);
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     const radius = 3.0;
@@ -201,7 +218,6 @@ void main(){
     const sphere = new THREE.Mesh(sphereGeom, sphereMat);
     scene.add(sphere);
 
-    // === Helpers per siti e colori ===
     function randomSpherePoints(n) {
         const pts = [];
         for (let i = 0; i < n; i++) {
@@ -274,10 +290,10 @@ void main(){
     fillSitesAndColors(currentNumSites);
     updateVoronoi();
 
-    // === UI events ===
     tempSlider.addEventListener("input", (e) => {
-        currentBeta = parseFloat(e.target.value);
-        tempLabel.textContent = String(Math.round(currentBeta));
+        const sliderVal = parseFloat(e.target.value || "0"); // 0..5000
+        currentBeta = sliderToBeta(sliderVal);
+        tempLabel.textContent = currentBeta.toFixed(2);
         updateVoronoi();
     });
 
@@ -291,17 +307,35 @@ void main(){
         updateVoronoi();
     });
 
-    // ===== Trackball-style orbit (yaw/pitch) =====
     const basePos = new THREE.Vector3(0, 0, radius);
     const baseUp = new THREE.Vector3(0, 1, 0);
     const camQuat = new THREE.Quaternion();
 
-    let yaw = 0;
-    let pitch = 0;
+    let yawBase = 0;    
+    let pitchBase = 0;  
+    let autoYaw = 0;    
+    let autoPitch = 0;  
+
     let dragging = false;
     let lastX = 0, lastY = 0;
 
+    const AUTO_YAW_SPEED = 0.25;         
+    const AUTO_PITCH_AMPLITUDE = 0.25;    
+    const AUTO_PITCH_SPEED = 0.4;        
+
+    let lastTime = performance.now();
+    let elapsed = 0.0;
+
     function applyCameraTransform() {
+        let totalYaw = yawBase + autoYaw;
+        let totalPitch = pitchBase + autoPitch;
+
+        const maxPitch = Math.PI / 2 - 0.01;
+        totalPitch = Math.max(-maxPitch, Math.min(maxPitch, totalPitch));
+
+        const euler = new THREE.Euler(totalPitch, totalYaw, 0, "YXZ");
+        camQuat.setFromEuler(euler);
+
         const pos = basePos.clone().applyQuaternion(camQuat);
         const up = baseUp.clone().applyQuaternion(camQuat);
         camera.position.copy(pos);
@@ -328,14 +362,12 @@ void main(){
         lastY = e.clientY;
 
         const speed = 0.005;
-        yaw -= dx * speed;
-        pitch -= dy * speed;
+        yawBase -= dx * speed;
+        pitchBase -= dy * speed;
 
         const maxPitch = Math.PI / 2 - 0.01;
-        pitch = Math.max(-maxPitch, Math.min(maxPitch, pitch));
+        pitchBase = Math.max(-maxPitch, Math.min(maxPitch, pitchBase));
 
-        const euler = new THREE.Euler(pitch, yaw, 0, "YXZ");
-        camQuat.setFromEuler(euler);
         applyCameraTransform();
     }
 
@@ -343,15 +375,28 @@ void main(){
     window.addEventListener("mouseup", onMouseUp);
     window.addEventListener("mousemove", onMouseMove);
 
-    canvas.addEventListener("wheel", (e) => {
-        e.preventDefault();
-        const d = e.deltaY > 0 ? 1.1 : 0.9;
-        basePos.multiplyScalar(d);
-        applyCameraTransform();
-    }, { passive: false });
+    canvas.addEventListener(
+        "wheel",
+        (e) => {
+            e.preventDefault();
+        },
+        { passive: false }
+    );
 
     function animate() {
         requestAnimationFrame(animate);
+
+        const now = performance.now();
+        const dt = (now - lastTime) * 0.001; 
+        lastTime = now;
+        elapsed += dt;
+
+        autoYaw += AUTO_YAW_SPEED * dt;
+        if (autoYaw > Math.PI * 2) autoYaw -= Math.PI * 2;
+
+        autoPitch = AUTO_PITCH_AMPLITUDE * Math.sin(AUTO_PITCH_SPEED * elapsed);
+
+        applyCameraTransform();
         renderer.render(scene, camera);
     }
     animate();

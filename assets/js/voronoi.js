@@ -7,8 +7,14 @@
         const MAX_SITES = options.maxSites || 64;
         const DEFAULT_SITES = options.defaultSites || 8;
         const MIN_SITES = options.minSites || 2;
-        const MAX_TEMPERATURE = options.maxTemperature || 1000;
+
+        // Ora la temperatura slider va 0..MAX_TEMPERATURE (default 5000)
+        const MAX_TEMPERATURE = options.maxTemperature || 5000;
         const DEFAULT_TEMPERATURE = options.defaultTemperature || 250;
+
+        // Intervallo effettivo di beta usato nel modello
+        const BETA_MIN = options.minBeta || 0.1;
+        const BETA_MAX = options.maxBeta || 5000.0;
 
         const canvasId = options.canvasId || "voronoiCanvas";
         const numSitesInputId = options.numSitesInputId || "numSitesInput";
@@ -51,9 +57,13 @@
             return min + Math.random() * (max - min);
         }
 
+        // --- NUOVO: temperatura (slider) -> beta in scala logaritmica ---
         function temperatureToBeta(temp) {
-            const t = temp / MAX_TEMPERATURE;
-            return 0.05 + t * (25.0 - 0.05);
+            const clamped = Math.max(0, Math.min(MAX_TEMPERATURE, temp || 0));
+            const t = clamped / MAX_TEMPERATURE; // [0,1]
+            const logMin = Math.log(BETA_MIN);
+            const logMax = Math.log(BETA_MAX);
+            return Math.exp(logMin + t * (logMax - logMin));
         }
 
         let sites = [];
@@ -66,7 +76,10 @@
         const numCurveSamples = 4096;
 
         function initSites() {
-            const K = Math.max(MIN_SITES, Math.min(MAX_SITES, parseInt(numSitesInput.value, 10) || DEFAULT_SITES));
+            const K = Math.max(
+                MIN_SITES,
+                Math.min(MAX_SITES, parseInt(numSitesInput.value, 10) || DEFAULT_SITES)
+            );
             sites = [];
             for (let i = 0; i < K; i++) {
                 const angle = randUniform(0, 2 * Math.PI);
@@ -130,7 +143,9 @@
             const rings = 4, spokes = 8;
             for (let i = 1; i <= rings; i++) {
                 const r = (outerRadius * i) / rings;
-                ctx.beginPath(); ctx.arc(0, 0, r, 0, 2 * Math.PI); ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(0, 0, r, 0, 2 * Math.PI);
+                ctx.stroke();
             }
             for (let i = 0; i < spokes; i++) {
                 const a = (2 * Math.PI * i) / spokes;
@@ -159,12 +174,15 @@
                 const x1 = rMid * Math.cos(theta), y1 = -rMid * Math.sin(theta);
                 const x2 = rMid * Math.cos(theta + (2 * Math.PI) / numSamples);
                 const y2 = -rMid * Math.sin(theta + (2 * Math.PI) / numSamples);
-                ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
             }
             ctx.restore();
         }
 
-        // VETTORI: lunghezza fissa indipendente dalla temperatura
+        // Vettori: lunghezza fissa indipendente dalla temperatura
         function drawSitesAndArrows() {
             ctx.save();
             ctx.translate(centerX, centerY);
@@ -217,9 +235,11 @@
                 const theta = (2 * Math.PI * i) / numCurveSamples;
                 const r = values[i] * scale;
                 const x = r * Math.cos(theta), y = -r * Math.sin(theta);
-                if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
             }
-            ctx.closePath(); ctx.stroke();
+            ctx.closePath();
+            ctx.stroke();
             ctx.restore();
 
             drawSitesAndArrows();
@@ -227,9 +247,14 @@
 
         function render() {
             if (!sites.length) return;
-            const temp = parseFloat(temperatureSlider.value);
-            const beta = temperatureToBeta(!isNaN(temp) ? temp : DEFAULT_TEMPERATURE);
-            temperatureLabel.textContent = String(temp);
+            const tempRaw = parseFloat(temperatureSlider.value);
+            const temp = !isNaN(tempRaw) ? tempRaw : DEFAULT_TEMPERATURE;
+
+            const beta = temperatureToBeta(temp);
+
+            // Mostriamo beta effettivo, non la temperatura grezza
+            temperatureLabel.textContent = beta.toFixed(2);
+
             clearCanvas();
             drawColorRing(beta);
             drawFunctionCurve(beta);

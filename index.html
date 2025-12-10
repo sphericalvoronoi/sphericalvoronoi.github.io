@@ -246,14 +246,21 @@
 
     <div class="container align-items-center">
         <div class="row text-center justify-content-center">
-            <div class="col-6 col-sm-3 mb-3">
+            <div class="col-4 col-sm-3 mb-3">
                 <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/arxiv_paper.png" alt="paper" class="img-fluid" style="height:60px" />
+                    <img src="assets/media/pdf.svg" alt="paper" class="img-fluid" style="height:60px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">PDF</strong></div>
+            </div>
+            <div class="col-4 col-sm-3 mb-3">
+                <a href="" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/arxiv_paper.png" alt="github" class="img-fluid" style="height:60px" />
                 </a>
                 <br>
                 <div class="text-block-2"><strong class="bold-text-nerf_v2">Arxiv</strong></div>
             </div>
-            <div class="col-6 col-sm-3 mb-3">
+            <div class="col-4 col-sm-3 mb-3">
                 <a href="" target="_blank" class="link-block w-inline-block">
                     <img src="assets/media/github.png" alt="github" class="img-fluid" style="height:60px" />
                 </a>
@@ -320,7 +327,7 @@
                 Your browser does not support the video tag.
             </video>
         </div>
-        <p class="text-muted mt-2" style="max-width: 1100px;">
+        <p class="text-muted mt-2 font-italic text-justify" style="max-width: 1100px;">
             Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics
             and 3D Computer
             Vision. Classical representations like Spherical Harmonics (SH) optimize well but struggle in representing
@@ -350,7 +357,7 @@
     <div class="container my-5" style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
         <hr class="section-line">
         <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizers</h2>
-        <p style="color:#555; font-size:14px; text-align:center; max-width:700px; margin:0 auto 30px;">
+        <p class="text-muted mt-2 font-italic text-justify">
             These interactive viewers illustrate our <strong>soft Voronoi partition</strong> both in 2D
             (on the circle) and on the <strong>sphere</strong>.
             On the left, a 2D polar Voronoi shows sites on the unit circle and their soft partition;
@@ -387,7 +394,7 @@
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="temperature" min="0" max="500" value="250"
+                            <input type="range" id="temperature" min="0" max="5000" value="2500"
                                 class="custom-range flex-grow-1" />
                             <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
                                 250
@@ -440,7 +447,7 @@
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="voronoi3dTemperature" min="0" max="10000" value="1000"
+                            <input type="range" id="voronoi3dTemperature" min="0" max="5000" value="3500"
                                 class="custom-range flex-grow-1" />
                             <span id="voronoi3dTemperatureLabel" class="ml-2 text-right"
                                 style="width:40px; font-size:14px;">
@@ -477,7 +484,7 @@
         <hr class="section-line">
         <h2 class="font-weight-bold mb-3">Representing Functions on the Sphere</h2>
         <img src="assets/img/convergence.png" class="img-fluid" alt="Window function visualization" />
-        <p class="text-muted mt-2">
+        <p class="text-muted mt-2 font-italic text-justify">
             We fit different spherical representations to the same functions starting from random initializations
             (samples shown in
             the bottom-left plots).
@@ -494,128 +501,136 @@
         </p>
     </div>
 
-    <div class="container mb-4">
-        <hr class="section-line">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="font-weight-bold">Methodology</h2>
+<div class="container mb-4">
+    <hr class="section-line">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="font-weight-bold">Methodology</h2>
 
-                <h4 class="mt-3">View-direction Modeling</h4>
-                <p class="text-justify">
-                    We represent view-dependent appearance using a <strong>soft Spherical Voronoi (SV)</strong> function
-                    on
-                    the unit sphere.
-                    Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values \( c_k \in
-                    \mathbb{R}
-                    \), and evaluates radiance as
-                    \( f_{\text{SV}}(\omega; \tau, s, c) = \sum_k w_k(\omega; \tau)\, c_k \), with
-                    \( w_k = \frac{\exp(\tau\, s_k \cdot \omega)}{\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)} \).
-                    The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness: low values produce
-                    broad, smooth lobes,
-                    while high values yield narrow, highly directional responses.
-                    In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV, obtaining a
-                    fully explicit, differentiable and more flexible view-directional model.
+            <h4 class="mt-3">View-direction Modeling</h4>
+            <p class="text-justify">
+                We represent view-dependent appearance using a
+                <strong>soft Spherical Voronoi (SV)</strong> function on the unit sphere.
+                Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values
+                \( c_k \in \mathbb{R} \), and evaluates radiance as:
+            </p>
+
+            <p class="text-center">
+                \[
+                f_{\text{SV}}(\omega; \tau, s, c)
+                = \sum_k w_k(\omega; \tau)\, c_k,
+                \quad\text{where}\quad
+                w_k(\omega; \tau)
+                = \frac{\exp(\tau\, s_k \cdot \omega)}
+                {\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)}.
+                \]
+            </p>
+
+            <p class="text-justify">
+                The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness:
+                low values produce broad, smooth lobes, while high values yield narrow,
+                highly directional responses.
+                In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV,
+                obtaining a fully explicit, differentiable, and more flexible view-directional model.
+            </p>
+
+            <h4 class="mt-4">Reflections, Learnable Probes &amp; Deferred Rendering</h4>
+
+            <p class="text-justify">
+                In the spirit of <em>Ref-NeRF</em>, we extend the same formulation to
+                <strong>reflections</strong> by querying the SV with the
+                <strong>reflected direction</strong>:
+            </p>
+
+            <p class="text-center">
+                \[
+                \omega_r = 2(\omega \cdot \mathbf{n})\,\mathbf{n} - \omega.
+                \]
+            </p>
+
+            <p class="text-justify">
+                Instead of modeling only \( f(\omega) \), we directly represent \( f(\omega_r) \),
+                allowing us to capture view-dependent specular effects through the same explicit SV function.
+                Thanks to its partition-of-unity structure and learnable sites, the Spherical Voronoi
+                representation can model <strong>highly complex reflection patterns</strong>,
+                including sharp peaks, multiple specular lobes, and even angular discontinuities,
+                while remaining fully differentiable.
+            </p>
+
+            <p class="text-justify">
+                To handle <strong>spatially varying reflections</strong>, we implement a fully explicit,
+                differentiable pipeline based on <strong>learnable light probes</strong>.
+                Each probe is defined by a spatial position \( p_i \in \mathbb{R}^3 \),
+                an SV function (its own set of Voronoi sites and values),
+                and an intensity weight \( \alpha_i \in [0,1] \).
+                These probes act as local reflection fields: for a query point, we gather nearby probes,
+                evaluate their SVs along the relevant direction (e.g., \( \omega_r \)),
+                and blend their contributions via inverse-distance weighting to obtain a
+                <strong>near-field specular color</strong> \( C_n(u,v) \).
+                All probe parameters — positions, SV coefficients, and intensities — are explicit and
+                jointly optimized with the rest of the scene.
+            </p>
+
+            <p class="text-muted mt-2 font-italic text-justify">
+                On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
+                The 2D Gaussian splat scene is first rasterized into geometry buffers
+                (per-pixel positions \( P(u,v) \), normals \( N(u,v) \),
+                roughness \( \rho(u,v) \), and albedo \( A(u,v) \)).
+                In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
+                with <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(u,v) \).
+                A spatially varying mixing coefficient \( \alpha(u,v) \),
+                obtained by interpolating probe intensities, blends these two contributions:
+            </p>
+
+            <p class="text-center">
+                \[
+                C_{\text{spec}}(u,v)
+                = \alpha(u,v)\, C_n(u,v)
+                + (1 - \alpha(u,v))\, C_f(u,v).
+                \]
+            </p>
+
+            <div class="text-center mb-4 mt-5">
+                <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
+                    style="max-width: 90%;" />
+                <p class="text-muted mt-2 font-italic text-justify">
+                    <em>Deferred rendering pipeline</em> — The 2DGS scene is rasterized into
+                    buffers of positions, normals, roughness, and albedos.
+                    In the lighting pass, learnable Spherical Voronoi light probes (near-field)
+                    and an environment cubemap (far-field) jointly produce diffuse and specular shading,
+                    blended to form the final output. All components are fully explicit and optimized end-to-end.
                 </p>
+            </div>
 
-                <h4 class="mt-4">Reflections, Learnable Probes &amp; Deferred Rendering</h4>
-
-                <!-- Reflections à la Ref-NeRF -->
-                <p class="text-justify">
-                    In the spirit of <em>Ref-NeRF</em>, we extend the same formulation to <strong>reflections</strong>
-                    by
-                    querying the SV with the
-                    <strong>reflected direction</strong> \( \omega_r = 2(\omega \cdot \mathbf{n})\mathbf{n} - \omega \).
-                    Instead of modeling only \( f(\omega) \), we directly represent \( f(\omega_r) \), allowing us to
-                    capture view-dependent specular effects through the same explicit SV function.
-                    Thanks to its partition-of-unity structure and learnable sites, the Spherical Voronoi representation
-                    can
-                    model <strong>highly complex reflection patterns</strong>,
-                    including sharp peaks, multiple specular lobes, and even angular discontinuities, while remaining
-                    fully
-                    differentiable.
-                </p>
-
-                <!-- Probes: what they are -->
-                <p class="text-justify">
-                    To handle <strong>spatially varying reflections</strong>, we implement a fully explicit,
-                    differentiable
-                    pipeline based on
-                    <strong>learnable light probes</strong>. Each probe is defined by a spatial position \( p_i \in
-                    \mathbb{R}^3 \),
-                    an SV function (its own set of Voronoi sites and values), and an intensity weight \( \alpha_i \in
-                    [0,1]
-                    \).
-                    These probes act as local reflection fields: for a query point, we gather nearby probes, evaluate
-                    their
-                    SVs along the relevant direction (e.g., \( \omega_r \)),
-                    and blend their contributions via inverse-distance weighting to obtain a <strong>near-field specular
-                        color</strong> \( C_n(u,v) \).
-                    All probe parameters — positions, SV coefficients, and intensities — are explicit and jointly
-                    optimized
-                    with the rest of the scene.
-                </p>
-
-                <!-- Deferred rendering + envmap -->
-                <p class="text-justify">
-                    On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
-                    The 2D Gaussian splat scene is first rasterized into geometry buffers (per-pixel positions \( P(u,v)
-                    \),
-                    normals \( N(u,v) \), roughness \( \rho(u,v) \), and albedo \( A(u,v) \)).
-                    In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
-                    with
-                    <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(u,v) \).
-                    A spatially varying mixing coefficient \( \alpha(u,v) \), obtained by interpolating probe intensities,
-                    blends these two contributions:
-                </p>
-
-                <p class="text-center">
-                    \( C_{\text{spec}}(u,v) = \alpha(u,v) C_n(u,v) + (1 - \alpha(u,v)) C_f(u,v). \)
-                </p>
-
-                <div class="text-center mb-4">
-                    <img src="assets/img/deferred_pipeline.png" class="img-fluid"
-                        alt="Deferred rendering pipeline" style="max-width: 90%;" />
-                    <p class=" text-muted mt-2 mb-5" style="max-width: 70%; margin: 0 auto; text-align: center;">
-                        <em>Deferred rendering pipeline</em> — The 2DGS scene is rasterized into
-                        buffers of positions, normals, roughness, and albedos.
-                        In the lighting pass, learnable Spherical Voronoi light probes (near-field) and an environment
-                        cubemap (far-field) jointly produce diffuse and specular shading,
-                        blended to form the final output. All components are fully explicit and optimized end-to-end.
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-9 text-center mb-3 mb-md-0">
+                    <video class="w-100" autoplay muted loop playsinline height="250px">
+                        <source src="assets/video/probes_motion.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="text-muted mt-2 font-italic text-justify">
+                        When illumination is spatially varying but a spatially-invariant model is used,
+                        conflicting measurements are averaged, resulting in a blurry reconstruction (left).
+                        Conversely, when a spatially varying model is used, crisp functions can be recovered.
                     </p>
                 </div>
-                
 
-                <div class="row justify-content-center mb-4">
-                    <!-- Video 1: probes motion -->
-                    <div class="col-md-9 text-center mb-3 mb-md-0">
-                        <video class="w-100" autoplay muted loop playsinlinee height="250px">
-                            <source src="assets/video/probes_motion.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                        <p class=" text-muted mt-2">
-                            When illumination is spatially varying but a spatially-invariant model is used, conflicting measurements are averaged,
-                            resulting in a blurry reconstruction (left).
-                            Conversely, when a spatially varying model is used, crisp functions can be recovered.
-                        </p>
-                    </div>
-                    
-
-                    <!-- Video 2: temperature effect -->
-                    <div class="col-md-3 text-center">
-                        <video class="w-100" autoplay muted loop playsinline height="250px">
-                            <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                        <p class=" text-muted mt-2">
-                            Effect of the temperature \( \tau \) on SV sharpness, from smooth
-                            diffuse-like lobes to sharp, highly specular peaks.
-                        </p>
-                    </div>
+                <div class="col-md-3 text-center">
+                    <video class="w-100" autoplay muted loop playsinline height="250px">
+                        <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="text-muted mt-2 font-italic text-justify">
+                        Effect of the temperature \( \tau \) on SV sharpness, from smooth
+                        diffuse-like lobes to sharp, highly specular peaks.
+                    </p>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
+
 
 
     <!-- Results -->
