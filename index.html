@@ -244,28 +244,28 @@
         <!-- End author section -->
     </div>
 
-    <div class="container align-items-center">
-        <div class="row text-center justify-content-center">
+    <div class="container align-items-center mt-3">
+        <div class="row text-center justify-content-center align-items-center">
             <div class="col-4 col-sm-3 mb-3">
                 <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/pdf.svg" alt="paper" class="img-fluid" style="height:60px" />
+                    <img src="assets/media/pdf.png" alt="pdf" class="img-fluid" style="height:60px" />
                 </a>
-                <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">PDF</strong></div>
+                <!-- <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">PDF</strong></div> -->
             </div>
             <div class="col-4 col-sm-3 mb-3">
                 <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/arxiv_paper.png" alt="github" class="img-fluid" style="height:60px" />
+                    <img src="assets/media/arxiv_logo.png" alt="github" class="img-fluid" style="height:60px" />
                 </a>
-                <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Arxiv</strong></div>
+                <!-- <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Arxiv</strong></div> -->
             </div>
             <div class="col-4 col-sm-3 mb-3">
                 <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/github.png" alt="github" class="img-fluid" style="height:60px" />
+                    <img src="assets/media/github_2.png" alt="github" class="img-fluid" style="height:60px" />
                 </a>
-                <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Code</strong></div>
+                <!-- <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Code</strong></div> -->
             </div>
         </div>
     </div>
@@ -342,15 +342,12 @@
 
         <div class="text-center mt-5">
             <img src="assets/img/radiance_table.png" class="img-fluid" alt="Window function visualization" />
-            <p class="text-muted mt-2" style="max-width: 1100px;"></p>
+            <p class="text-muted mt-2 font-italic text-justify" style="max-width: 1100px;">
+                Our Spherical Voronoi model (Ours) consistently improves performance over existing color parameterizations.
+                Remarkably, it is the first non–neural-field formulation capable of surpassing strong neural baselines such as Zip-NeRF
+                on the MipNeRF-360 dataset.
+            </p>
         </div>
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-9">
-                <img src="assets/img/reflection_table.png" class="img-fluid" alt="Window function visualization" />
-                <p class="text-muted mt-2" style="max-width: 1100px;">
-            </div>
-        </div>
-        </p>
     </div>
 
 
@@ -571,7 +568,7 @@
                 jointly optimized with the rest of the scene.
             </p>
 
-            <p class="text-muted mt-2 font-italic text-justify">
+            <p class="">
                 On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
                 The 2D Gaussian splat scene is first rasterized into geometry buffers
                 (per-pixel positions \( P(u,v) \), normals \( N(u,v) \),
@@ -594,7 +591,7 @@
                 <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
                     style="max-width: 90%;" />
                 <p class="text-muted mt-2 font-italic text-justify">
-                    <em>Deferred rendering pipeline</em> — The 2DGS scene is rasterized into
+                    The 2DGS scene is rasterized into
                     buffers of positions, normals, roughness, and albedos.
                     In the lighting pass, learnable Spherical Voronoi light probes (near-field)
                     and an environment cubemap (far-field) jointly produce diffuse and specular shading,
@@ -934,6 +931,13 @@
             outperforming other baseline methods. It is a <i>fully explicit</i> approach based on learnable light probes
             parameterized
             by a Spherical Voronoi function.</p>
+        
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-9">
+                <img src="assets/img/reflection_table.png" class="img-fluid" alt="Window function visualization" />
+                <p class="text-muted mt-2" style="max-width: 1100px;">
+            </div>
+        </div>
 
         <div class="row mt-5">
             <div class="col-lg-12">
