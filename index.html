@@ -347,84 +347,129 @@
     </div>
 
 
-
-    
-
-
-    <div class="container my-5"
-        style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
+    <div class="container my-5" style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
         <hr class="section-line">
-        <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizer</h2>
+        <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizers</h2>
         <p style="color:#555; font-size:14px; text-align:center; max-width:700px; margin:0 auto 30px;">
-            This interactive viewer displays a <strong>soft Voronoi partition</strong> on a unit circle.
-            You can set the <em>number of sites</em> and generate a new random configuration with the
-            <strong>Generate Voronoi</strong> button. The <em>temperature</em> slider controls the softness
-            of the boundaries without changing the sites. Each site is represented by a colored arrow,
-            and the black curve shows the resulting function.
+            These interactive viewers illustrate our <strong>soft Voronoi partition</strong> both in 2D
+            (on the circle) and on the <strong>sphere</strong>.
+            On the left, a 2D polar Voronoi shows sites on the unit circle and their soft partition;
+            on the right, a spherical Voronoi is rendered as an environment map and visualized on a glossy ball.
+            The <em>number of sites</em> controls the partition complexity, while <em>temperature</em>
+            controls the sharpness of the boundaries.
         </p>
-
-
-        <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
-
-            <div class="container-fluid">
-                <div class="row align-items-stretch">
-                    <div class="col-lg-8 mb-3 mb-lg-0">
-                        <div class="w-100 text-center">
-                            <canvas id="voronoiCanvas" width="600" height="600" style="
-                      width:100%;
-                      max-width:600px;
-                      height:auto;
-                      aspect-ratio:1 / 1;
-                      border-radius:16px;
-                      background:#f8f9fb;
-                      display:block;
-                      margin:0 auto;
+    
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <h5 class="font-weight-bold mb-2 text-center">Spherical Voronoi (2D)</h5>
+                <!-- <p style="color:#666; font-size:13px; text-align:center; margin-bottom:16px;">
+                    Random sites on the unit circle with a soft Voronoi assignment.
+                    Each site has a color, and the black curve shows the resulting function.
+                </p> -->
+    
+                <div class="w-100 text-center mb-3">
+                    <canvas id="voronoiCanvas" width="600" height="600" style="
+                        width:100%;
+                        max-width:600px;
+                        height:auto;
+                        aspect-ratio:1 / 1;
+                        border-radius:16px;
+                        background:#f8f9fb;
+                        display:block;
+                        margin:0 auto;
                     "></canvas>
+                </div>
+    
+                <div class="p-3 border rounded" style="background:#f9fafb;">
+    
+                    <div class="form-group">
+                        <label for="temperature" class="d-block mb-1" style="font-size:14px;">
+                            Temperature:
+                        </label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" id="temperature" min="0" max="500" value="250"
+                                class="custom-range flex-grow-1" />
+                            <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
+                                250
+                            </span>
                         </div>
                     </div>
-            
-                    <div class="col-lg-4">
-                        <div class="p-3 border rounded" style="background:#f9fafb;">
-            
-                            <div class="form-group">
-                                <label for="temperature" class="d-block mb-1" style="font-size:14px;">
-                                    Temperature:
-                                </label>
-                                <div class="d-flex align-items-center">
-                                    <input type="range" id="temperature" min="0" max="500" value="250"
-                                        class="custom-range flex-grow-1" />
-                                    <span id="temperatureLabel" class="ml-2 text-right"
-                                        style="width:40px; font-size:14px;">40</span>
-                                </div>
-                            </div>
-            
-                            <div class="form-group mt-3">
-                                <label for="numSitesInput" class="d-block mb-1" style="font-size:14px;">
-                                    Number of sites:
-                                </label>
-                                <input type="number" id="numSitesInput" min="2" max="64" value="16" class="form-control"
-                                    style="font-size:14px;" />
-                            </div>
-            
-                            <button id="generateVoronoi" class="btn btn-light btn-block mt-3" style="
-                      border-radius:8px;
-                      border:1px solid #d1d5db;
-                      font-size:14px;
-                    ">
-                                Generate Voronoi
-                            </button>
-            
-                        </div>
+    
+                    <div class="form-group mt-3">
+                        <label for="numSitesInput" class="d-block mb-1" style="font-size:14px;">
+                            Number of sites:
+                        </label>
+                        <input type="number" id="numSitesInput" min="2" max="64" value="16" class="form-control"
+                            style="font-size:14px;" />
                     </div>
+    
+                    <button id="generateVoronoi" class="btn btn-light btn-block mt-3" style="
+                                border-radius:8px;
+                                border:1px solid #d1d5db;
+                                font-size:14px;
+                            ">
+                        Generate Voronoi
+                    </button>
                 </div>
             </div>
-
-
+    
+            <div class="col-lg-6 mb-4">
+                <h5 class="font-weight-bold mb-2 text-center">Spherical Voronoi (3D)</h5>
+                <!-- <p style="color:#666; font-size:13px; text-align:center; margin-bottom:16px;">
+                    A soft spherical Voronoi partition used as an environment map,
+                    visualized by reflecting it on a unit sphere. Drag to orbit, scroll to zoom.
+                </p> -->
+    
+                <div class="w-100 text-center mb-3">
+                    <canvas id="voronoi3dCanvas" width="600" height="600" style="
+                        width:100%;
+                        max-width:600px;
+                        height:auto;
+                        aspect-ratio:1 / 1;
+                        border-radius:16px;
+                        background:#f8f9fb;
+                        display:block;
+                        margin:0 auto;
+                    "></canvas>
+                </div>
+    
+                <div class="p-3 border rounded" style="background:#f9fafb;">
+    
+                    <div class="form-group">
+                        <label for="voronoi3dTemperature" class="d-block mb-1" style="font-size:14px;">
+                            Temperature:
+                        </label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" id="voronoi3dTemperature" min="0" max="10000" value="1000"
+                                class="custom-range flex-grow-1" />
+                            <span id="voronoi3dTemperatureLabel" class="ml-2 text-right"
+                                style="width:40px; font-size:14px;">
+                                250
+                            </span>
+                        </div>
+                    </div>
+    
+                    <div class="form-group mt-3">
+                        <label for="voronoi3dNumSites" class="d-block mb-1" style="font-size:14px;">
+                            Number of sites:
+                        </label>
+                        <input type="number" id="voronoi3dNumSites" min="2" max="1024" value="128" class="form-control"
+                            style="font-size:14px;" />
+                    </div>
+    
+                    <button id="voronoi3dGenerate" class="btn btn-light btn-block mt-3" style="
+                                border-radius:8px;
+                                border:1px solid #d1d5db;
+                                font-size:14px;
+                            ">
+                        Generate Voronoi
+                    </button>
+                </div>
+            </div>
         </div>
-
-
-
     </div>
+
+    
 
 
     <div class="container my-4">
@@ -1472,6 +1517,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
     <script src="assets/js/comparison.js"></script>
+    <script src="https://unpkg.com/three@0.132.2/build/three.min.js"></script>
+    <script src="./assets/js/3dvoronoi.js"></script>
+
 
     <script>
         document.querySelectorAll('.carousel-container').forEach(container => {

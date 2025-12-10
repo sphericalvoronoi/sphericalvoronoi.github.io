@@ -4,6 +4,12 @@
     function initVoronoiPolarViewer(options) {
         options = options || {};
 
+        const MAX_SITES = options.maxSites || 64;
+        const DEFAULT_SITES = options.defaultSites || 8;
+        const MIN_SITES = options.minSites || 2;
+        const MAX_TEMPERATURE = options.maxTemperature || 1000;
+        const DEFAULT_TEMPERATURE = options.defaultTemperature || 250;
+
         const canvasId = options.canvasId || "voronoiCanvas";
         const numSitesInputId = options.numSitesInputId || "numSitesInput";
         const temperatureId = options.temperatureId || "temperature";
@@ -46,7 +52,7 @@
         }
 
         function temperatureToBeta(temp) {
-            const t = temp / 500.0;
+            const t = temp / MAX_TEMPERATURE;
             return 0.05 + t * (25.0 - 0.05);
         }
 
@@ -60,7 +66,7 @@
         const numCurveSamples = 4096;
 
         function initSites() {
-            const K = Math.max(2, Math.min(64, parseInt(numSitesInput.value, 10) || 8));
+            const K = Math.max(MIN_SITES, Math.min(MAX_SITES, parseInt(numSitesInput.value, 10) || DEFAULT_SITES));
             sites = [];
             for (let i = 0; i < K; i++) {
                 const angle = randUniform(0, 2 * Math.PI);
@@ -158,29 +164,50 @@
             ctx.restore();
         }
 
-        function drawSitesAndArrows(maxAbs) {
+        // VETTORI: lunghezza fissa indipendente dalla temperatura
+        function drawSitesAndArrows() {
             ctx.save();
             ctx.translate(centerX, centerY);
+            let maxLambda = 0;
             for (const s of sites) {
-                const n = maxAbs > 1e-6 ? s.lambda / maxAbs : 0.5;
-                const ray = n * outerRadius * 0.9;
-                const x = ray * Math.cos(s.angle), y = -ray * Math.sin(s.angle);
+                const a = Math.abs(s.lambda);
+                if (a > maxLambda) maxLambda = a;
+            }
+            if (maxLambda < 1e-6) maxLambda = 1;
+            const maxRay = innerRadius * 0.9;
+            for (const s of sites) {
+                const n = s.lambda / maxLambda;
+                const ray = n * maxRay;
+
+                const x = ray * Math.cos(s.angle);
+                const y = -ray * Math.sin(s.angle);
+
                 ctx.strokeStyle = ctx.fillStyle = rgbArrayToCss(s.colorRGB);
                 ctx.lineWidth = 2;
-                ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(x, y); ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
                 const hl = 10, a = s.angle;
-                const la = a + Math.PI * 0.87, ra = a - Math.PI * 0.87;
+                const la = a + Math.PI * 0.87;
+                const ra = a - Math.PI * 0.87;
+
                 ctx.beginPath();
                 ctx.moveTo(x, y);
                 ctx.lineTo(x + hl * Math.cos(la), y - hl * Math.sin(la));
                 ctx.lineTo(x + hl * Math.cos(ra), y - hl * Math.sin(ra));
-                ctx.closePath(); ctx.fill();
+                ctx.closePath();
+                ctx.fill();
             }
+
             ctx.restore();
         }
 
         function drawFunctionCurve(beta) {
-            const { values, scale, maxAbs } = computeFunctionValues(beta);
+            const { values, scale } = computeFunctionValues(beta);
+
             ctx.save();
             ctx.translate(centerX, centerY);
             ctx.strokeStyle = "#000";
@@ -192,16 +219,20 @@
                 const x = r * Math.cos(theta), y = -r * Math.sin(theta);
                 if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
             }
-            ctx.closePath(); ctx.stroke(); ctx.restore();
-            drawSitesAndArrows(maxAbs);
+            ctx.closePath(); ctx.stroke();
+            ctx.restore();
+
+            drawSitesAndArrows();
         }
 
         function render() {
             if (!sites.length) return;
             const temp = parseFloat(temperatureSlider.value);
-            const beta = temperatureToBeta(!isNaN(temp) ? temp : 250);
+            const beta = temperatureToBeta(!isNaN(temp) ? temp : DEFAULT_TEMPERATURE);
             temperatureLabel.textContent = String(temp);
-            clearCanvas(); drawColorRing(beta); drawFunctionCurve(beta);
+            clearCanvas();
+            drawColorRing(beta);
+            drawFunctionCurve(beta);
         }
 
         if (temperatureSlider) {
