@@ -117,6 +117,26 @@ mjx-container[jax="CHTML"] {
     }
 }
 
+
+.affiliations {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.logo-container img {
+    height: 42px;
+}
+
+
+
 .carousel-container {
     max-width: 900px;
     margin: 0 auto 60px;
