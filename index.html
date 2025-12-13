@@ -51,40 +51,40 @@
             text-align: center;
             margin: 2em 0;
         }
-    
+
         .table-paper th,
         .table-paper td {
             padding: 6px 10px;
             border: 1px solid #ddd;
         }
-    
+
         .table-paper thead th {
             border-bottom: 2px solid #000;
             font-weight: 600;
         }
-    
+
         .table-paper tbody tr:nth-child(odd) {
             background-color: #f9f9f9;
         }
-    
+
         .table-paper tbody tr:nth-child(even) {
             background-color: #fff;
         }
-    
+
         .table-paper td:first-child {
             text-align: left;
             font-weight: 500;
         }
-    
+
         .table-paper td[rowspan] {
             vertical-align: middle;
             font-weight: 600;
         }
-    
+
         .table-paper tfoot td {
             border-top: 2px solid #000;
         }
-    
+
         .highlight {
             background-color: #f4cccc;
         }
@@ -245,25 +245,30 @@
     </div>
 
     <div class="container text-center">
-    
+
         <!-- Paper (PDF) -->
-        <a href="files/paper.pdf" target="_blank" class="resource-btn">
+        <a href="files/paper.pdf" target="_blank" class="resource-btn" height="80px">
             <img src="./assets/media/pdf.png" alt="PDF logo"> Paper
         </a>
-    
+
         <!-- arXiv -->
         <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" class="resource-btn">
             <img src="./assets/media/paper.png" alt="arXiv logo"> arXiv
         </a>
-    
+
         <!-- Code (GitHub) -->
         <a href="https://github.com/username/project" target="_blank" class="resource-btn">
             <img src="./assets/media/github.png" alt="GitHub logo"> Code
         </a>
+
+        <a href="https://drive.google.com/file/d/1kT8xSo03mSEcdW2WouVeU4hMFXFqpbbu/view?usp=sharing" target="_blank"
+            class="resource-btn">
+            <img src="./assets/media/colab.png" alt="GitHub logo"> Colab
+        </a>
     </div>
-    <p class="text-center pt-2 mx-auto" style="max-width: 1100px;">
-        Code will be released soon.
-    </p>
+    <h5 class="text-center pt-2 mx-auto mt-4 mb-4" style="max-width: 1100px;">
+        Code will be released on <strong>December 29th.</strong>
+    </h5>
 
 
     <div class="container">
@@ -281,7 +286,7 @@
                     SH struggle with high-frequency signals, exhibit Gibbs ringing artifacts, and critically fail to
                     capture
                     specular
-                    reflections -- a key component of realistic rendering.
+                    reflections - a key component of realistic rendering.
                     While alternatives like Spherical Gaussians offer improvements, they introduce significant
                     optimization
                     complexity.
@@ -295,7 +300,7 @@
                     compared
                     to existing
                     alternatives.
-                    For reflections -- where SH fundamentally fail -- we leverage SV as learnable reflection probes,
+                    For reflections - where SH fundamentally fail - we leverage SV as learnable reflection probes,
                     taking
                     reflected
                     directions as input following principles from traditional graphics.
@@ -308,7 +313,7 @@
         </div>
     </div>
 
-    
+
 
 
 
@@ -335,15 +340,18 @@
         <div class="text-center mt-5">
             <img src="assets/img/radiance_table.png" class="img-fluid" alt="Window function visualization" />
             <p class="text-muted font-italic text-justify" style="max-width: 1100px;">
-                Our Spherical Voronoi model (Ours) consistently improves performance over existing color parameterizations.
-                Remarkably, it is the first non–neural-field formulation capable of surpassing strong neural baselines such as Zip-NeRF
+                Our Spherical Voronoi model (Ours) consistently improves performance over existing color
+                parameterizations.
+                Remarkably, it is the first non–neural-field formulation capable of surpassing strong neural baselines
+                such as Zip-NeRF
                 on the MipNeRF-360 dataset.
             </p>
         </div>
     </div>
 
 
-    <div class="container my-5" style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
+    <div class="container my-5"
+        style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
         <hr class="section-line">
         <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizers</h2>
         <p class="text-muted mt-2 font-italic text-justify">
@@ -354,7 +362,7 @@
             The <em>number of sites</em> controls the partition complexity, while <em>temperature</em>
             controls the sharpness of the boundaries.
         </p>
-    
+
         <div class="row">
             <div class="col-lg-6 mb-4">
                 <h5 class="font-weight-bold mb-2 text-center">Spherical Voronoi (2D)</h5>
@@ -362,7 +370,7 @@
                     Random sites on the unit circle with a soft Voronoi assignment.
                     Each site has a color, and the black curve shows the resulting function.
                 </p> -->
-    
+
                 <div class="w-100 text-center mb-3">
                     <canvas id="voronoiCanvas" width="600" height="600" style="
                         width:100%;
@@ -375,9 +383,9 @@
                         margin:0 auto;
                     "></canvas>
                 </div>
-    
+
                 <div class="p-3 border rounded" style="background:#f9fafb;">
-    
+
                     <div class="form-group">
                         <label for="temperature" class="d-block mb-1" style="font-size:14px;">
                             Temperature:
@@ -390,7 +398,7 @@
                             </span>
                         </div>
                     </div>
-    
+
                     <div class="form-group mt-3">
                         <label for="numSitesInput" class="d-block mb-1" style="font-size:14px;">
                             Number of sites:
@@ -398,7 +406,7 @@
                         <input type="number" id="numSitesInput" min="2" max="64" value="16" class="form-control"
                             style="font-size:14px;" />
                     </div>
-    
+
                     <button id="generateVoronoi" class="btn btn-light btn-block mt-3" style="
                                 border-radius:8px;
                                 border:1px solid #d1d5db;
@@ -408,14 +416,14 @@
                     </button>
                 </div>
             </div>
-    
+
             <div class="col-lg-6 mb-4">
                 <h5 class="font-weight-bold mb-2 text-center">Spherical Voronoi (3D)</h5>
                 <!-- <p style="color:#666; font-size:13px; text-align:center; margin-bottom:16px;">
                     A soft spherical Voronoi partition used as an environment map,
                     visualized by reflecting it on a unit sphere. Drag to orbit, scroll to zoom.
                 </p> -->
-    
+
                 <div class="w-100 text-center mb-3">
                     <canvas id="voronoi3dCanvas" width="600" height="600" style="
                         width:100%;
@@ -428,9 +436,9 @@
                         margin:0 auto;
                     "></canvas>
                 </div>
-    
+
                 <div class="p-3 border rounded" style="background:#f9fafb;">
-    
+
                     <div class="form-group">
                         <label for="voronoi3dTemperature" class="d-block mb-1" style="font-size:14px;">
                             Temperature:
@@ -444,7 +452,7 @@
                             </span>
                         </div>
                     </div>
-    
+
                     <div class="form-group mt-3">
                         <label for="voronoi3dNumSites" class="d-block mb-1" style="font-size:14px;">
                             Number of sites:
@@ -452,7 +460,7 @@
                         <input type="number" id="voronoi3dNumSites" min="2" max="1024" value="128" class="form-control"
                             style="font-size:14px;" />
                     </div>
-    
+
                     <button id="voronoi3dGenerate" class="btn btn-light btn-block mt-3" style="
                                 border-radius:8px;
                                 border:1px solid #d1d5db;
@@ -465,201 +473,299 @@
         </div>
     </div>
 
-    
 
 
-    <div class="container my-4">
 
+    = <div class="container my-4">
         <hr class="section-line">
-        <h2 class="font-weight-bold mb-3">Representing Functions on the Sphere</h2>
-        <img src="assets/img/convergence.png" class="img-fluid" alt="Window function visualization" />
-        <p class="text-muted mt-2 font-italic text-justify">
-            We fit different spherical representations to the same functions starting from random initializations
-            (samples shown in
-            the bottom-left plots).
-            To measure the robustness of optimization we repeat the fitting 100 times from random initializations, and
-            report the
-            PSNR attained at the end of optimization (bottom-right plots).
-            Spherical Harmonics converge to a unique solution due to the orthogonality of its bases, but its
-            band-limited
-            characteristics result in Gibbs fitting artifacts.
-            Spherical Gaussian and Betas can represent locally supported functions, as well as discontinuities, but
-            their
-            optimization is not stable and prone to local minima. Spherical Voronoi <i>consistently</i> converges to a
-            <i>better</i> reconstruction.
+        <h2 class="font-weight-bold mb-3">Fitting Functions on Spherical Domains</h2>
+
+        <p class="text-justify">
+            We analyze the convergence behavior of different spherical representations when fitting the same
+            scalar function defined on the sphere \( f : \mathbb{S}^2 \rightarrow \mathbb{R} \).
+            We compare <strong>Spherical Harmonics (SH)</strong>,
+            <strong>Spherical Gaussians (SG)</strong>,
+            <strong>Spherical Betas (SB)</strong>,
+            and our <strong>Spherical Voronoi (SV)</strong> model.
+            Each method was optimized <strong>100 times</strong> from random initializations to evaluate robustness,
+            accuracy, and sensitivity to local minima.
+        </p>
+
+        <div class="text-center mt-3 mb-3">
+            <img src="assets/img/convergence.png" class="img-fluid" alt="Fitting functions on spherical domains (2D)">
+        </div>
+
+        <p class="text-justify">
+            The figure above summarizes the experiment.
+            The <strong>top row</strong> shows the reconstructed functions after convergence,
+            while the <strong>bottom-left insets</strong> visualize examples of random initializations used for the
+            fits.
+            The <strong>bottom-right histograms</strong> report the distribution of the final
+            <strong>PSNR values</strong> across the 100 runs.
+            The dashed red line indicates the <strong>mean PSNR</strong> for each representation.
+        </p>
+
+        <p class="text-justify">
+            Spherical Harmonics expand the signal as:
+            \[
+            f_{\text{SH}}(\omega; c)
+            = \sum_{l=0}^{L} \sum_{m=-l}^{l} c_{lm}\,Y_l^m(\omega),
+            \]
+            providing an orthogonal and globally supported basis.
+            As a result, all runs converge to the same global minimum, yielding negligible variance in PSNR.
+            However, the representation is <em>band-limited</em>, so high-frequency or discontinuous signals are not
+            captured.
+            This limitation produces smooth reconstructions with characteristic <strong>Gibbs artifacts</strong> near
+            sharp
+            transitions,
+            explaining why the mean PSNR (red line) remains relatively low despite consistent convergence.
+        </p>
+
+        <p class="text-justify">
+            Spherical Gaussians describe the function as a mixture of smooth lobes:
+            \[
+            f_{\text{SG}}(\omega; \tau, s, c)
+            = \sum_{k=1}^{K} c_k \exp\!\big(\tau_k (s_k \!\cdot\! \omega - 1)\big),
+            \]
+            allowing localized high-frequency modeling.
+            Nevertheless, each Gaussian lobe is compactly supported, making the optimization highly sensitive to
+            initialization.
+            When lobes start misaligned with the target signal, gradients vanish, producing unstable convergence.
+            Consequently, the histogram exhibits a <strong>high variance</strong> in PSNR values:
+            some runs reach good reconstructions, but many fail to escape poor local minima.
+        </p>
+
+        <p class="text-justify">
+            Spherical Betas extend SGs by introducing asymmetric and bounded lobes:
+            \[
+            f_{\text{SB}}(\omega; \alpha, \beta, s)
+            = \sum_{k=1}^{K} (1+s_k\!\cdot\!\omega)^{\alpha_k-1} (1-s_k\!\cdot\!\omega)^{\beta_k-1}.
+            \]
+            This formulation can reproduce skewed and sharper angular variations, but the increased flexibility worsens
+            conditioning.
+            Extreme parameter values yield spiky or flat lobes, causing <strong>ill-conditioned gradients</strong> and
+            even larger PSNR variance than in SGs. The histogram for SBs is thus the widest among all methods.
+        </p>
+
+        <p class="text-justify">
+            The proposed <strong>Spherical Voronoi (SV)</strong> representation defines a differentiable soft
+            tessellation:
+            \[
+            f_{\text{SV}}(\omega; \tau, s, c)
+            = \sum_{k=1}^{K} w_k(\omega; \tau)\, c_k,
+            \qquad
+            w_k(\omega; \tau)
+            = \frac{\exp(\tau\, s_k \!\cdot\! \omega)}
+            {\sum_{k'} \exp(\tau\, s_{k'} \!\cdot\! \omega)}.
+            \]
+            The temperature parameter \( \tau \) regulates the angular sharpness: small values produce smooth color
+            regions,
+            while large values approximate a hard Voronoi partition.
+            This formulation ensures that all sites contribute to the gradient field,
+            preventing “dead zones” and avoiding the competition between overlapping kernels observed in SG and SB.
+            As a result, SV converges <strong>consistently across all runs</strong>,
+            showing <strong>negligible PSNR variance</strong> and the highest average accuracy among all methods.
+            The red dashed line in the histogram lies near the upper limit of the attainable PSNR,
+            and the reconstructed function is nearly indistinguishable from the ground truth.
+        </p>
+
+        <p class="text-justify">
+            In summary, this experiment highlights how each representation behaves under identical optimization
+            conditions:
+            <strong>SH</strong> are stable but over-smooth,
+            <strong>SG</strong> and <strong>SB</strong> are expressive but unstable,
+            while <strong>SV</strong> combines stability and flexibility.
+            It delivers <em>high-frequency fidelity</em> and <em>robust convergence</em> even under random
+            initialization,
+            confirming its suitability as a general-purpose spherical parameterization.
         </p>
     </div>
 
-<div class="container mb-4">
-    <hr class="section-line">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="font-weight-bold">Methodology</h2>
 
-            <h4 class="mt-3"><strong>View Direction Parameterization</strong></h4>
-            <p class="text-justify">
-                We represent view-dependent appearance using a
-                <strong>soft Spherical Voronoi (SV)</strong> function on the unit sphere.
-                Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values
-                \( c_k \in \mathbb{R} \), and evaluates radiance as:
-            </p>
+    <div class="container mb-4">
+        <hr class="section-line">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Methodology</h2>
 
-            <p class="text-center">
-                \[
-                f_{\text{SV}}(\omega; \tau, s, c)
-                = \sum_k w_k(\omega; \tau)\, c_k,
-                \quad\text{where}\quad
-                w_k(\omega; \tau)
-                = \frac{\exp(\tau\, s_k \cdot \omega)}
-                {\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)}.
-                \]
-            </p>
-
-            <p class="text-justify">
-                The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness:
-                low values produce broad, smooth lobes, while high values yield narrow,
-                highly directional responses.
-                In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV,
-                obtaining a fully explicit, differentiable, and more flexible view-directional model.
-            </p>
-
-            <h4 class="mt-4"><strong>Reflection-based Parameterization</strong></h4>
-            
-            <p class="text-justify">
-                In the spirit of <em>Ref-NeRF</em>, we parameterize glossy reflections using the
-                <strong>reflected view direction</strong> instead of the view direction itself.
-                For a view direction \( \omega \) and surface normal \( n \), the reflected direction is:
-            </p>
-            
-            <p class="text-center">
-                \[
-                \omega_r = 2(\omega \cdot n)\,n - \omega.
-                \]
-            </p>
-            
-            <p class="text-justify">
-                We model the reflected radiance \( f(\omega_r) \) with <strong>Spherical Voronoi</strong> (SV) functions,
-                which can represent sharp specular lobes, multiple peaks, and even discontinuities, while remaining fully
-                differentiable.
-            </p>
-            
-            <h5><strong>Spatially Varying Reflections</strong></h5>
-            
-            <p class="text-justify">
-                Relying only on \( f(\omega_r) \) assumes <em>far-field</em> illumination, which breaks down when objects or
-                light sources are close to the surface. To capture <strong>near-field effects</strong>, we introduce
-                a set of <strong>learnable light probes</strong>, each with position \( p_i \in \mathbb{R}^3 \),
-                a blending weight \( \alpha_i \in [0,1] \), and SV parameters encoding a local reflection field.
-            </p>
-            
-            <p class="text-justify">
-                For a surface point \( P \), we gather its \( k \)-nearest probes
-                \(\mathcal{N} = \text{kNN}(P)\) and compute normalized inverse-distance weights:
-            </p>
-            
-            <p class="text-center">
-                \[
-                \tilde{w}_i = \frac{\|P - p_i\|^{-1}}{\sum_{j \in \mathcal{N}} \|P - p_j\|^{-1}}.
-                \]
-            </p>
-            
-            <p class="text-justify">
-                The near-field specular color and mixing coefficient are then:
-            </p>
-            
-            <p class="text-center">
-                \[
-                C_n = \sum_{i \in \mathcal{N}} \tilde{w}_i\, f_{\text{SV}}^i(\omega_r; \tau),
-                \qquad
-                \alpha = \sum_{i \in \mathcal{N}} \tilde{w}_i\, \alpha_i.
-                \]
-            </p>
-            
-            <h5><strong>Deferred Rendering with Voronoi Light Probes</strong></h5>
-            
-            <p class="text-justify">
-                We adopt a <strong>deferred rendering</strong> pipeline based on 2D Gaussian splats.
-                In the geometry pass, we rasterize all primitives into per-pixel buffers at image
-                coordinates \( (u,v) \), storing position \( P(u,v) \), normal \( N(u,v) \),
-                roughness \( R(u,v) \), and diffuse color \( D(u,v) \).
-                The final shaded color is:
-            </p>
-            
-            <p class="text-center">
-                \[
-                C = D + C_{\text{spec}},
-                \]
-            </p>
-            
-            <p class="text-justify">
-                where the specular term blends near- and far-field contributions:
-            </p>
-            
-            <p class="text-center">
-                \[
-                C_{\text{spec}} = \alpha\, C_n + (1 - \alpha)\, C_f.
-                \]
-            </p>
-            
-            <p class="text-justify">
-                The far-field component \( C_f \) is obtained from a learnable environment cubemap, evaluated at
-                the reflected direction \( \omega_r\).
-                The roughness \( R \) controls the angular sharpness of the SV lobes via:
-            </p>
-            
-            <p class="text-center">
-                \[
-                \tau = (1 - R)\,\tau_{\max} + R\,\tau_{\min},
-                \]
-            </p>
-            
-            <p class="text-justify">
-                where \( \tau_{\min} \) and \( \tau_{\max} \) are fixed hyperparameters.
-                Low roughness yields sharper specular highlights (high \( \tau \)), while high roughness produces broader lobes,
-                providing a unified and explicit model for both diffuse and glossy appearance.
-            </p>
-
-
-            <div class="text-center mb-4 mt-5">
-                <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
-                    style="max-width: 90%;" />
-                <p class="text-muted font-italic text-justify">
-                    The 2DGS scene is rasterized into
-                    buffers of positions, normals, roughness, and diffuse colors.
-                    In the lighting pass, learnable Spherical Voronoi light probes (near-field)
-                    and an environment cubemap (far-field) jointly produce diffuse and specular shading,
-                    blended to form the final output. All components are fully explicit and optimized end-to-end.
+                <h4 class="mt-3"><strong>View Direction Parameterization</strong></h4>
+                <p class="text-justify">
+                    We represent view-dependent appearance using a
+                    <strong>soft Spherical Voronoi (SV)</strong> function on the unit sphere.
+                    Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values
+                    \( c_k \in \mathbb{R} \), and evaluates radiance as:
                 </p>
-            </div>
 
-            <div class="row justify-content-between mb-4 mt-5 align-items-center">
-                <div class="col-md-8 text-center mb-3 mb-md-0">
-                    <video class="w-100" autoplay muted loop playsinline>
-                        <source src="assets/video/probes_motion.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
+                <p class="text-center">
+                    \[
+                    f_{\text{SV}}(\omega; \tau, s, c)
+                    = \sum_k w_k(\omega; \tau)\, c_k
+                    \]
+                    \[
+                    \text{where}\quad
+                    w_k(\omega; \tau)
+                    = \frac{\exp(\tau\, s_k \cdot \omega)}
+                    {\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)}
+                    \]
+                </p>
+
+                <p class="text-justify">
+                    The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness:
+                    low values produce broad, smooth lobes, while high values yield narrow,
+                    highly directional responses.
+                    In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV,
+                    obtaining a fully explicit, differentiable, and more flexible view-directional model.
+                </p>
+
+                <h4 class="mt-4"><strong>Reflection-based Parameterization</strong></h4>
+
+                <p class="text-justify">
+                    In the spirit of <em>Ref-NeRF</em>, we parameterize glossy reflections using the
+                    <strong>reflected view direction</strong> instead of the view direction itself.
+                    For a view direction \( \omega \) and surface normal \( n \), the reflected direction is:
+                </p>
+
+                <p class="text-center">
+                    \[
+                    \omega_r = 2(\omega \cdot n)\,n - \omega.
+                    \]
+                </p>
+
+                <p class="text-justify">
+                    We model the reflected radiance \( f(\omega_r) \) with <strong>Spherical Voronoi</strong> (SV)
+                    functions,
+                    which can represent sharp specular lobes, multiple peaks, and even discontinuities, while remaining
+                    fully
+                    differentiable.
+                </p>
+
+                <h5><strong>Spatially Varying Reflections</strong></h5>
+
+                <p class="text-justify">
+                    Relying only on \( f(\omega_r) \) assumes <em>far-field</em> illumination, which breaks down when
+                    objects or
+                    light sources are close to the surface. To capture <strong>near-field effects</strong>, we introduce
+                    a set of <strong>learnable light probes</strong>, each with position \( p_i \in \mathbb{R}^3 \),
+                    a blending weight \( \alpha_i \in [0,1] \), and SV parameters encoding a local reflection field.
+                </p>
+
+                <p class="text-justify">
+                    For a surface point \( P \), we gather its \( k \)-nearest probes
+                    \(\mathcal{N} = \text{kNN}(P)\) and compute normalized inverse-distance weights:
+                </p>
+
+                <p class="text-center">
+                    \[
+                    \tilde{w}_i = \frac{\|P - p_i\|^{-1}}{\sum_{j \in \mathcal{N}} \|P - p_j\|^{-1}}.
+                    \]
+                </p>
+
+                <p class="text-justify">
+                    The near-field specular color and mixing coefficient are then:
+                </p>
+
+                <p class="text-center">
+                    \[
+                    C_n = \sum_{i \in \mathcal{N}} \tilde{w}_i\, f_{\text{SV}}^i(\omega_r; \tau),
+                    \qquad
+                    \alpha = \sum_{i \in \mathcal{N}} \tilde{w}_i\, \alpha_i.
+                    \]
+                </p>
+
+                <h5><strong>Deferred Rendering with Voronoi Light Probes</strong></h5>
+
+                <p class="text-justify">
+                    We adopt a <strong>deferred rendering</strong> pipeline based on 2D Gaussian splats.
+                    In the geometry pass, we rasterize all primitives into per-pixel buffers at image
+                    coordinates \( (u,v) \), storing position \( P(u,v) \), normal \( N(u,v) \),
+                    roughness \( R(u,v) \), and diffuse color \( D(u,v) \).
+                    The final shaded color is:
+                </p>
+
+                <p class="text-center">
+                    \[
+                    C = D + C_{\text{spec}},
+                    \]
+                </p>
+
+                <p class="text-justify">
+                    where the specular term blends near- and far-field contributions:
+                </p>
+
+                <p class="text-center">
+                    \[
+                    C_{\text{spec}} = \alpha\, C_n + (1 - \alpha)\, C_f.
+                    \]
+                </p>
+
+                <p class="text-justify">
+                    The far-field component \( C_f \) is obtained from a learnable environment cubemap, evaluated at
+                    the reflected direction \( \omega_r\).
+                    The roughness \( R \) controls the angular sharpness of the SV lobes via:
+                </p>
+
+                <p class="text-center">
+                    \[
+                    \tau = (1 - R)\,\tau_{\max} + R\,\tau_{\min},
+                    \]
+                </p>
+
+                <p class="text-justify">
+                    where \( \tau_{\min} \) and \( \tau_{\max} \) are fixed hyperparameters.
+                    Low roughness yields sharper specular highlights (high \( \tau \)), while high roughness produces
+                    broader lobes,
+                    providing a unified and explicit model for both diffuse and glossy appearance.
+                </p>
+
+
+                <div class="text-center mb-4 mt-5">
+                    <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
+                        style="max-width: 90%;" />
                     <p class="text-muted font-italic text-justify">
-                        When illumination is spatially varying but a spatially-invariant model is used,
-                        conflicting measurements are averaged, resulting in a blurry reconstruction (left).
-                        Conversely, when a spatially varying model is used, crisp functions can be recovered.
+                        The 2DGS scene is rasterized into
+                        buffers of positions, normals, roughness, and diffuse colors.
+                        In the lighting pass, learnable Spherical Voronoi light probes (near-field)
+                        and an environment cubemap (far-field) jointly produce diffuse and specular shading,
+                        blended to form the final output. All components are fully explicit and optimized end-to-end.
                     </p>
                 </div>
 
-                <div class="col-md-3 text-center">
-                    <video class="w-100" autoplay muted loop playsinline>
-                        <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                    <p class="text-muted font-italic text-justify">
-                        Effect of the temperature \( \tau \) on SV sharpness, from smooth
-                        diffuse-like lobes to sharp, highly specular peaks.
-                    </p>
-                </div>
-            </div>
+                <div class="row justify-content-center mb-4 mt-5 align-items-stretch">
+                    <div class="col-md-8 text-center mb-3 mb-md-0 d-flex flex-column">
+                        <video class="w-100" style="height: 300px; object-fit: contain;" autoplay muted loop
+                            playsinline>
+                            <source src="assets/video/probes_motion.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
 
+                    <div class="col-md-3 text-center d-flex flex-column">
+                        <video class="w-100" style="height: 300px; object-fit: contain;" autoplay muted loop
+                            playsinline>
+                            <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-11">
+                        <p class="text-muted font-italic text-justify">
+                            <strong>Left:</strong> When illumination is spatially varying but a spatially-invariant
+                            model is used,
+                            conflicting measurements are averaged, resulting in a blurry reconstruction. Conversely,
+                            when a spatially
+                            varying model is used, crisp functions can be recovered.
+                            <strong>Right:</strong> Effect of the temperature \( \tau \) on SV sharpness, from smooth
+                            diffuse-like lobes to sharp, highly specular peaks.
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
-</div>
 
 
 
@@ -692,7 +798,7 @@
                                 <img src="./assets/img/zipnerf_bonsai.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_bonsai.png"  alt="Left">
+                                <img src="./assets/img/ours_bonsai.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -706,7 +812,7 @@
                                 <img src="./assets/img/zipnerf_bicycle.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_bicycle.png"  alt="Left">
+                                <img src="./assets/img/ours_bicycle.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -720,7 +826,7 @@
                                 <img src="./assets/img/zipnerf_kitchen.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_kitchen.png"  alt="Left">
+                                <img src="./assets/img/ours_kitchen.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -734,7 +840,7 @@
                                 <img src="./assets/img/zipnerf_counter.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_counter.png"  alt="Left">
+                                <img src="./assets/img/ours_counter.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -748,7 +854,7 @@
                                 <img src="./assets/img/zipnerf_garden.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_garden.png"  alt="Left">
+                                <img src="./assets/img/ours_garden.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -762,7 +868,7 @@
                                 <img src="./assets/img/zipnerf_room.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_room.png"  alt="Left">
+                                <img src="./assets/img/ours_room.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -776,7 +882,7 @@
                                 <img src="./assets/img/zipnerf_stump.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_stump.png"  alt="Left">
+                                <img src="./assets/img/ours_stump.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -787,7 +893,7 @@
 
                     </div>
 
-                    
+
                 </div>
             </div>
 
@@ -964,14 +1070,21 @@
             outperforming other baseline methods. It is a <i>fully explicit</i> approach based on learnable light probes
             parameterized
             by a Spherical Voronoi function.</p>
-        
+
         <div class="row justify-content-center mt-5">
             <div class="col-md-12">
                 <img src="assets/img/reflection_table.png" class="img-fluid" alt="Window function visualization" />
-            <p class="text-muted mt-2 font-italic text-justify">
-                Our full-explicit method consistently achieves top-tier performance across all datasets. Methods marked (*) were retrained for
-                consistency, and most results were successfully reproduced.
-            </p>
+                <p class="text-muted mt-2 font-italic text-justify">
+                    Our method consistently achieves top-tier performance across all datasets.
+                    Methods marked with <sup>&dagger;</sup> were retrained
+                    for consistency, and most results were successfully reproduced. Ref-GS performs slightly better than
+                    originally
+                    reported
+                    on Ref-NeRF and GlossySynthetic, but worse on Ref-Real, likely because the original implementation
+                    did not use the
+                    dataset’s pre-downsampled input images.
+                </p>
+
             </div>
         </div>
 
@@ -985,14 +1098,16 @@
                         <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1001,16 +1116,18 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1019,16 +1136,18 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
+                                    playsinline></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1037,14 +1156,14 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- 🚗 CAR -->
         <div class="row">
             <div class="col-lg-6">
@@ -1056,7 +1175,7 @@
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1072,10 +1191,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_car.mp4" autoplay loop muted playsinline></video>
@@ -1090,10 +1209,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_car.mp4" autoplay loop muted playsinline></video>
@@ -1108,10 +1227,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_car.mp4" autoplay loop muted playsinline></video>
@@ -1126,13 +1245,13 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
             <!-- 🍵 TEAPOT -->
             <div class="col-lg-6">
                 <div class="carousel-container">
@@ -1142,7 +1261,7 @@
                         <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1158,10 +1277,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_teapot.mp4" autoplay loop muted playsinline></video>
@@ -1176,10 +1295,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_teapot.mp4" autoplay loop muted playsinline></video>
@@ -1194,14 +1313,14 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- 🏀 BALL + 🍞 TOASTER -->
         <div class="row">
             <div class="col-lg-6">
@@ -1213,7 +1332,7 @@
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1229,10 +1348,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_ball.mp4" autoplay loop muted playsinline></video>
@@ -1247,10 +1366,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_ball.mp4" autoplay loop muted playsinline></video>
@@ -1265,10 +1384,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_ball.mp4" autoplay loop muted playsinline></video>
@@ -1283,13 +1402,13 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-lg-6">
                 <div class="carousel-container">
                     <h4 class="text-center">Toaster</h4>
@@ -1299,7 +1418,7 @@
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1315,10 +1434,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1333,10 +1452,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1351,10 +1470,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1369,14 +1488,14 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- 🔔 BELL + 🪖 HELMET -->
         <div class="row">
             <div class="col-lg-6">
@@ -1387,7 +1506,7 @@
                         <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1403,10 +1522,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_bell.mp4" autoplay loop muted playsinline></video>
@@ -1421,10 +1540,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_bell.mp4" autoplay loop muted playsinline></video>
@@ -1439,13 +1558,13 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-lg-6">
                 <div class="carousel-container">
                     <h4 class="text-center">Helmet</h4>
@@ -1455,7 +1574,7 @@
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-        
+
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1471,10 +1590,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline></video>
@@ -1489,10 +1608,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_helmet.mp4" autoplay loop muted playsinline></video>
@@ -1507,10 +1626,10 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
-        
+
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_helmet.mp4" autoplay loop muted playsinline></video>
@@ -1525,7 +1644,7 @@
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
-                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Refresh</span></button>
                             </div>
                         </div>
                     </div>
@@ -1635,6 +1754,8 @@
     <script src="./assets/js/3dvoronoi.js"></script>
 
 
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.carousel-container').forEach(function (container) {
@@ -1727,6 +1848,23 @@
             });
         });
     </script>
+
+
+    <script>
+        window.addEventListener('load', function () {
+            var videos = document.querySelectorAll('video');
+            videos.forEach(function (v) {
+                v.pause();
+                v.currentTime = 0;
+                v.load();
+                var p = v.play();
+                if (p !== undefined) {
+                    p.catch(function () { });
+                }
+            });
+        });
+    </script>
+
 
 </body>
 

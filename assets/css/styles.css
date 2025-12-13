@@ -7,13 +7,53 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     padding: 40px 20px;
-    /* background: #fafafa; */
+    /* background: #f`afafa; */
+}
+
+
+
+.text-muted {
+    font-size: large !important;
+}
+
+mjx-container[jax="CHTML"],
+mjx-container[jax="SVG"],
+.MathJax,
+.MathJax_Display,
+.MathJax_Inline,
+.katex,
+.katex-display {
+    font-size: 150% !important;
+}
+
+p.text-center mjx-container[jax="CHTML"],
+p.text-center mjx-container[jax="SVG"],
+p.text-center .katex-display {
+    font-size: 170% !important;
+}
+
+/* p.text-center {
+    font-size: 150%;
+} */
+
+mjx-container[jax="CHTML"] {
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+
+.video-equal {
+    height: 360px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 6px;
 }
 
 
 .resource-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     background-color: #ffffff;
     color: #222;
@@ -21,16 +61,20 @@ body {
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 9999px;
-    padding: 10px 20px;
+    padding: 20px 20px;
     margin: 8px;
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    height: 36px;
+    line-height: 1;
+    min-width: 150px;
+    box-sizing: border-box;
 }
 
 .resource-btn img {
-    width: 22px;
-    height: auto;
+    height: 24px;
+    width: auto;
     filter: none;
 }
 
@@ -51,10 +95,25 @@ body {
         font-size: 0.9rem;
         padding: 8px 16px;
         margin: 6px;
+        height: 60px;
+        min-width: 130px;
     }
 
     .resource-btn img {
-        width: 18px;
+        height: 48px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .resource-btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        margin: 6px;
+    }
+
+    .resource-btn img {
+        width: 36px;
     }
 }
 
