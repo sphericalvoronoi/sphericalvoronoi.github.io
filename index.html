@@ -220,19 +220,19 @@
             </div>
 
             <div class="row justify-content-center mt-2">
-                <div class="col-auto text-center">
+                <div class="col-auto text-center mb-2">
                     <h6><sup>1</sup>University of Torino</h6>
                 </div>
-                <div class="col-auto text-center">
+                <div class="col-auto text-center mb-2">
                     <h6><sup>2</sup>Simon Fraser University</h6>
                 </div>
-                <div class="col-auto text-center">
+                <div class="col-auto text-center mb-2">
                     <h6><sup>3</sup>University of British Columbia</h6>
                 </div>
-                <div class="col-auto text-center">
+                <div class="col-auto text-center mb-2">
                     <h6><sup>4</sup>University of Toronto</h6>
                 </div>
-                <div class="col-auto text-center">
+                <div class="col-auto text-center mb-2">
                     <h6><sup>5</sup>Google DeepMind</h6>
                 </div>
             </div>
@@ -244,30 +244,22 @@
         <!-- End author section -->
     </div>
 
-    <div class="container align-items-center mt-3">
-        <div class="row text-center justify-content-center align-items-center">
-            <div class="col-4 col-sm-3 mb-3">
-                <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/pdf.png" alt="pdf" class="img-fluid" style="height:60px" />
-                </a>
-                <!-- <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">PDF</strong></div> -->
-            </div>
-            <div class="col-4 col-sm-3 mb-3">
-                <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/arxiv_logo.png" alt="github" class="img-fluid" style="height:60px" />
-                </a>
-                <!-- <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Arxiv</strong></div> -->
-            </div>
-            <div class="col-4 col-sm-3 mb-3">
-                <a href="" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/github_2.png" alt="github" class="img-fluid" style="height:60px" />
-                </a>
-                <!-- <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Code</strong></div> -->
-            </div>
-        </div>
+    <div class="container text-center">
+    
+        <!-- Paper (PDF) -->
+        <a href="files/paper.pdf" target="_blank" class="resource-btn">
+            <img src="./assets/media/pdf.png" alt="PDF logo"> Paper
+        </a>
+    
+        <!-- arXiv -->
+        <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" class="resource-btn">
+            <img src="./assets/media/paper.png" alt="arXiv logo"> arXiv
+        </a>
+    
+        <!-- Code (GitHub) -->
+        <a href="https://github.com/username/project" target="_blank" class="resource-btn">
+            <img src="./assets/media/github.png" alt="GitHub logo"> Code
+        </a>
     </div>
     <p class="text-center pt-2 mx-auto" style="max-width: 1100px;">
         Code will be released soon.
@@ -391,7 +383,7 @@
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="temperature" min="0" max="2500" value="1250"
+                            <input type="range" id="temperature" min="0" max="2500" value="1573"
                                 class="custom-range flex-grow-1" />
                             <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
                                 250
@@ -444,7 +436,7 @@
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="voronoi3dTemperature" min="0" max="2500" value="1800"
+                            <input type="range" id="voronoi3dTemperature" min="0" max="2500" value="1934"
                                 class="custom-range flex-grow-1" />
                             <span id="voronoi3dTemperatureLabel" class="ml-2 text-right"
                                 style="width:40px; font-size:14px;">
@@ -504,7 +496,7 @@
         <div class="col-12">
             <h2 class="font-weight-bold">Methodology</h2>
 
-            <h4 class="mt-3">View-direction Modeling</h4>
+            <h4 class="mt-3"><strong>View Direction Parameterization</strong></h4>
             <p class="text-justify">
                 We represent view-dependent appearance using a
                 <strong>soft Spherical Voronoi (SV)</strong> function on the unit sphere.
@@ -531,61 +523,102 @@
                 obtaining a fully explicit, differentiable, and more flexible view-directional model.
             </p>
 
-            <h4 class="mt-4">Reflections, Learnable Probes &amp; Deferred Rendering</h4>
-
+            <h4 class="mt-4"><strong>Reflection-based Parameterization</strong></h4>
+            
             <p class="text-justify">
-                In the spirit of <em>Ref-NeRF</em>, we extend the same formulation to
-                <strong>reflections</strong> by querying the SV with the
-                <strong>reflected direction</strong>:
+                In the spirit of <em>Ref-NeRF</em>, we parameterize glossy reflections using the
+                <strong>reflected view direction</strong> instead of the view direction itself.
+                For a view direction \( \omega \) and surface normal \( n \), the reflected direction is:
             </p>
-
+            
             <p class="text-center">
                 \[
-                \omega_r = 2(\omega \cdot \mathbf{n})\,\mathbf{n} - \omega.
+                \omega_r = 2(\omega \cdot n)\,n - \omega.
                 \]
             </p>
-
+            
             <p class="text-justify">
-                Instead of modeling only \( f(\omega) \), we directly represent \( f(\omega_r) \),
-                allowing us to capture view-dependent specular effects through the same explicit SV function.
-                Thanks to its partition-of-unity structure and learnable sites, the Spherical Voronoi
-                representation can model <strong>highly complex reflection patterns</strong>,
-                including sharp peaks, multiple specular lobes, and even angular discontinuities,
-                while remaining fully differentiable.
+                We model the reflected radiance \( f(\omega_r) \) with <strong>Spherical Voronoi</strong> (SV) functions,
+                which can represent sharp specular lobes, multiple peaks, and even discontinuities, while remaining fully
+                differentiable.
             </p>
-
+            
+            <h5><strong>Spatially Varying Reflections</strong></h5>
+            
             <p class="text-justify">
-                To handle <strong>spatially varying reflections</strong>, we implement a fully explicit,
-                differentiable pipeline based on <strong>learnable light probes</strong>.
-                Each probe is defined by a spatial position \( p_i \in \mathbb{R}^3 \),
-                an SV function (its own set of Voronoi sites and values),
-                and an intensity weight \( \alpha_i \in [0,1] \).
-                These probes act as local reflection fields: for a query point, we gather nearby probes,
-                evaluate their SVs along the relevant direction (e.g., \( \omega_r \)),
-                and blend their contributions via inverse-distance weighting to obtain a
-                <strong>near-field specular color</strong> \( C_n(u,v) \).
-                All probe parameters — positions, SV coefficients, and intensities — are explicit and
-                jointly optimized with the rest of the scene.
+                Relying only on \( f(\omega_r) \) assumes <em>far-field</em> illumination, which breaks down when objects or
+                light sources are close to the surface. To capture <strong>near-field effects</strong>, we introduce
+                a set of <strong>learnable light probes</strong>, each with position \( p_i \in \mathbb{R}^3 \),
+                a blending weight \( \alpha_i \in [0,1] \), and SV parameters encoding a local reflection field.
             </p>
-
-            <p class="">
-                On top of this, we adopt a <strong>deferred rendering pipeline</strong>.
-                The 2D Gaussian splat scene is first rasterized into geometry buffers
-                (per-pixel positions \( P(u,v) \), normals \( N(u,v) \),
-                roughness \( \rho(u,v) \), and diffuse color \( D(u,v) \)).
-                In the lighting pass, we combine <strong>near-field reflections</strong> from our learnable probes
-                with <strong>far-field reflections</strong> from a learnable environment cubemap \( C_f(u,v) \).
-                A spatially varying mixing coefficient \( \alpha(u,v) \),
-                obtained by interpolating probe intensities, blends these two contributions:
+            
+            <p class="text-justify">
+                For a surface point \( P \), we gather its \( k \)-nearest probes
+                \(\mathcal{N} = \text{kNN}(P)\) and compute normalized inverse-distance weights:
             </p>
-
+            
             <p class="text-center">
                 \[
-                C_{\text{spec}}(u,v)
-                = \alpha(u,v)\, C_n(u,v)
-                + (1 - \alpha(u,v))\, C_f(u,v).
+                \tilde{w}_i = \frac{\|P - p_i\|^{-1}}{\sum_{j \in \mathcal{N}} \|P - p_j\|^{-1}}.
                 \]
             </p>
+            
+            <p class="text-justify">
+                The near-field specular color and mixing coefficient are then:
+            </p>
+            
+            <p class="text-center">
+                \[
+                C_n = \sum_{i \in \mathcal{N}} \tilde{w}_i\, f_{\text{SV}}^i(\omega_r; \tau),
+                \qquad
+                \alpha = \sum_{i \in \mathcal{N}} \tilde{w}_i\, \alpha_i.
+                \]
+            </p>
+            
+            <h5><strong>Deferred Rendering with Voronoi Light Probes</strong></h5>
+            
+            <p class="text-justify">
+                We adopt a <strong>deferred rendering</strong> pipeline based on 2D Gaussian splats.
+                In the geometry pass, we rasterize all primitives into per-pixel buffers at image
+                coordinates \( (u,v) \), storing position \( P(u,v) \), normal \( N(u,v) \),
+                roughness \( R(u,v) \), and diffuse color \( D(u,v) \).
+                The final shaded color is:
+            </p>
+            
+            <p class="text-center">
+                \[
+                C = D + C_{\text{spec}},
+                \]
+            </p>
+            
+            <p class="text-justify">
+                where the specular term blends near- and far-field contributions:
+            </p>
+            
+            <p class="text-center">
+                \[
+                C_{\text{spec}} = \alpha\, C_n + (1 - \alpha)\, C_f.
+                \]
+            </p>
+            
+            <p class="text-justify">
+                The far-field component \( C_f \) is obtained from a learnable environment cubemap, evaluated at
+                the reflected direction \( \omega_r\).
+                The roughness \( R \) controls the angular sharpness of the SV lobes via:
+            </p>
+            
+            <p class="text-center">
+                \[
+                \tau = (1 - R)\,\tau_{\max} + R\,\tau_{\min},
+                \]
+            </p>
+            
+            <p class="text-justify">
+                where \( \tau_{\min} \) and \( \tau_{\max} \) are fixed hyperparameters.
+                Low roughness yields sharper specular highlights (high \( \tau \)), while high roughness produces broader lobes,
+                providing a unified and explicit model for both diffuse and glossy appearance.
+            </p>
+
 
             <div class="text-center mb-4 mt-5">
                 <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
@@ -633,7 +666,7 @@
     <!-- Results -->
     <div class="container my-4">
         <hr class="section-line">
-        <h2 class="font-weight-bold">Results - Modeling Radiance</h2>
+        <h2 class="font-weight-bold">Results - View Direction Parameterization</h2>
         <p>Our method achieves comparable quality to Zip-NeRF on the Mip-NeRF360 dataset, while delivering significantly
             higher
             accuracy on other standard benchmarks such as NeRF Synthetic and Tanks & Temples.</p>
@@ -879,7 +912,7 @@
 
 
         <hr class="section-line">
-        <h2 class="font-weight-bold">Results - Modeling Reflections</h2>
+        <h2 class="font-weight-bold">Results - Reflection-based Parameterization</h2>
         <h4 class="mt-4">Scene Decomposition</h4>
         <p>Our method allows for a detailed scene decomposition into physically interpretable components, such as
             diffuse, specular, surface normals, and roughness.</p>
@@ -942,73 +975,77 @@
             </div>
         </div>
 
+        <!-- 🪴 GARDENSPHERES -->
         <div class="row mt-5">
             <div class="col-lg-12">
                 <div class="carousel-container">
                     <h4 class="text-center">Gardenspheres</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
+                        <div class="thumb active" data-index="0">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted playsinline></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted playsinline></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted playsinline></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted playsinline></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
+        
+        <!-- 🚗 CAR -->
         <div class="row">
             <div class="col-lg-6">
                 <div class="carousel-container">
@@ -1019,7 +1056,7 @@
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1033,9 +1070,13 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GT</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-                        <div class="comparison active" data-type="video">
+        
+                        <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_car.mp4" autoplay loop muted playsinline></video>
                             </div>
@@ -1047,9 +1088,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_car.mp4" autoplay loop muted playsinline></video>
@@ -1062,9 +1106,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_car.mp4" autoplay loop muted playsinline></video>
@@ -1077,20 +1124,25 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        
+            <!-- 🍵 TEAPOT -->
             <div class="col-lg-6">
                 <div class="carousel-container">
                     <h4 class="text-center">Teapot</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours Vs Ref-GS</div>
+                        <div class="thumb active" data-index="0">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1104,9 +1156,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_teapot.mp4" autoplay loop muted playsinline></video>
@@ -1119,9 +1174,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_teapot.mp4" autoplay loop muted playsinline></video>
@@ -1134,16 +1192,17 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
+        
+        <!-- 🏀 BALL + 🍞 TOASTER -->
         <div class="row">
             <div class="col-lg-6">
                 <div class="carousel-container">
@@ -1154,7 +1213,7 @@
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
@@ -1168,10 +1227,13 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GT</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
-                        <div class="comparison active" data-type="video">
+        
+                        <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_ball.mp4" autoplay loop muted playsinline></video>
                             </div>
@@ -1183,9 +1245,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_ball.mp4" autoplay loop muted playsinline></video>
@@ -1198,9 +1263,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_ball.mp4" autoplay loop muted playsinline></video>
@@ -1213,23 +1281,26 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        
             <div class="col-lg-6">
                 <div class="carousel-container">
                     <h4 class="text-center">Toaster</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours Vs GT</div>
-                        <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
+                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb" data-index="1">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
-
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gt_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1242,9 +1313,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GT</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1257,9 +1331,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1272,9 +1349,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_toaster.mp4" autoplay loop muted playsinline></video>
@@ -1287,29 +1367,28 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
+        
+        <!-- 🔔 BELL + 🪖 HELMET -->
         <div class="row">
             <div class="col-lg-6">
                 <div class="carousel-container">
                     <h4 class="text-center">Bell</h4>
                     <div class="thumbnails">
-
                         <div class="thumb active" data-index="0">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="1">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="2">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
-
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_bell.mp4" autoplay loop muted playsinline></video>
@@ -1322,10 +1401,13 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
-                        <div class="comparison active" data-type="video">
+        
+                        <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_bell.mp4" autoplay loop muted playsinline></video>
                             </div>
@@ -1337,9 +1419,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_bell.mp4" autoplay loop muted playsinline></video>
@@ -1352,23 +1437,26 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        
             <div class="col-lg-6">
                 <div class="carousel-container">
                     <h4 class="text-center">Helmet</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours Vs GT</div>
-                        <div class="thumb" data-index="1">Ours Vs Ref-GS</div>
+                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb" data-index="1">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
                     </div>
-
+        
                     <div class="comparison-wrapper">
-
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gt_helmet.mp4" autoplay loop muted playsinline></video>
@@ -1381,10 +1469,13 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GT</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
-                        <div class="comparison active" data-type="video">
+        
+                        <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline></video>
                             </div>
@@ -1396,9 +1487,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">Ref-GS</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_helmet.mp4" autoplay loop muted playsinline></video>
@@ -1411,9 +1505,12 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">3DGS-DR</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
-
+        
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_helmet.mp4" autoplay loop muted playsinline></video>
@@ -1426,14 +1523,14 @@
                                 <div class="label label-left">Ours</div>
                                 <div class="label label-right">GShader</div>
                             </div>
-                            <button class="play-btn"><span>⏸</span> Pause</button>
+                            <div class="comparison-controls">
+                                <button class="play-btn"><span>⏸</span><span>Pause</span></button>
+                                <button class="reset-btn"><span>🔄</span><span>Reset</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
 
@@ -1511,11 +1608,6 @@
                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
                                 Attribution-ShareAlike 4.0 International License</a>.
                         </p>
-                        <p>
-                            We borrow the <a href="https://dreamfusion3d.github.io/">source code</a> for our
-                            website. We sincerely appreciate DreamFusion authors for their awesome
-                            templates.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -1544,76 +1636,95 @@
 
 
     <script>
-        document.querySelectorAll('.carousel-container').forEach(container => {
-            const thumbs = container.querySelectorAll('.thumb');
-            const wrapper = container.querySelector('.comparison-wrapper');
-            const comparisons = container.querySelectorAll('.comparison');
-            let currentIndex = 0;
-            let isPlaying = true;
-            let position = 50;
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.carousel-container').forEach(function (container) {
+                var thumbs = container.querySelectorAll('.thumb');
+                var wrapper = container.querySelector('.comparison-wrapper');
+                var comparisons = container.querySelectorAll('.comparison');
+                var currentIndex = 0;
+                var isPlaying = true;
+                var position = 50;
 
-            // Switch comparison
-            thumbs.forEach((thumb, idx) => {
-                thumb.addEventListener('click', () => {
-                    currentIndex = idx;
-                    thumbs.forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                    comparisons.forEach(c => c.classList.remove('active'));
-                    comparisons[idx].classList.add('active');
-                    position = 50;
-                    updateSlider();
-                });
-            });
-
-            // Mouse move to control slider
-            wrapper.addEventListener('mousemove', (e) => {
-                const rect = wrapper.getBoundingClientRect();
-                position = ((e.clientX - rect.left) / rect.width) * 100;
-                position = Math.max(0, Math.min(100, position));
-                updateSlider();
-            });
-
-            // Play/Pause button (only for videos)
-            comparisons.forEach(comp => {
-                const btn = comp.querySelector('.play-btn');
-                if (!btn) return;
-
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    isPlaying = !isPlaying;
-
-                    // Update ALL video buttons and play/pause videos in this carousel
-                    comparisons.forEach(c => {
-                        const b = c.querySelector('.play-btn');
-                        if (!b) return;
-
-                        const icon = b.querySelector('span');
-                        const videos = c.querySelectorAll('video');
-
-                        if (isPlaying) {
-                            icon.textContent = '⏸';
-                            b.childNodes[1].textContent = ' Pause';
-                            videos.forEach(v => v.play());
-                        } else {
-                            icon.textContent = '▶';
-                            b.childNodes[1].textContent = ' Play';
-                            videos.forEach(v => v.pause());
+                thumbs.forEach(function (thumb, idx) {
+                    thumb.addEventListener('click', function () {
+                        currentIndex = idx;
+                        thumbs.forEach(function (t) { t.classList.remove('active'); });
+                        thumb.classList.add('active');
+                        comparisons.forEach(function (c) { c.classList.remove('active'); });
+                        if (comparisons[idx]) {
+                            comparisons[idx].classList.add('active');
                         }
+                        position = 50;
+                        updateSlider();
                     });
                 });
+
+                if (wrapper) {
+                    wrapper.addEventListener('mousemove', function (e) {
+                        var rect = wrapper.getBoundingClientRect();
+                        position = ((e.clientX - rect.left) / rect.width) * 100;
+                        if (position < 0) position = 0;
+                        if (position > 100) position = 100;
+                        updateSlider();
+                    });
+                }
+
+                comparisons.forEach(function (comp) {
+                    var playBtn = comp.querySelector('.play-btn');
+                    var resetBtn = comp.querySelector('.reset-btn');
+                    if (!playBtn) return;
+
+                    playBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        isPlaying = !isPlaying;
+
+                        comparisons.forEach(function (c) {
+                            var b = c.querySelector('.play-btn');
+                            if (!b) return;
+                            var spans = b.querySelectorAll('span');
+                            var iconSpan = spans[0];
+                            var labelSpan = spans[1];
+                            var videos = c.querySelectorAll('video');
+
+                            if (isPlaying) {
+                                iconSpan.textContent = '⏸';
+                                labelSpan.textContent = 'Pause';
+                                videos.forEach(function (v) { v.play(); });
+                            } else {
+                                iconSpan.textContent = '▶';
+                                labelSpan.textContent = 'Play';
+                                videos.forEach(function (v) { v.pause(); });
+                            }
+                        });
+                    });
+
+                    if (resetBtn) {
+                        resetBtn.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            var videos = comp.querySelectorAll('video');
+                            videos.forEach(function (v) {
+                                v.pause();
+                                v.currentTime = 0;
+                                if (isPlaying) v.play();
+                            });
+                            position = 50;
+                            updateSlider();
+                        });
+                    }
+                });
+
+                function updateSlider() {
+                    var activeComp = comparisons[currentIndex] || container.querySelector('.comparison.active');
+                    if (!activeComp) return;
+                    var divider = activeComp.querySelector('.divider');
+                    var beforeContainer = activeComp.querySelector('.image-before');
+                    if (!divider || !beforeContainer) return;
+                    divider.style.left = position + '%';
+                    beforeContainer.style.clipPath = 'inset(0 ' + (100 - position) + '% 0 0)';
+                }
+
+                updateSlider();
             });
-
-            function updateSlider() {
-                const activeComp = comparisons[currentIndex];
-                const divider = activeComp.querySelector('.divider');
-                const beforeContainer = activeComp.querySelector('.image-before');
-
-                divider.style.left = position + '%';
-                beforeContainer.style.clipPath = `inset(0 ${100 - position}% 0 0)`;
-            }
-
-            // Initialize
-            updateSlider();
         });
     </script>
 
