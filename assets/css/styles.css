@@ -120,21 +120,38 @@ mjx-container[jax="CHTML"] {
 
 .affiliations {
     margin-top: 1.5rem;
-    text-align: center;
 }
 
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+/* link di testo */
+.affiliation-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s ease;
 }
 
-.logo-container img {
-    height: 42px;
+.affiliation-link:hover {
+    color: #007bff;
+    text-decoration: none;
 }
 
+.affiliations h6 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.affiliation-logo {
+    max-height: 48px;
+    opacity: 0.9;
+    transition: all 0.25s ease-in-out;
+}
+
+.affiliation-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+}
 
 
 .carousel-container {

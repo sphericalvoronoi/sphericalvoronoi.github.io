@@ -504,110 +504,60 @@
 
 
 
-    = <div class="container my-4">
-        <hr class="section-line">
-        <h2 class="font-weight-bold mb-3">Fitting Functions on Spherical Domains</h2>
+<div class="container my-4">
+    <hr class="section-line">
+    <h2 class="font-weight-bold mb-3">Fitting Functions on Spherical Domains</h2>
 
-        <p class="text-justify">
-            We analyze the convergence behavior of different spherical representations when fitting the same
-            scalar function defined on the sphere \( f : \mathbb{S}^2 \rightarrow \mathbb{R} \).
-            We compare <strong>Spherical Harmonics (SH)</strong>,
-            <strong>Spherical Gaussians (SG)</strong>,
-            <strong>Spherical Betas (SB)</strong>,
-            and our <strong>Spherical Voronoi (SV)</strong> model.
-            Each method was optimized <strong>100 times</strong> from random initializations to evaluate robustness,
-            accuracy, and sensitivity to local minima.
-        </p>
+    <p class="text-justify">
+        The figure below summarizes an experiment where different spherical representations
+        were used to fit the same scalar function defined on the unit sphere.
+        Each method was trained <strong>100 times</strong> from random initializations,
+        allowing us to analyze both <em>accuracy</em> and <em>stability</em> across runs.
+    </p>
 
-        <div class="text-center mt-3 mb-3">
-            <img src="assets/img/convergence.png" class="img-fluid" alt="Fitting functions on spherical domains (2D)">
-        </div>
-
-        <p class="text-justify">
-            The figure above summarizes the experiment.
-            The <strong>top row</strong> shows the reconstructed functions after convergence,
-            while the <strong>bottom-left insets</strong> visualize examples of random initializations used for the
-            fits.
-            The <strong>bottom-right histograms</strong> report the distribution of the final
-            <strong>PSNR values</strong> across the 100 runs.
-            The dashed red line indicates the <strong>mean PSNR</strong> for each representation.
-        </p>
-
-        <p class="text-justify">
-            Spherical Harmonics expand the signal as:
-            \[
-            f_{\text{SH}}(\omega; c)
-            = \sum_{l=0}^{L} \sum_{m=-l}^{l} c_{lm}\,Y_l^m(\omega),
-            \]
-            providing an orthogonal and globally supported basis.
-            As a result, all runs converge to the same global minimum, yielding negligible variance in PSNR.
-            However, the representation is <em>band-limited</em>, so high-frequency or discontinuous signals are not
-            captured.
-            This limitation produces smooth reconstructions with characteristic <strong>Gibbs artifacts</strong> near
-            sharp
-            transitions,
-            explaining why the mean PSNR (red line) remains relatively low despite consistent convergence.
-        </p>
-
-        <p class="text-justify">
-            Spherical Gaussians describe the function as a mixture of smooth lobes:
-            \[
-            f_{\text{SG}}(\omega; \tau, s, c)
-            = \sum_{k=1}^{K} c_k \exp\!\big(\tau_k (s_k \!\cdot\! \omega - 1)\big),
-            \]
-            allowing localized high-frequency modeling.
-            Nevertheless, each Gaussian lobe is compactly supported, making the optimization highly sensitive to
-            initialization.
-            When lobes start misaligned with the target signal, gradients vanish, producing unstable convergence.
-            Consequently, the histogram exhibits a <strong>high variance</strong> in PSNR values:
-            some runs reach good reconstructions, but many fail to escape poor local minima.
-        </p>
-
-        <p class="text-justify">
-            Spherical Betas extend SGs by introducing asymmetric and bounded lobes:
-            \[
-            f_{\text{SB}}(\omega; \alpha, \beta, s)
-            = \sum_{k=1}^{K} (1+s_k\!\cdot\!\omega)^{\alpha_k-1} (1-s_k\!\cdot\!\omega)^{\beta_k-1}.
-            \]
-            This formulation can reproduce skewed and sharper angular variations, but the increased flexibility worsens
-            conditioning.
-            Extreme parameter values yield spiky or flat lobes, causing <strong>ill-conditioned gradients</strong> and
-            even larger PSNR variance than in SGs. The histogram for SBs is thus the widest among all methods.
-        </p>
-
-        <p class="text-justify">
-            The proposed <strong>Spherical Voronoi (SV)</strong> representation defines a differentiable soft
-            tessellation:
-            \[
-            f_{\text{SV}}(\omega; \tau, s, c)
-            = \sum_{k=1}^{K} w_k(\omega; \tau)\, c_k,
-            \qquad
-            w_k(\omega; \tau)
-            = \frac{\exp(\tau\, s_k \!\cdot\! \omega)}
-            {\sum_{k'} \exp(\tau\, s_{k'} \!\cdot\! \omega)}.
-            \]
-            The temperature parameter \( \tau \) regulates the angular sharpness: small values produce smooth color
-            regions,
-            while large values approximate a hard Voronoi partition.
-            This formulation ensures that all sites contribute to the gradient field,
-            preventing “dead zones” and avoiding the competition between overlapping kernels observed in SG and SB.
-            As a result, SV converges <strong>consistently across all runs</strong>,
-            showing <strong>negligible PSNR variance</strong> and the highest average accuracy among all methods.
-            The red dashed line in the histogram lies near the upper limit of the attainable PSNR,
-            and the reconstructed function is nearly indistinguishable from the ground truth.
-        </p>
-
-        <p class="text-justify">
-            In summary, this experiment highlights how each representation behaves under identical optimization
-            conditions:
-            <strong>SH</strong> are stable but over-smooth,
-            <strong>SG</strong> and <strong>SB</strong> are expressive but unstable,
-            while <strong>SV</strong> combines stability and flexibility.
-            It delivers <em>high-frequency fidelity</em> and <em>robust convergence</em> even under random
-            initialization,
-            confirming its suitability as a general-purpose spherical parameterization.
+    <div class="text-center mt-3 mb-3">
+        <img src="assets/img/convergence.png" class="img-fluid" alt="Fitting functions on spherical domains (2D)">
+        <p class="text-muted small mt-2">
+            Top: reconstructions after optimization.
+            Bottom-left: random initializations.
+            Bottom-right: PSNR histograms over 100 runs.
         </p>
     </div>
+
+    <p class="text-justify">
+        The top row highlights the qualitative behavior of each model, while the histograms
+        quantify the <strong>distribution of PSNR values</strong> across the 100 runs.
+        <strong>Spherical Harmonics (SH)</strong> converge consistently to the same solution,
+        showing <em>minimal variance</em> but limited accuracy.
+        Because SH rely on globally supported basis functions, they cannot represent discontinuities
+        or sharp angular variations.
+        As a result, reconstructions appear overly smooth and exhibit the
+        well-known <strong>Gibbs effect</strong> near discontinuities — oscillatory artifacts
+        that cap the mean PSNR at a relatively low value.
+    </p>
+
+    <p class="text-justify">
+        <strong>Spherical Gaussians (SG)</strong> and <strong>Spherical Betas (SB)</strong>
+        introduce localized lobes that can model high-frequency content,
+        but their optimization is highly sensitive to initialization.
+        Depending on where lobes start, gradients may vanish or compete, leading to
+        <strong>large PSNR variance</strong>: a few runs reach good fits, while others get stuck
+        in poor local minima.
+        The wide histograms in the figure clearly illustrate this instability.
+    </p>
+
+    <p class="text-justify">
+        In contrast, our <strong>Spherical Voronoi (SV)</strong> representation yields both
+        <em>high accuracy</em> and <em>lower variance</em> across all 100 runs.
+        By defining a differentiable, soft tessellation of the sphere,
+        every region contributes meaningful gradients during optimization.
+        This prevents the dead zones and kernel overlap problems seen in SG and SB.
+        The resulting histograms are tight, and the mean PSNR (red dashed line)
+        lies near the upper end of the attainable range — confirming both
+        robustness and precision.
+    </p>
+
+</div>
 
 
     <div class="container mb-4">
