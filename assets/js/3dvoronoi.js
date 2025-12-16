@@ -375,29 +375,33 @@ void main(){
     window.addEventListener("mouseup", onMouseUp);
     window.addEventListener("mousemove", onMouseMove);
 
-    canvas.addEventListener(
-        "wheel",
-        (e) => {
-            e.preventDefault();
-        },
-        { passive: false }
-    );
+    // canvas.addEventListener(
+    //     "wheel",
+    //     (e) => {
+    //         e.preventDefault();
+    //     },
+    //     { passive: false }
+    // );
 
     function animate() {
         requestAnimationFrame(animate);
 
         const now = performance.now();
-        const dt = (now - lastTime) * 0.001; 
+        const dt = (now - lastTime) * 0.001;
         lastTime = now;
         elapsed += dt;
 
-        autoYaw += AUTO_YAW_SPEED * dt;
-        if (autoYaw > Math.PI * 2) autoYaw -= Math.PI * 2;
+        // Aggiorna l'auto-rotazione SOLO se non stai trascinando
+        if (!dragging) {
+            autoYaw += AUTO_YAW_SPEED * dt;
+            if (autoYaw > Math.PI * 2.0) autoYaw -= Math.PI * 2.0;
 
-        autoPitch = AUTO_PITCH_AMPLITUDE * Math.sin(AUTO_PITCH_SPEED * elapsed);
+            autoPitch = AUTO_PITCH_AMPLITUDE * Math.sin(AUTO_PITCH_SPEED * elapsed);
+        }
 
         applyCameraTransform();
         renderer.render(scene, camera);
     }
+
     animate();
 })();
