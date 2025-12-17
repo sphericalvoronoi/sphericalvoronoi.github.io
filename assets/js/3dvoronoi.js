@@ -8,8 +8,8 @@
     const ENV_W = 2048;
     const ENV_H = 1024;
 
-    const BETA_MIN = 0.01;
-    const BETA_MAX = 2500.0; 
+    const BETA_MIN = 10;
+    const BETA_MAX = 5000.0;
 
     const canvas = document.getElementById("voronoi3dCanvas");
     const tempSlider = document.getElementById("voronoi3dTemperature");
@@ -23,8 +23,8 @@
     }
 
     function sliderToBeta(sliderValue) {
-        const v = Math.max(0, Math.min(BETA_MAX, sliderValue || 0)); // clamp 0..5000
-        const t = v / BETA_MAX; // [0,1]
+        const v = Math.max(0, Math.min(BETA_MAX, sliderValue || 0));
+        const t = v / BETA_MAX;
         const logMin = Math.log(BETA_MIN);
         const logMax = Math.log(BETA_MAX);
         return Math.exp(logMin + t * (logMax - logMin));
@@ -34,8 +34,8 @@
         const b = Math.max(BETA_MIN, Math.min(BETA_MAX, beta));
         const logMin = Math.log(BETA_MIN);
         const logMax = Math.log(BETA_MAX);
-        const t = (Math.log(b) - logMin) / (logMax - logMin); // [0,1]
-        return t * BETA_MAX; // 0..5000
+        const t = (Math.log(b) - logMin) / (logMax - logMin);
+        return t * BETA_MAX;
     }
 
     const TAB20 = [
@@ -58,7 +58,7 @@
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
     renderer.setPixelRatio(window.devicePixelRatio || 1);
-    renderer.setClearColor(0xffffff, 1);
+    renderer.setClearColor(0xf9fafb, 1);
 
     function resizeRenderer() {
         const rect = canvas.getBoundingClientRect();
@@ -290,8 +290,74 @@ void main(){
     fillSitesAndColors(currentNumSites);
     updateVoronoi();
 
+    let userInteractingTemp = false;
+    let tempRafId = null;
+    let tempLastTs = null;
+    let tempDir = 1;
+    const TEMP_SECONDS_PER_HALF_CYCLE = 3;
+    let tempAutoEnabled = false;
+
+    function tempStep(ts) {
+        if (!tempAutoEnabled) return;
+        if (tempLastTs == null) tempLastTs = ts;
+        const dt = (ts - tempLastTs) / 1000;
+        tempLastTs = ts;
+
+        if (!userInteractingTemp) {
+            const min = parseFloat(tempSlider.min || "0");
+            const max = parseFloat(tempSlider.max || String(BETA_MAX));
+            const range = max - min;
+            const speed = range / Math.max(0.1, TEMP_SECONDS_PER_HALF_CYCLE);
+
+            let v = parseFloat(tempSlider.value || "0");
+            if (!Number.isFinite(v)) v = (min + max) * 0.5;
+
+            v += tempDir * speed * dt;
+
+            if (v >= max) { v = max; tempDir = -1; }
+            else if (v <= min) { v = min; tempDir = 1; }
+
+            tempSlider.value = String(v);
+
+            currentBeta = sliderToBeta(v);
+            tempLabel.textContent = currentBeta.toFixed(2);
+            updateVoronoi();
+        }
+
+        tempRafId = requestAnimationFrame(tempStep);
+    }
+
+    function startTempAuto() {
+        if (!tempAutoEnabled) return;
+        if (tempRafId != null) return;
+        tempLastTs = null;
+        tempRafId = requestAnimationFrame(tempStep);
+    }
+
+    function stopTempAuto() {
+        if (tempRafId != null) cancelAnimationFrame(tempRafId);
+        tempRafId = null;
+        tempLastTs = null;
+    }
+
+    function setTempAutoAnimate(enabled) {
+        tempAutoEnabled = !!enabled;
+        if (tempAutoEnabled) startTempAuto();
+        else stopTempAuto();
+    }
+
+    const tempOnDown = () => { userInteractingTemp = true; };
+    const tempOnUp = () => { userInteractingTemp = false; };
+
+    tempSlider.addEventListener("pointerdown", tempOnDown);
+    window.addEventListener("pointerup", tempOnUp);
+    tempSlider.addEventListener("mousedown", tempOnDown);
+    window.addEventListener("mouseup", tempOnUp);
+    tempSlider.addEventListener("touchstart", tempOnDown, { passive: true });
+    window.addEventListener("touchend", tempOnUp, { passive: true });
+
     tempSlider.addEventListener("input", (e) => {
-        const sliderVal = parseFloat(e.target.value || "0"); // 0..5000
+        const sliderVal = parseFloat(e.target.value || "0");
         currentBeta = sliderToBeta(sliderVal);
         tempLabel.textContent = currentBeta.toFixed(2);
         updateVoronoi();
@@ -311,17 +377,17 @@ void main(){
     const baseUp = new THREE.Vector3(0, 1, 0);
     const camQuat = new THREE.Quaternion();
 
-    let yawBase = 0;    
-    let pitchBase = 0;  
-    let autoYaw = 0;    
-    let autoPitch = 0;  
+    let yawBase = 0;
+    let pitchBase = 0;
+    let autoYaw = 0;
+    let autoPitch = 0;
 
     let dragging = false;
     let lastX = 0, lastY = 0;
 
-    const AUTO_YAW_SPEED = 0.25;         
-    const AUTO_PITCH_AMPLITUDE = 0.25;    
-    const AUTO_PITCH_SPEED = 0.4;        
+    const AUTO_YAW_SPEED = 0.25;
+    const AUTO_PITCH_AMPLITUDE = 0.25;
+    const AUTO_PITCH_SPEED = 0.4;
 
     let lastTime = performance.now();
     let elapsed = 0.0;
@@ -375,14 +441,6 @@ void main(){
     window.addEventListener("mouseup", onMouseUp);
     window.addEventListener("mousemove", onMouseMove);
 
-    // canvas.addEventListener(
-    //     "wheel",
-    //     (e) => {
-    //         e.preventDefault();
-    //     },
-    //     { passive: false }
-    // );
-
     function animate() {
         requestAnimationFrame(animate);
 
@@ -391,11 +449,9 @@ void main(){
         lastTime = now;
         elapsed += dt;
 
-        // Aggiorna l'auto-rotazione SOLO se non stai trascinando
         if (!dragging) {
             autoYaw += AUTO_YAW_SPEED * dt;
             if (autoYaw > Math.PI * 2.0) autoYaw -= Math.PI * 2.0;
-
             autoPitch = AUTO_PITCH_AMPLITUDE * Math.sin(AUTO_PITCH_SPEED * elapsed);
         }
 
@@ -404,4 +460,6 @@ void main(){
     }
 
     animate();
+
+    window.setVoronoi3DTempAutoAnimate = setTempAutoAnimate;
 })();

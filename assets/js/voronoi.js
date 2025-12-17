@@ -8,12 +8,10 @@
         const DEFAULT_SITES = options.defaultSites || 8;
         const MIN_SITES = options.minSites || 2;
 
-        // Ora la temperatura slider va 0..MAX_TEMPERATURE (default 5000)
-        const MAX_TEMPERATURE = options.maxTemperature || 2500;
+        const MAX_TEMPERATURE = options.maxTemperature || 1250;
         const DEFAULT_TEMPERATURE = options.defaultTemperature || 250;
 
-        // Intervallo effettivo di beta usato nel modello
-        const BETA_MIN = options.minBeta || 0.01;
+        const BETA_MIN = options.minBeta || 0.5;
         const BETA_MAX = options.maxBeta || 2500.0;
 
         const canvasId = options.canvasId || "voronoiCanvas";
@@ -21,6 +19,9 @@
         const temperatureId = options.temperatureId || "temperature";
         const temperatureLabelId = options.temperatureLabelId || "temperatureLabel";
         const generateButtonId = options.generateButtonId || "generateVoronoi";
+
+        const AUTO_ANIMATE = options.autoAnimate ?? false;
+        const AUTO_SECONDS_PER_HALF_CYCLE = options.autoSecondsPerHalfCycle ?? 3;
 
         const canvas = document.getElementById(canvasId);
         const numSitesInput = document.getElementById(numSitesInputId);
@@ -57,10 +58,9 @@
             return min + Math.random() * (max - min);
         }
 
-        // --- NUOVO: temperatura (slider) -> beta in scala logaritmica ---
         function temperatureToBeta(temp) {
             const clamped = Math.max(0, Math.min(MAX_TEMPERATURE, temp || 0));
-            const t = clamped / MAX_TEMPERATURE; // [0,1]
+            const t = clamped / MAX_TEMPERATURE;
             const logMin = Math.log(BETA_MIN);
             const logMax = Math.log(BETA_MAX);
             return Math.exp(logMin + t * (logMax - logMin));
@@ -182,7 +182,6 @@
             ctx.restore();
         }
 
-        // Vettori: lunghezza fissa indipendente dalla temperatura
         function drawSitesAndArrows() {
             ctx.save();
             ctx.translate(centerX, centerY);
@@ -196,22 +195,17 @@
             for (const s of sites) {
                 const n = s.lambda / maxLambda;
                 const ray = n * maxRay;
-
                 const x = ray * Math.cos(s.angle);
                 const y = -ray * Math.sin(s.angle);
-
                 ctx.strokeStyle = ctx.fillStyle = rgbArrayToCss(s.colorRGB);
                 ctx.lineWidth = 2;
-
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
                 ctx.lineTo(x, y);
                 ctx.stroke();
-
                 const hl = 10, a = s.angle;
                 const la = a + Math.PI * 0.87;
                 const ra = a - Math.PI * 0.87;
-
                 ctx.beginPath();
                 ctx.moveTo(x, y);
                 ctx.lineTo(x + hl * Math.cos(la), y - hl * Math.sin(la));
@@ -219,13 +213,11 @@
                 ctx.closePath();
                 ctx.fill();
             }
-
             ctx.restore();
         }
 
         function drawFunctionCurve(beta) {
             const { values, scale } = computeFunctionValues(beta);
-
             ctx.save();
             ctx.translate(centerX, centerY);
             ctx.strokeStyle = "#000";
@@ -241,7 +233,6 @@
             ctx.closePath();
             ctx.stroke();
             ctx.restore();
-
             drawSitesAndArrows();
         }
 
@@ -249,19 +240,84 @@
             if (!sites.length) return;
             const tempRaw = parseFloat(temperatureSlider.value);
             const temp = !isNaN(tempRaw) ? tempRaw : DEFAULT_TEMPERATURE;
-
             const beta = temperatureToBeta(temp);
-
-            // Mostriamo beta effettivo, non la temperatura grezza
-            temperatureLabel.textContent = beta.toFixed(2);
-
+            if (temperatureLabel) temperatureLabel.textContent = beta.toFixed(2);
             clearCanvas();
             drawColorRing(beta);
             drawFunctionCurve(beta);
         }
 
+        let autoAnimEnabled = AUTO_ANIMATE;
+        let userInteracting = false;
+        let rafId = null;
+        let lastTs = null;
+        let direction = 1;
+
+        function step(ts) {
+            if (!autoAnimEnabled) return;
+            if (lastTs == null) lastTs = ts;
+            const dt = (ts - lastTs) / 1000;
+            lastTs = ts;
+
+            if (!userInteracting && temperatureSlider) {
+                const min = parseFloat(temperatureSlider.min || "0");
+                const max = parseFloat(temperatureSlider.max || String(MAX_TEMPERATURE));
+                const range = max - min;
+                const speed = range / Math.max(0.1, AUTO_SECONDS_PER_HALF_CYCLE);
+
+                let v = parseFloat(temperatureSlider.value || String(DEFAULT_TEMPERATURE));
+                if (isNaN(v)) v = DEFAULT_TEMPERATURE;
+
+                v += direction * speed * dt;
+
+                if (v >= max) {
+                    v = max;
+                    direction = -1;
+                } else if (v <= min) {
+                    v = min;
+                    direction = 1;
+                }
+
+                temperatureSlider.value = String(v);
+                render();
+            }
+
+            rafId = requestAnimationFrame(step);
+        }
+
+        function startAuto() {
+            if (!autoAnimEnabled) return;
+            if (rafId != null) return;
+            lastTs = null;
+            rafId = requestAnimationFrame(step);
+        }
+
+        function stopAuto() {
+            if (rafId != null) cancelAnimationFrame(rafId);
+            rafId = null;
+            lastTs = null;
+        }
+
+        function setAutoAnimate(enabled) {
+            autoAnimEnabled = !!enabled;
+            if (autoAnimEnabled) startAuto();
+            else stopAuto();
+        }
+
         if (temperatureSlider) {
             temperatureSlider.addEventListener("input", render);
+
+            const onDown = () => { userInteracting = true; };
+            const onUp = () => { userInteracting = false; };
+
+            temperatureSlider.addEventListener("pointerdown", onDown);
+            window.addEventListener("pointerup", onUp);
+
+            temperatureSlider.addEventListener("mousedown", onDown);
+            window.addEventListener("mouseup", onUp);
+
+            temperatureSlider.addEventListener("touchstart", onDown, { passive: true });
+            window.addEventListener("touchend", onUp, { passive: true });
         }
 
         if (generateBtn) {
@@ -273,6 +329,9 @@
 
         initSites();
         render();
+        if (autoAnimEnabled) startAuto();
+
+        return { setAutoAnimate };
     }
 
     global.initVoronoiPolarViewer = initVoronoiPolarViewer;

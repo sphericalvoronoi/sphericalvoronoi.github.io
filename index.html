@@ -292,17 +292,17 @@
     <div class="container text-center">
 
         <!-- Paper (PDF) -->
-        <a href="files/paper.pdf" target="_blank" class="resource-btn" height="80px">
+        <a href="./assets/paper/paper.pdf" target="_blank" class="resource-btn" height="80px" download>
             <img src="./assets/media/pdf.png" alt="PDF logo"> Paper
         </a>
 
         <!-- arXiv -->
-        <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" class="resource-btn">
+        <a href="https://arxiv.org/abs/2512.14180" target="_blank" class="resource-btn">
             <img src="./assets/media/paper.png" alt="arXiv logo"> arXiv
         </a>
 
         <!-- Code (GitHub) -->
-        <a href="https://github.com/username/project" target="_blank" class="resource-btn">
+        <a href="#" target="_blank" class="resource-btn" aria-disabled="true">
             <img src="./assets/media/github.png" alt="GitHub logo"> Code
         </a>
 
@@ -371,7 +371,7 @@
         </div>
 
         <p class="text-muted font-italic text-justify" style="max-width: 1100px;">
-            Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics
+            <!-- Spherical functions like the shown environment maps have a multitude of applications in Computer Graphics
             and 3D Computer Vision. Classical representations like Spherical Harmonics (SH) optimize well but struggle
             to represent high-frequency functions. Explicit representations such as Spherical Gaussians (SG) can capture
             localized signals but are difficult to optimize due to the locality of support of their bases. We propose
@@ -379,18 +379,18 @@
             provides an <i>adaptive</i> decomposition of the spherical domain, and is <i>easier</i> to optimize.
             SH are evaluated up to degree <i>L</i>=34, corresponding to 1,225 basis functions per channel
             (3,675 parameters in total), which is roughly equivalent in representational capacity to
-            512 SG or 512 SV sites.
+            512 SG or 512 SV sites. -->
         </p>
 
 
         <div class="text-center mt-5">
             <img src="assets/img/radiance_table.png" class="img-fluid" alt="Window function visualization" />
             <p class="text-muted font-italic text-justify" style="max-width: 1100px;">
-                Our Spherical Voronoi model (Ours) consistently improves performance over existing color
+                <!-- Our Spherical Voronoi model (Ours) consistently improves performance over existing color
                 parameterizations.
                 Remarkably, it is the first non–neural-field formulation capable of surpassing strong neural baselines
                 such as Zip-NeRF
-                on the MipNeRF-360 dataset.
+                on the MipNeRF-360 dataset. -->
             </p>
         </div>
     </div>
@@ -437,7 +437,7 @@
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="temperature" min="0" max="2500" value="1573"
+                            <input type="range" id="temperature" min="0" max="1250" value="700"
                                 class="custom-range flex-grow-1" />
                             <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
                                 250
@@ -490,7 +490,7 @@
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="voronoi3dTemperature" min="0" max="2500" value="1934"
+                            <input type="range" id="voronoi3dTemperature" min="100" max="5000" value="2500"
                                 class="custom-range flex-grow-1" />
                             <span id="voronoi3dTemperatureLabel" class="ml-2 text-right"
                                 style="width:40px; font-size:14px;">
@@ -503,7 +503,7 @@
                         <label for="voronoi3dNumSites" class="d-block mb-1" style="font-size:14px;">
                             Number of sites:
                         </label>
-                        <input type="number" id="voronoi3dNumSites" min="2" max="1024" value="128" class="form-control"
+                        <input type="number" id="voronoi3dNumSites" min="2" max="1024" value="64" class="form-control"
                             style="font-size:14px;" />
                     </div>
 
@@ -585,134 +585,149 @@
                 <h2 class="font-weight-bold">Methodology</h2>
 
                 <h4 class="mt-3"><strong>View Direction Parameterization</strong></h4>
+                
                 <p class="text-justify">
                     We represent view-dependent appearance using a
-                    <strong>soft Spherical Voronoi (SV)</strong> function on the unit sphere.
-                    Each primitive defines directional sites \( s_k \in \mathbb{S}^2 \) with values
+                    <strong>soft Spherical Voronoi (SV)</strong> function defined on the unit sphere.
+                    Each primitive defines a set of directional sites
+                    \( s_k \in \mathbb{S}^2 \) with associated values
                     \( c_k \in \mathbb{R} \), and evaluates radiance as:
                 </p>
-
+                
                 <p class="text-center">
                     \[
                     f_{\text{SV}}(\omega; \tau, s, c)
-                    = \sum_k w_k(\omega; \tau)\, c_k
+                    = \sum_{k} w_k(\omega; \tau_k)\, c_k
                     \]
                     \[
                     \text{where}\quad
-                    w_k(\omega; \tau)
-                    = \frac{\exp(\tau\, s_k \cdot \omega)}
-                    {\sum_{k'} \exp(\tau\, s_{k'} \cdot \omega)}
+                    w_k(\omega; \tau_k)
+                    = \frac{\exp(\tau_k\, s_k \cdot \omega)}
+                    {\sum_{k} \exp(\tau_k\, s_k \cdot \omega)}.
                     \]
                 </p>
-
+                
                 <p class="text-justify">
-                    The <strong>temperature</strong> parameter \( \tau \) controls angular sharpness:
-                    low values produce broad, smooth lobes, while high values yield narrow,
-                    highly directional responses.
-                    In this setting, we simply replace spherical harmonics in 3D Gaussian Splatting with SV,
-                    obtaining a fully explicit, differentiable, and more flexible view-directional model.
+                    If all temperatures are equal, i.e. \( \tau_k = \tau \ \forall k \),
+                    the formulation corresponds to the standard <strong>Spherical Voronoi (SV)</strong> model.
+                    Allowing site-dependent temperatures \( \{\tau_k\} \) yields the
+                    <strong>weighted Spherical Voronoi</strong> variant, enabling independent control over
+                    the angular sharpness of each Voronoi region.
                 </p>
-
+                
+                <p class="text-justify">
+                    The temperature parameter controls angular sharpness:
+                    low values produce smooth, broad responses, while high values yield sharp,
+                    Voronoi-like partitions of the sphere.
+                    In this setting, we replace spherical harmonics in
+                    <strong>3D Gaussian Splatting</strong> with SV, obtaining a fully explicit,
+                    differentiable, and more expressive view-directional model.
+                </p>
+                
                 <h4 class="mt-4"><strong>Reflection-based Parameterization</strong></h4>
-
+                
                 <p class="text-justify">
-                    In the spirit of <em>Ref-NeRF</em>, we parameterize glossy reflections using the
-                    <strong>reflected view direction</strong> instead of the view direction itself.
-                    For a view direction \( \omega \) and surface normal \( n \), the reflected direction is:
+                    Following <em>Ref-NeRF</em>, we parameterize glossy reflections by evaluating
+                    directional appearance at the <strong>reflected view direction</strong>.
+                    For a view direction \( \omega \) and surface normal \( n \), the reflected
+                    direction is:
                 </p>
-
+                
                 <p class="text-center">
                     \[
                     \omega_r = 2(\omega \cdot n)\,n - \omega.
                     \]
                 </p>
-
+                
                 <p class="text-justify">
-                    We model the reflected radiance \( f(\omega_r) \) with <strong>Spherical Voronoi</strong> (SV)
-                    functions,
-                    which can represent sharp specular lobes, multiple peaks, and even discontinuities, while remaining
-                    fully
+                    We model the reflected radiance \( f(\omega_r) \) using
+                    <strong>Spherical Voronoi (SV)</strong> functions, which can represent sharp
+                    specular lobes, multiple peaks, and even discontinuities, while remaining fully
                     differentiable.
                 </p>
-
+                
                 <h5><strong>Spatially Varying Reflections</strong></h5>
-
+                
                 <p class="text-justify">
-                    Relying only on \( f(\omega_r) \) assumes <em>far-field</em> illumination, which breaks down when
-                    objects or
-                    light sources are close to the surface. To capture <strong>near-field effects</strong>, we introduce
-                    a set of <strong>learnable light probes</strong>, each with position \( p_i \in \mathbb{R}^3 \),
-                    a blending weight \( \alpha_i \in [0,1] \), and SV parameters encoding a local reflection field.
+                    Evaluating \( f(\omega_r) \) alone assumes <em>far-field</em> illumination,
+                    which breaks down when geometry or light sources are close to the surface.
+                    To capture <strong>near-field effects</strong>, we introduce a set of
+                    <strong>learnable Voronoi light probes</strong>, each with position
+                    \( p_i \in \mathbb{R}^3 \), a blending weight \( \alpha_i \in [0,1] \),
+                    and SV parameters encoding a local reflection field.
                 </p>
-
+                
                 <p class="text-justify">
                     For a surface point \( P \), we gather its \( k \)-nearest probes
-                    \(\mathcal{N} = \text{kNN}(P)\) and compute normalized inverse-distance weights:
+                    \( \mathcal{N} = \mathrm{kNN}(P) \) and compute normalized inverse-distance
+                    weights:
                 </p>
-
+                
                 <p class="text-center">
                     \[
-                    \tilde{w}_i = \frac{\|P - p_i\|^{-1}}{\sum_{j \in \mathcal{N}} \|P - p_j\|^{-1}}.
+                    \tilde{w}_i =
+                    \frac{\|P - p_i\|^{-1}}
+                    {\sum_{j \in \mathcal{N}} \|P - p_j\|^{-1}}.
                     \]
                 </p>
-
+                
                 <p class="text-justify">
-                    The near-field specular color and mixing coefficient are then:
+                    The near-field specular color and blending coefficient are then:
                 </p>
-
+                
                 <p class="text-center">
                     \[
-                    C_n = \sum_{i \in \mathcal{N}} \tilde{w}_i\, f_{\text{SV}}^i(\omega_r; \tau),
+                    C_n = \sum_{i \in \mathcal{N}} \tilde{w}_i\, f_{\text{SV}}^{(i)}(\omega_r; \tau),
                     \qquad
                     \alpha = \sum_{i \in \mathcal{N}} \tilde{w}_i\, \alpha_i.
                     \]
                 </p>
-
+                
                 <h5><strong>Deferred Rendering with Voronoi Light Probes</strong></h5>
-
+                
                 <p class="text-justify">
-                    We adopt a <strong>deferred rendering</strong> pipeline based on 2D Gaussian splats.
-                    In the geometry pass, we rasterize all primitives into per-pixel buffers at image
-                    coordinates \( (u,v) \), storing position \( P(u,v) \), normal \( N(u,v) \),
-                    roughness \( R(u,v) \), and diffuse color \( D(u,v) \).
+                    We adopt a <strong>deferred rendering</strong> pipeline based on 2D Gaussian
+                    splats.
+                    In the geometry pass, primitives are rasterized into per-pixel buffers storing
+                    position \( P(u,v) \), normal \( N(u,v) \), roughness \( R(u,v) \),
+                    and diffuse color \( D(u,v) \).
                     The final shaded color is:
                 </p>
-
+                
                 <p class="text-center">
                     \[
                     C = D + C_{\text{spec}},
                     \]
                 </p>
-
+                
                 <p class="text-justify">
                     where the specular term blends near- and far-field contributions:
                 </p>
-
+                
                 <p class="text-center">
                     \[
                     C_{\text{spec}} = \alpha\, C_n + (1 - \alpha)\, C_f.
                     \]
                 </p>
-
+                
                 <p class="text-justify">
-                    The far-field component \( C_f \) is obtained from a learnable environment cubemap, evaluated at
-                    the reflected direction \( \omega_r\).
-                    The roughness \( R \) controls the angular sharpness of the SV lobes via:
+                    The far-field component \( C_f \) is obtained from a learnable environment
+                    cubemap, evaluated at the reflected direction \( \omega_r \).
+                    Surface roughness controls the angular sharpness of the SV lobes via:
                 </p>
-
+                
                 <p class="text-center">
                     \[
                     \tau = (1 - R)\,\tau_{\max} + R\,\tau_{\min},
                     \]
                 </p>
-
+                
                 <p class="text-justify">
                     where \( \tau_{\min} \) and \( \tau_{\max} \) are fixed hyperparameters.
-                    Low roughness yields sharper specular highlights (high \( \tau \)), while high roughness produces
-                    broader lobes,
-                    providing a unified and explicit model for both diffuse and glossy appearance.
+                    Low roughness yields sharp, mirror-like reflections (high \( \tau \)), while
+                    high roughness produces broader responses, resulting in a unified and explicit
+                    model for both diffuse and glossy appearance.
                 </p>
-
 
                 <div class="text-center mb-4 mt-5">
                     <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
