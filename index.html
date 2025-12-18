@@ -424,13 +424,13 @@
                         height:auto;
                         aspect-ratio:1 / 1;
                         border-radius:16px;
-                        background:#f8f9fb;
+                        background:#fff;
                         display:block;
                         margin:0 auto;
                     "></canvas>
                 </div>
 
-                <div class="p-3 border rounded" style="background:#f9fafb;">
+                <div class="p-3 border rounded" style="background:#fff !important;">
 
                     <div class="form-group">
                         <label for="temperature" class="d-block mb-1" style="font-size:14px;">
@@ -440,7 +440,7 @@
                             <input type="range" id="temperature" min="0" max="1250" value="700"
                                 class="custom-range flex-grow-1" />
                             <span id="temperatureLabel" class="ml-2 text-right" style="width:40px; font-size:14px;">
-                                250
+                                700
                             </span>
                         </div>
                     </div>
@@ -455,7 +455,7 @@
 
                     <button id="generateVoronoi" class="btn btn-light btn-block mt-3" style="
                                 border-radius:8px;
-                                border:1px solid #d1d5db;
+                                border:1px solid #fff;
                                 font-size:14px;
                             ">
                         Generate Voronoi
@@ -477,24 +477,24 @@
                         height:auto;
                         aspect-ratio:1 / 1;
                         border-radius:16px;
-                        background:#f8f9fb;
+                        background:#fff;
                         display:block;
                         margin:0 auto;
                     "></canvas>
                 </div>
 
-                <div class="p-3 border rounded" style="background:#f9fafb;">
+                <div class="p-3 border rounded" style="background:#fff !important">
 
                     <div class="form-group">
                         <label for="voronoi3dTemperature" class="d-block mb-1" style="font-size:14px;">
                             Temperature:
                         </label>
                         <div class="d-flex align-items-center">
-                            <input type="range" id="voronoi3dTemperature" min="100" max="5000" value="2500"
+                            <input type="range" id="voronoi3dTemperature" min="50" max="2500" value="1500"
                                 class="custom-range flex-grow-1" />
                             <span id="voronoi3dTemperatureLabel" class="ml-2 text-right"
                                 style="width:40px; font-size:14px;">
-                                250
+                                1500
                             </span>
                         </div>
                     </div>
@@ -509,7 +509,7 @@
 
                     <button id="voronoi3dGenerate" class="btn btn-light btn-block mt-3" style="
                                 border-radius:8px;
-                                border:1px solid #d1d5db;
+                                border:1px solid #fff;
                                 font-size:14px;
                             ">
                         Generate Voronoi
@@ -911,7 +911,7 @@
 
             <div class="col-lg-12">
                 <div class="carousel-container">
-                    <h4>Comparison with GT</h4>
+                    <h4>Comparison with Ground Truth</h4>
                     <div class="thumbnails">
                         <div class="thumb active" data-index="0">Bonsai</div>
                         <div class="thumb" data-index="1">Bicycle</div>
@@ -933,7 +933,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -947,7 +947,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -961,7 +961,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -975,7 +975,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -989,7 +989,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -1003,7 +1003,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -1017,7 +1017,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                         </div>
 
@@ -1181,7 +1181,7 @@
                 <div class="carousel-container">
                     <h4 class="text-center">Car</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb active" data-index="0">Ours vs Ground Truth</div>
                         <div class="thumb" data-index="1">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
@@ -1198,7 +1198,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
@@ -1338,7 +1338,7 @@
                 <div class="carousel-container">
                     <h4 class="text-center">Ball</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb active" data-index="0">Ours vs Ground Truth</div>
                         <div class="thumb" data-index="1">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
@@ -1355,7 +1355,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
@@ -1424,7 +1424,7 @@
                 <div class="carousel-container">
                     <h4 class="text-center">Toaster</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb active" data-index="0">Ours vs Ground Truth</div>
                         <div class="thumb" data-index="1">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
@@ -1441,7 +1441,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
@@ -1580,7 +1580,7 @@
                 <div class="carousel-container">
                     <h4 class="text-center">Helmet</h4>
                     <div class="thumbnails">
-                        <div class="thumb active" data-index="0">Ours vs GT</div>
+                        <div class="thumb active" data-index="0">Ours vs Ground Truth</div>
                         <div class="thumb" data-index="1">Ours vs Ref-GS</div>
                         <div class="thumb" data-index="2">Ours vs 3DGS-DR</div>
                         <div class="thumb" data-index="3">Ours vs GShader</div>
@@ -1597,7 +1597,7 @@
                             <div class="divider"></div>
                             <div class="labels-container">
                                 <div class="label label-left">Ours</div>
-                                <div class="label label-right">GT</div>
+                                <div class="label label-right">Ground Truth</div>
                             </div>
                             <div class="comparison-controls">
                                 <button class="play-btn"><span>⏸</span><span>Pause</span></button>
@@ -1767,98 +1767,178 @@
 
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.carousel-container').forEach(function (container) {
-                var thumbs = container.querySelectorAll('.thumb');
-                var wrapper = container.querySelector('.comparison-wrapper');
-                var comparisons = container.querySelectorAll('.comparison');
-                var currentIndex = 0;
-                var isPlaying = true;
-                var position = 50;
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.carousel-container').forEach(function (container) {
+            var thumbs = container.querySelectorAll('.thumb');
+            var wrapper = container.querySelector('.comparison-wrapper');
+            var comparisons = container.querySelectorAll('.comparison');
 
-                thumbs.forEach(function (thumb, idx) {
-                    thumb.addEventListener('click', function () {
-                        currentIndex = idx;
-                        thumbs.forEach(function (t) { t.classList.remove('active'); });
-                        thumb.classList.add('active');
-                        comparisons.forEach(function (c) { c.classList.remove('active'); });
-                        if (comparisons[idx]) {
-                            comparisons[idx].classList.add('active');
-                        }
-                        position = 50;
-                        updateSlider();
-                    });
-                });
+            var currentIndex = 0;
+            var isPlaying = true;
 
-                if (wrapper) {
-                    wrapper.addEventListener('mousemove', function (e) {
-                        var rect = wrapper.getBoundingClientRect();
-                        position = ((e.clientX - rect.left) / rect.width) * 100;
-                        if (position < 0) position = 0;
-                        if (position > 100) position = 100;
-                        updateSlider();
-                    });
+            // slider position (0..100)
+            var position = 50;
+
+            // --- Ping-pong auto slider ---
+            var autoSlide = true;
+            var sliderRaf = null;
+            var startTs = null;
+
+            var periodMs = 5000;       // durata di un ciclo completo 0->100->0
+            var lastManualTs = 0;
+            var resumeAfterMs = 1200;  // dopo quanto riprende dopo mousemove
+
+            function updateSlider() {
+                var activeComp = comparisons[currentIndex] || container.querySelector('.comparison.active');
+                if (!activeComp) return;
+
+                var divider = activeComp.querySelector('.divider');
+                var beforeContainer = activeComp.querySelector('.image-before');
+                if (!divider || !beforeContainer) return;
+
+                divider.style.left = position + '%';
+                beforeContainer.style.clipPath = 'inset(0 ' + (100 - position) + '% 0 0)';
+            }
+
+            function animateSlider(ts) {
+                if (!autoSlide) { sliderRaf = null; return; }
+                if (startTs === null) startTs = ts;
+
+                // se l'utente ha mosso il mouse di recente, aspetta prima di riprendere
+                if (ts - lastManualTs < resumeAfterMs) {
+                    sliderRaf = requestAnimationFrame(animateSlider);
+                    return;
                 }
 
-                comparisons.forEach(function (comp) {
-                    var playBtn = comp.querySelector('.play-btn');
-                    var resetBtn = comp.querySelector('.reset-btn');
-                    if (!playBtn) return;
-
-                    playBtn.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        isPlaying = !isPlaying;
-
-                        comparisons.forEach(function (c) {
-                            var b = c.querySelector('.play-btn');
-                            if (!b) return;
-                            var spans = b.querySelectorAll('span');
-                            var iconSpan = spans[0];
-                            var labelSpan = spans[1];
-                            var videos = c.querySelectorAll('video');
-
-                            if (isPlaying) {
-                                iconSpan.textContent = '⏸';
-                                labelSpan.textContent = 'Pause';
-                                videos.forEach(function (v) { v.play(); });
-                            } else {
-                                iconSpan.textContent = '▶';
-                                labelSpan.textContent = 'Play';
-                                videos.forEach(function (v) { v.pause(); });
-                            }
-                        });
-                    });
-
-                    if (resetBtn) {
-                        resetBtn.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            var videos = comp.querySelectorAll('video');
-                            videos.forEach(function (v) {
-                                v.pause();
-                                v.currentTime = 0;
-                                if (isPlaying) v.play();
-                            });
-                            position = 50;
-                            updateSlider();
-                        });
-                    }
-                });
-
-                function updateSlider() {
-                    var activeComp = comparisons[currentIndex] || container.querySelector('.comparison.active');
-                    if (!activeComp) return;
-                    var divider = activeComp.querySelector('.divider');
-                    var beforeContainer = activeComp.querySelector('.image-before');
-                    if (!divider || !beforeContainer) return;
-                    divider.style.left = position + '%';
-                    beforeContainer.style.clipPath = 'inset(0 ' + (100 - position) + '% 0 0)';
-                }
-
+                var t = ts - startTs;
+                var phase = (t % periodMs) / periodMs;               // 0..1
+                position = 50 + 50 * Math.sin(2 * Math.PI * phase);  // 0..100 armonioso
                 updateSlider();
+
+                sliderRaf = requestAnimationFrame(animateSlider);
+            }
+
+            function startAutoSlide() {
+                autoSlide = true;
+                if (!sliderRaf) sliderRaf = requestAnimationFrame(animateSlider);
+            }
+
+            function stopAutoSlide() {
+                autoSlide = false;
+                if (sliderRaf) cancelAnimationFrame(sliderRaf);
+                sliderRaf = null;
+                startTs = null;
+            }
+
+            // --- Thumbs click: cambia comparison ---
+            thumbs.forEach(function (thumb, idx) {
+                thumb.addEventListener('click', function () {
+                    currentIndex = idx;
+
+                    thumbs.forEach(function (t) { t.classList.remove('active'); });
+                    thumb.classList.add('active');
+
+                    comparisons.forEach(function (c) { c.classList.remove('active'); });
+                    if (comparisons[idx]) comparisons[idx].classList.add('active');
+
+                    position = 50;
+                    startTs = null;     // reset fase animazione
+                    updateSlider();
+
+                    // se stai "playing", tieni viva l'animazione
+                    if (isPlaying) startAutoSlide();
+                });
             });
+
+            // --- Mouse move: controllo manuale slider ---
+            if (wrapper) {
+                wrapper.addEventListener('mousemove', function (e) {
+                    var rect = wrapper.getBoundingClientRect();
+                    position = ((e.clientX - rect.left) / rect.width) * 100;
+                    if (position < 0) position = 0;
+                    if (position > 100) position = 100;
+
+                    lastManualTs = performance.now();
+                    updateSlider();
+
+                    // se vuoi che il mouse fermi proprio l'auto (anziché solo "rimandarla"):
+                    // stopAutoSlide();
+                });
+
+                // opzionale: quando esci dall'area, riprendi presto
+                wrapper.addEventListener('mouseleave', function () {
+                    lastManualTs = 0;
+                });
+            }
+
+            // --- Play/Pause e Reset (se ci sono bottoni) ---
+            comparisons.forEach(function (comp) {
+                var playBtn = comp.querySelector('.play-btn');
+                var resetBtn = comp.querySelector('.reset-btn');
+                if (!playBtn) return;
+
+                playBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    isPlaying = !isPlaying;
+
+                    // aggiorna TUTTI i bottoni play nello slider
+                    comparisons.forEach(function (c) {
+                        var b = c.querySelector('.play-btn');
+                        if (!b) return;
+
+                        var spans = b.querySelectorAll('span');
+                        var iconSpan = spans[0];
+                        var labelSpan = spans[1];
+                        var videos = c.querySelectorAll('video');
+
+                        if (isPlaying) {
+                            iconSpan.textContent = '⏸';
+                            labelSpan.textContent = 'Pause';
+                            videos.forEach(function (v) { v.play(); });
+                        } else {
+                            iconSpan.textContent = '▶';
+                            labelSpan.textContent = 'Play';
+                            videos.forEach(function (v) { v.pause(); });
+                        }
+                    });
+
+                    // play/pause anche sull'auto slider
+                    if (isPlaying) startAutoSlide();
+                    else stopAutoSlide();
+                });
+
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+
+                        var videos = comp.querySelectorAll('video');
+                        videos.forEach(function (v) {
+                            v.pause();
+                            v.currentTime = 0;
+                            if (isPlaying) v.play();
+                        });
+
+                        position = 50;
+                        startTs = null;
+                        updateSlider();
+
+                        if (isPlaying) startAutoSlide();
+                    });
+                }
+            });
+
+            // init: attiva prima comparison se non ce n'è una attiva
+            if (comparisons.length && !container.querySelector('.comparison.active')) {
+                comparisons[0].classList.add('active');
+            }
+
+            updateSlider();
+            if (isPlaying) startAutoSlide();
         });
-    </script>
+    });
+</script>
+
 
 
     <script>

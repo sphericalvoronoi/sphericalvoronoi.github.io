@@ -246,8 +246,8 @@ mjx-container[jax="CHTML"] {
 .label {
     position: absolute;
     top: 15px;
-    background: rgba(0, 0, 0, 0.95);
-    color: white;
+    background: rgba(255, 255 255, 0.95);
+    color: black;
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 22px;
@@ -1428,8 +1428,8 @@ model-viewer .controls {
 .label {
     position: absolute;
     top: 15px;
-    background: rgba(0, 0, 0, 0.95);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: black !important;
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 18px;

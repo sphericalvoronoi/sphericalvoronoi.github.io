@@ -12,30 +12,35 @@
     const BETA_MAX = 5000.0;
 
     const canvas = document.getElementById("voronoi3dCanvas");
-    const tempSlider = document.getElementById("voronoi3dTemperature");
-    const tempLabel = document.getElementById("voronoi3dTemperatureLabel");
+    const tauSlider = document.getElementById("voronoi3dTemperature");
+    const tauLabel = document.getElementById("voronoi3dTemperatureLabel");
     const sitesInput = document.getElementById("voronoi3dNumSites");
     const genButton = document.getElementById("voronoi3dGenerate");
 
-    if (!canvas || !tempSlider || !tempLabel || !sitesInput || !genButton) {
+    if (!canvas || !tauSlider || !tauLabel || !sitesInput || !genButton) {
         console.warn("[3D Voronoi] UI elements not found, skipping initialization.");
         return;
     }
 
-    function sliderToBeta(sliderValue) {
-        const v = Math.max(0, Math.min(BETA_MAX, sliderValue || 0));
-        const t = v / BETA_MAX;
+    function clamp(x, a, b) {
+        return Math.max(a, Math.min(b, x));
+    }
+
+    function getTauRange() {
+        const minAttr = parseFloat(tauSlider.min || "0");
+        const maxAttr = parseFloat(tauSlider.max || "1000");
+        const tmin = Number.isFinite(minAttr) ? minAttr : 0;
+        const tmax = Number.isFinite(maxAttr) ? maxAttr : 1000;
+        return { tmin, tmax };
+    }
+
+    function tauToBeta(tau) {
+        const { tmin, tmax } = getTauRange();
+        const clampedTau = clamp(tau || 0, tmin, tmax);
+        const t = (clampedTau - tmin) / Math.max(1e-6, (tmax - tmin));
         const logMin = Math.log(BETA_MIN);
         const logMax = Math.log(BETA_MAX);
         return Math.exp(logMin + t * (logMax - logMin));
-    }
-
-    function betaToSlider(beta) {
-        const b = Math.max(BETA_MIN, Math.min(BETA_MAX, beta));
-        const logMin = Math.log(BETA_MIN);
-        const logMax = Math.log(BETA_MAX);
-        const t = (Math.log(b) - logMin) / (logMax - logMin);
-        return t * BETA_MAX;
     }
 
     const TAB20 = [
@@ -48,9 +53,10 @@
 
     let currentNumSites = parseInt(sitesInput.value || "16", 10);
 
-    const initialSliderVal = parseFloat(tempSlider.value || "500");
-    let currentBeta = sliderToBeta(initialSliderVal);
-    tempLabel.textContent = currentBeta.toFixed(2);
+    const initialTau = parseFloat(tauSlider.value || "0");
+    let currentTau = Number.isFinite(initialTau) ? initialTau : 0;
+    let currentBeta = tauToBeta(currentTau);
+    tauLabel.textContent = currentTau.toFixed(1);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
@@ -68,6 +74,7 @@
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
     }
+
     resizeRenderer();
     window.addEventListener("resize", resizeRenderer);
 
@@ -292,35 +299,28 @@ void main(){
 
     let userInteractingTemp = false;
     let tempRafId = null;
-    let tempLastTs = null;
-    let tempDir = 1;
-    const TEMP_SECONDS_PER_HALF_CYCLE = 3;
+    let tempStartTs = null;
+
+    const TEMP_SECONDS_PER_CYCLE = 6.0;
     let tempAutoEnabled = false;
 
     function tempStep(ts) {
         if (!tempAutoEnabled) return;
-        if (tempLastTs == null) tempLastTs = ts;
-        const dt = (ts - tempLastTs) / 1000;
-        tempLastTs = ts;
+        if (tempStartTs == null) tempStartTs = ts;
 
         if (!userInteractingTemp) {
-            const min = parseFloat(tempSlider.min || "0");
-            const max = parseFloat(tempSlider.max || String(BETA_MAX));
-            const range = max - min;
-            const speed = range / Math.max(0.1, TEMP_SECONDS_PER_HALF_CYCLE);
+            const { tmin, tmax } = getTauRange();
+            const mid = (tmin + tmax) * 0.5;
+            const amp = (tmax - tmin) * 0.5;
 
-            let v = parseFloat(tempSlider.value || "0");
-            if (!Number.isFinite(v)) v = (min + max) * 0.5;
+            const t = (ts - tempStartTs) * 0.001;
+            const omega = (2 * Math.PI) / Math.max(0.1, TEMP_SECONDS_PER_CYCLE);
+            const tau = mid + amp * Math.sin(omega * t);
 
-            v += tempDir * speed * dt;
-
-            if (v >= max) { v = max; tempDir = -1; }
-            else if (v <= min) { v = min; tempDir = 1; }
-
-            tempSlider.value = String(v);
-
-            currentBeta = sliderToBeta(v);
-            tempLabel.textContent = currentBeta.toFixed(2);
+            tauSlider.value = String(tau);
+            currentTau = tau;
+            currentBeta = tauToBeta(tau);
+            tauLabel.textContent = currentTau.toFixed(1);
             updateVoronoi();
         }
 
@@ -330,14 +330,14 @@ void main(){
     function startTempAuto() {
         if (!tempAutoEnabled) return;
         if (tempRafId != null) return;
-        tempLastTs = null;
+        tempStartTs = null;
         tempRafId = requestAnimationFrame(tempStep);
     }
 
     function stopTempAuto() {
         if (tempRafId != null) cancelAnimationFrame(tempRafId);
         tempRafId = null;
-        tempLastTs = null;
+        tempStartTs = null;
     }
 
     function setTempAutoAnimate(enabled) {
@@ -349,19 +349,22 @@ void main(){
     const tempOnDown = () => { userInteractingTemp = true; };
     const tempOnUp = () => { userInteractingTemp = false; };
 
-    tempSlider.addEventListener("pointerdown", tempOnDown);
+    tauSlider.addEventListener("pointerdown", tempOnDown);
     window.addEventListener("pointerup", tempOnUp);
-    tempSlider.addEventListener("mousedown", tempOnDown);
+    tauSlider.addEventListener("mousedown", tempOnDown);
     window.addEventListener("mouseup", tempOnUp);
-    tempSlider.addEventListener("touchstart", tempOnDown, { passive: true });
+    tauSlider.addEventListener("touchstart", tempOnDown, { passive: true });
     window.addEventListener("touchend", tempOnUp, { passive: true });
 
-    tempSlider.addEventListener("input", (e) => {
-        const sliderVal = parseFloat(e.target.value || "0");
-        currentBeta = sliderToBeta(sliderVal);
-        tempLabel.textContent = currentBeta.toFixed(2);
+    tauSlider.addEventListener("input", (e) => {
+        const tau = parseFloat(e.target.value || "0");
+        currentTau = Number.isFinite(tau) ? tau : currentTau;
+        currentBeta = tauToBeta(currentTau);
+        tauLabel.textContent = currentTau.toFixed(1);
         updateVoronoi();
     });
+
+    window.setVoronoi3DTempAutoAnimate = setTempAutoAnimate;
 
     genButton.addEventListener("click", () => {
         let n = parseInt(sitesInput.value, 10);
@@ -408,6 +411,7 @@ void main(){
         camera.up.copy(up);
         camera.lookAt(0, 0, 0);
     }
+
     applyCameraTransform();
 
     function onMouseDown(e) {
@@ -460,6 +464,4 @@ void main(){
     }
 
     animate();
-
-    window.setVoronoi3DTempAutoAnimate = setTempAutoAnimate;
 })();
