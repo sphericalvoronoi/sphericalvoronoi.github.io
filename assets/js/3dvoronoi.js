@@ -64,7 +64,7 @@
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
     renderer.setPixelRatio(window.devicePixelRatio || 1);
-    renderer.setClearColor(0xf9fafb, 1);
+    renderer.setClearColor(0xffffff, 1);
 
     function resizeRenderer() {
         const rect = canvas.getBoundingClientRect();
