@@ -53,10 +53,17 @@
 
     let currentNumSites = parseInt(sitesInput.value || "16", 10);
 
+    const tauOverlay = document.getElementById("voronoi3dTauOverlay");
+    function setTauDisplay(val) {
+        const s = val.toFixed(1);
+        tauLabel.textContent = s;
+        if (tauOverlay) tauOverlay.textContent = s;
+    }
+
     const initialTau = parseFloat(tauSlider.value || "0");
     let currentTau = Number.isFinite(initialTau) ? initialTau : 0;
     let currentBeta = tauToBeta(currentTau);
-    tauLabel.textContent = currentTau.toFixed(1);
+    setTauDisplay(currentTau);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
@@ -302,7 +309,7 @@ void main(){
     let tempStartTs = null;
 
     const TEMP_SECONDS_PER_CYCLE = 6.0;
-    let tempAutoEnabled = false;
+    let tempAutoEnabled = true;
 
     function tempStep(ts) {
         if (!tempAutoEnabled) return;
@@ -315,12 +322,12 @@ void main(){
 
             const t = (ts - tempStartTs) * 0.001;
             const omega = (2 * Math.PI) / Math.max(0.1, TEMP_SECONDS_PER_CYCLE);
-            const tau = mid + amp * Math.sin(omega * t);
+            const tau = mid - amp * Math.cos(omega * t);
 
             tauSlider.value = String(tau);
             currentTau = tau;
             currentBeta = tauToBeta(tau);
-            tauLabel.textContent = currentTau.toFixed(1);
+            setTauDisplay(currentTau);
             updateVoronoi();
         }
 
@@ -365,6 +372,7 @@ void main(){
     });
 
     window.setVoronoi3DTempAutoAnimate = setTempAutoAnimate;
+    window.setVoronoi3DAutoRotate = function (enabled) { autoRotateEnabled = !!enabled; };
 
     genButton.addEventListener("click", () => {
         let n = parseInt(sitesInput.value, 10);
@@ -384,6 +392,8 @@ void main(){
     let pitchBase = 0;
     let autoYaw = 0;
     let autoPitch = 0;
+
+    let autoRotateEnabled = true;
 
     let dragging = false;
     let lastX = 0, lastY = 0;
@@ -453,7 +463,7 @@ void main(){
         lastTime = now;
         elapsed += dt;
 
-        if (!dragging) {
+        if (!dragging && autoRotateEnabled) {
             autoYaw += AUTO_YAW_SPEED * dt;
             if (autoYaw > Math.PI * 2.0) autoYaw -= Math.PI * 2.0;
             autoPitch = AUTO_PITCH_AMPLITUDE * Math.sin(AUTO_PITCH_SPEED * elapsed);
@@ -464,4 +474,5 @@ void main(){
     }
 
     animate();
+    startTempAuto();
 })();

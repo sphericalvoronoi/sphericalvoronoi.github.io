@@ -251,7 +251,7 @@
             }
             ctx.restore();
 
-            // drawTauBadge(tau);
+            drawTauBadge(tau);
         }
 
         function drawColorRing(beta) {
@@ -402,7 +402,7 @@
                 const amp = 0.5 * (tmax - tmin);
 
                 const omegaTau = Math.PI / Math.max(0.1, TAU_HALF_CYCLE_SECONDS);
-                const tau = mid + amp * Math.sin(omegaTau * tauTime);
+                const tau = mid - amp * Math.cos(omegaTau * tauTime);
 
                 setTau(tau);
             }
