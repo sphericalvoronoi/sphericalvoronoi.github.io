@@ -17,8 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Spherical Voronoi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet"
-        type="text/css">
+
     <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
@@ -38,7 +37,7 @@
         content="Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere, 2025." />
 
     <script src="assets/js/video_comparison.js"></script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"></script>
+
     <script src="assets/js/bulma-carousel.min.js"></script>
     <script src="assets/js/bulma-slider.min.js"></script>
 
@@ -173,13 +172,32 @@
 </head>
 
 <body>
+
+    <!-- Side nav (desktop) -->
+    <nav id="page-nav" aria-label="Page sections">
+        <ul>
+            <li><a href="#abstract"><span class="nav-dot"></span><span class="nav-label">Abstract</span></a></li>
+            <li><a href="#visualizers"><span class="nav-dot"></span><span class="nav-label">Visualizers</span></a></li>
+            <li><a href="#method"><span class="nav-dot"></span><span class="nav-label">Method</span></a></li>
+            <li><a href="#results"><span class="nav-dot"></span><span class="nav-label">Results</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Mobile nav strip (always visible, hidden on desktop) -->
+    <nav id="mobile-nav" aria-label="Page sections">
+        <a href="#abstract">Abstract</a>
+        <a href="#visualizers">Visualizers</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+    </nav>
+
     <div class="highlight-clean pb-3">
         <div class="container-fluid mb-3">
             
             <!-- <h2 class="text-center" style="font-weight: bold; color: #007bff; margin-bottom: 5px;">If accepted somewhere</h2> -->
             <h1 class="text-center mb-2"><b>Spherical Voronoi</b> <br> Directional Appearance as a Differentiable
                 Partition of the Sphere</h1>
-               <h3 class="text-center mt-4 mb-4"><i>CVPR 2026</i></h3>
+               <h3 class="text-center mt-4 mb-4">CVPR 2026</h3>
         </div>
 
 
@@ -296,36 +314,64 @@
     </div>
 
     <div class="container text-center">
-
-        <!-- Paper (PDF) -->
-        <a href="./assets/paper/paper.pdf" target="_blank" class="resource-btn" height="80px" download>
+        <a href="./assets/paper/paper.pdf" target="_blank" class="resource-btn" download>
             <img src="./assets/media/pdf.png" alt="PDF logo"> Paper
         </a>
-
-        <!-- arXiv -->
         <a href="https://arxiv.org/abs/2512.14180" target="_blank" class="resource-btn">
             <img src="./assets/media/paper.png" alt="arXiv logo"> arXiv
         </a>
-
-        <!-- Code (GitHub) -->
         <a href="https://github.com/sphericalvoronoi/sphericalvoronoi" target="_blank" class="resource-btn">
             <img src="./assets/media/github.png" alt="GitHub logo"> Code
         </a>
-
-        <a href="https://colab.research.google.com/drive/1kT8xSo03mSEcdW2WouVeU4hMFXFqpbbu" target="_blank"
-            class="resource-btn">
-            <img src="./assets/media/colab.png" alt="GitHub logo"> Colab
+        <a href="https://colab.research.google.com/drive/1kT8xSo03mSEcdW2WouVeU4hMFXFqpbbu" target="_blank" class="resource-btn">
+            <img src="./assets/media/colab.png" alt="Colab logo"> Colab
         </a>
     </div>
 
 
+
+    <!-- YouTube video summary (facade: loads iframe only on click) -->
+    <div class="container my-4">
+        <div id="yt-facade" style="
+            position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
+            max-width:900px; margin:0 auto; border-radius:8px; background:#000;
+            cursor:pointer;">
+            <img src="https://img.youtube.com/vi/THXGZtdyaPM/maxresdefault.jpg"
+                 loading="lazy"
+                 alt="Spherical Voronoi – Video Summary"
+                 style="position:absolute; top:0; left:0; width:100%; height:100%;
+                        object-fit:cover; border-radius:8px; opacity:0.85;">
+            <!-- Play button overlay -->
+            <div style="
+                position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                width:72px; height:72px; background:rgba(255,0,0,0.9); border-radius:50%;
+                display:flex; align-items:center; justify-content:center; pointer-events:none;">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('yt-facade').addEventListener('click', function () {
+            var wrap = this;
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://www.youtube-nocookie.com/embed/THXGZtdyaPM?autoplay=1';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.frameBorder = '0';
+            iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';
+            wrap.innerHTML = '';
+            wrap.appendChild(iframe);
+        });
+    </script>
 
     <div class="container">
 
 
         <div class="row">
             <div class="col-12">
-                <h2 class="font-weight-bold">Abstract</h2>
+                <h2 id="abstract" class="font-weight-bold">Abstract</h2>
                 <p class="text-justify">
                     Radiance field methods (e.g.~3D Gaussian Splatting) have emerged as a powerful paradigm for novel
                     view
@@ -368,7 +414,7 @@
 
     <div class="container">
         <div class="mt-4">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/voronoi_training.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -479,7 +525,7 @@
     <div class="container my-5"
         style="font-family: system-ui, -apple-system, sans-serif; max-width:1100px; margin:0 auto;">
         <hr class="section-line">
-        <h2 class="font-weight-bold text-center mb-3">Voronoi Visualizers</h2>
+        <h2 id="visualizers" class="font-weight-bold text-center mb-3">Voronoi Visualizers</h2>
         <p class="text-muted mt-2 font-italic text-justify">
             These interactive viewers illustrate our <strong>soft Voronoi partition</strong> both in 2D
             (on the circle) and on the <strong>sphere</strong>.
@@ -620,7 +666,7 @@
                                 border:1px solid #ddd;
                                 font-size:14px;
                             ">
-                        &#9646;&#9646; Stop
+                        &#9654; Start
                     </button>
                 </div>
             </div>
@@ -642,7 +688,7 @@
     </p>
 
     <div class="text-center mt-3 mb-3">
-        <img src="assets/img/convergence.png" class="img-fluid" alt="Fitting functions on spherical domains (2D)">
+        <img loading="lazy" src="assets/img/convergence.png" class="img-fluid" alt="Fitting functions on spherical domains (2D)">
         <p class="text-muted small mt-2">
             Top: reconstructions after optimization.
             Bottom-left: random initializations.
@@ -690,7 +736,7 @@
         <hr class="section-line">
         <div class="row">
             <div class="col-12">
-                <h2 class="font-weight-bold">Methodology</h2>
+                <h2 id="method" class="font-weight-bold">Methodology</h2>
 
                 <h4 class="mt-3"><strong>View Direction Parameterization</strong></h4>
                 
@@ -838,7 +884,7 @@
                 </p>
 
                 <div class="text-center mb-4 mt-5">
-                    <img src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
+                    <img loading="lazy" src="assets/img/deferred_pipeline.png" class="img-fluid" alt="Deferred rendering pipeline"
                         style="max-width: 90%;" />
                     <p class="text-muted font-italic text-justify">
                         The 2DGS scene is rasterized into
@@ -852,7 +898,7 @@
                 <div class="row justify-content-center mb-4 mt-5 align-items-stretch">
                     <div class="col-md-8 text-center mb-3 mb-md-0 d-flex flex-column">
                         <video class="w-100" style="height: 300px; object-fit: contain;" autoplay muted loop
-                            playsinline>
+                            playsinline preload="none">
                             <source src="assets/video/probes_motion.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
@@ -860,7 +906,7 @@
 
                     <div class="col-md-3 text-center d-flex flex-column">
                         <video class="w-100" style="height: 300px; object-fit: contain;" autoplay muted loop
-                            playsinline>
+                            playsinline preload="none">
                             <source src="assets/video/temperature_effect.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
@@ -891,7 +937,7 @@
     <!-- Results -->
     <div class="container my-4">
         <hr class="section-line">
-        <h2 class="font-weight-bold">Results - View Direction Parameterization</h2>
+        <h2 id="results" class="font-weight-bold">Results - View Direction Parameterization</h2>
         <p>Our method achieves comparable quality to Zip-NeRF on the Mip-NeRF360 dataset, while delivering significantly
             higher
             accuracy on other standard benchmarks such as NeRF Synthetic and Tanks & Temples.</p>
@@ -913,10 +959,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_bonsai.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_bonsai.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_bonsai.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_bonsai.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -927,10 +973,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_bicycle.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_bicycle.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_bicycle.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_bicycle.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -941,10 +987,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_kitchen.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_kitchen.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_kitchen.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_kitchen.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -955,10 +1001,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_counter.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_counter.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_counter.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_counter.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -969,10 +1015,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_garden.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_garden.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_garden.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_garden.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -983,10 +1029,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_room.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_room.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_room.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_room.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -997,10 +1043,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/zipnerf_stump.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/zipnerf_stump.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_stump.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_stump.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1032,10 +1078,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_bonsai.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_bonsai.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_bonsai.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_bonsai.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1046,10 +1092,10 @@
 
                         <div class="comparison active" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_bicycle.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_bicycle.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_bicycle.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_bicycle.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1060,10 +1106,10 @@
 
                         <div class="comparison " data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_kitchen.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_kitchen.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_kitchen.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_kitchen.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1074,10 +1120,10 @@
 
                         <div class="comparison " data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_counter.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_counter.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_counter.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_counter.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1088,10 +1134,10 @@
 
                         <div class="comparison " data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_garden.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_garden.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_garden.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_garden.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1102,10 +1148,10 @@
 
                         <div class="comparison " data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_room.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_room.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_room.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_room.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1116,10 +1162,10 @@
 
                         <div class="comparison" data-type="image">
                             <div class="image-container image-after">
-                                <img src="./assets/img/gt_stump.png" alt="Right">
+                                <img loading="lazy" src="./assets/img/gt_stump.png" alt="Right">
                             </div>
                             <div class="image-container image-before">
-                                <img src="./assets/img/ours_stump.png" alt="Left">
+                                <img loading="lazy" src="./assets/img/ours_stump.png" alt="Left">
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1265,43 +1311,43 @@
         <p>Our method allows for a detailed scene decomposition into physically interpretable components, such as
             diffuse, specular, surface normals, and roughness.</p>
         <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/gardenspheres_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/toaster_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/car_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/ball_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         <!-- <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/helmet_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div> -->
         <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/teapot_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         <!-- <div class="">
-            <video width="100%" autoplay muted loop playsinline>
+            <video width="100%" autoplay muted loop playsinline preload="none">
                 <source src="assets/video/bell_decomposition.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -1411,11 +1457,11 @@
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/refgs_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                    playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
                                 <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                    playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1431,11 +1477,11 @@
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/3dgsdr_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                    playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
                                 <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                    playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1451,11 +1497,11 @@
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
                                 <video src="./assets/video/gshader_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                    playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
                                 <video src="./assets/video/ours_gardenspheres.mp4" autoplay loop muted
-                                    playsinline></video>
+                                    playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1487,10 +1533,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gt_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gt_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1505,10 +1551,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1523,10 +1569,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1541,10 +1587,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_car.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1573,10 +1619,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_teapot.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_teapot.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1591,10 +1637,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_teapot.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_teapot.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1609,10 +1655,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_teapot.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_teapot.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_teapot.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1644,10 +1690,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gt_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gt_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1662,10 +1708,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1680,10 +1726,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1698,10 +1744,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_ball.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1730,10 +1776,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gt_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gt_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1748,10 +1794,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1766,10 +1812,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1784,10 +1830,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_toaster.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1818,10 +1864,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_bell.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_bell.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1836,10 +1882,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_bell.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_bell.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1854,10 +1900,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_bell.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_bell.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_bell.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1886,10 +1932,10 @@
                     <div class="comparison-wrapper">
                         <div class="comparison active" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gt_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gt_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1904,10 +1950,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/refgs_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1922,10 +1968,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/3dgsdr_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/3dgsdr_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -1940,10 +1986,10 @@
 
                         <div class="comparison" data-type="video">
                             <div class="image-container image-after">
-                                <video src="./assets/video/gshader_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/gshader_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="image-container image-before">
-                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline></video>
+                                <video src="./assets/video/ours_helmet.mp4" autoplay loop muted playsinline preload="none"></video>
                             </div>
                             <div class="divider"></div>
                             <div class="labels-container">
@@ -2009,7 +2055,7 @@
 
         <div class="row justify-content-center"> 
             <div class="col-lg-12">
-                <h2 class="font-weight-bold">Citation</h2>
+                <h2 id="citation" class="font-weight-bold">Citation</h2>
                     <code>
                     @article{disario2025sphericalvoronoidirectionalappearance,
                     title={Spherical Voronoi: Directional Appearance as a Differentiable Partition of the Sphere},
@@ -2050,10 +2096,11 @@
     <script src="assets/js/voronoi.js"></script>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
-            const viewer2d = initVoronoiPolarViewer({ autoTau: true });
+            const viewer2d = initVoronoiPolarViewer({ autoTau: false, autoAnimate: false });
             const btn2d = document.getElementById("voronoiToggleAnim");
             if (btn2d && viewer2d) {
-                let running = true;
+                let running = false;
+                btn2d.innerHTML = "&#9654; Start";
                 btn2d.addEventListener("click", () => {
                     running = !running;
                     viewer2d.setAutoAnimate(running);
@@ -2062,17 +2109,10 @@
             }
         });
     </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script>
-    <script src="assets/js/yall.js"></script>
-    <script>
-        yall({ observeChanges: true });
-    </script>
     <script src="assets/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
+
     <script src="assets/js/comparison.js"></script>
     <script src="https://unpkg.com/three@0.132.2/build/three.min.js"></script>
     <script src="./assets/js/3dvoronoi.js"></script>
@@ -2080,7 +2120,10 @@
         (function () {
             const btn3d = document.getElementById("voronoi3dToggleRot");
             if (!btn3d) return;
-            let running = true;
+            let running = false;
+            btn3d.innerHTML = "&#9654; Start";
+            if (window.setVoronoi3DAutoRotate) window.setVoronoi3DAutoRotate(false);
+            if (window.setVoronoi3DTempAutoAnimate) window.setVoronoi3DTempAutoAnimate(false);
             btn3d.addEventListener("click", () => {
                 running = !running;
                 if (window.setVoronoi3DAutoRotate) window.setVoronoi3DAutoRotate(running);
@@ -2101,7 +2144,7 @@
             var comparisons = container.querySelectorAll('.comparison');
 
             var currentIndex = 0;
-            var isPlaying = true;
+            var isPlaying = false;
 
             // slider position (0..100)
             var position = 50;
@@ -2260,7 +2303,6 @@
             }
 
             updateSlider();
-            if (isPlaying) startAutoSlide();
         });
     });
 </script>
@@ -2268,20 +2310,59 @@
 
 
     <script>
-        window.addEventListener('load', function () {
-            var videos = document.querySelectorAll('video');
-            videos.forEach(function (v) {
-                v.pause();
-                v.currentTime = 0;
-                v.load();
-                var p = v.play();
-                if (p !== undefined) {
-                    p.catch(function () { });
-                }
-            });
+        // Initialize comparison play buttons as "Play" (animation off by default)
+        document.querySelectorAll('.play-btn').forEach(function (btn) {
+            var spans = btn.querySelectorAll('span');
+            if (spans[0]) spans[0].textContent = '▶';
+            if (spans[1]) spans[1].textContent = 'Play';
         });
+
+        // Play/pause standalone videos (not inside comparison sliders) based on viewport visibility
+        (function () {
+            if (!('IntersectionObserver' in window)) return;
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    var v = e.target;
+                    if (e.isIntersecting) {
+                        v.play().catch(function () {});
+                    } else {
+                        v.pause();
+                    }
+                });
+            }, { threshold: 0.2 });
+            document.querySelectorAll('video').forEach(function (v) {
+                if (!v.closest('.comparison')) obs.observe(v);
+            });
+        })();
     </script>
 
+    <script>
+        // Active section tracking for both side nav (desktop) and mobile nav strip
+        (function () {
+            var ids = ['abstract', 'visualizers', 'method', 'results'];
+
+            function update() {
+                var best = ids[0];
+                ids.forEach(function (id) {
+                    var el = document.getElementById(id);
+                    if (el && el.getBoundingClientRect().top <= 120) best = id;
+                });
+                // desktop side nav
+                document.querySelectorAll('#page-nav li').forEach(function (li) {
+                    var href = li.querySelector('a').getAttribute('href').slice(1);
+                    li.classList.toggle('active', href === best);
+                });
+                // mobile nav strip
+                document.querySelectorAll('#mobile-nav a').forEach(function (a) {
+                    var href = a.getAttribute('href').slice(1);
+                    a.classList.toggle('active', href === best);
+                });
+            }
+
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+    </script>
 
 </body>
 

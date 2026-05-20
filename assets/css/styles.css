@@ -5,15 +5,19 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 40px 20px;
-    /* background: #f`afafa; */
 }
 
 
 
 .text-muted {
-    font-size: large !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-weight: 300 !important;
+    font-style: italic;
+    font-size: 0.92rem !important;
+    line-height: 1.65;
+    color: #555 !important;
 }
 
 mjx-container[jax="CHTML"],
@@ -75,7 +79,6 @@ mjx-container[jax="CHTML"] {
 .resource-btn img {
     height: 24px;
     width: auto;
-    filter: none;
 }
 
 .resource-btn:hover {
@@ -83,6 +86,8 @@ mjx-container[jax="CHTML"] {
     border-color: #ccc;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #222;
+    text-decoration: none;
 }
 
 .resource-btn:active {
@@ -95,26 +100,104 @@ mjx-container[jax="CHTML"] {
         font-size: 0.9rem;
         padding: 8px 16px;
         margin: 6px;
-        height: 60px;
-        min-width: 130px;
+        height: auto;
+        min-width: 120px;
     }
-
-    .resource-btn img {
-        height: 48px;
-    }
+    .resource-btn img { height: 20px; }
 }
 
+/* ── Side nav (desktop) ──────────────────────────────── */
+#page-nav {
+    position: fixed;
+    right: 1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+}
 
-@media (max-width: 600px) {
-    .resource-btn {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-        margin: 6px;
-    }
+#page-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
-    .resource-btn img {
-        width: 36px;
-    }
+#page-nav li a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    text-decoration: none;
+    padding: 6px 4px;
+    cursor: pointer;
+}
+
+.nav-label {
+    font-size: 13px;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #888;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+    transition: color 0.2s, font-weight 0.2s;
+}
+
+.nav-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ccc;
+    border: 1.5px solid #aaa;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    display: block;
+}
+
+#page-nav li.active .nav-label { color: #111; font-weight: 600; }
+#page-nav li.active .nav-dot   { background: #111; border-color: #111; transform: scale(1.5); }
+#page-nav li a:hover .nav-label { color: #333; }
+#page-nav li a:hover .nav-dot  { background: #666; border-color: #666; transform: scale(1.2); }
+
+/* scroll offset so sticky nav doesn't cover headings */
+h2[id] { scroll-margin-top: 20px; }
+
+/* ── Mobile nav strip (always visible, sticky) ─────────── */
+#mobile-nav {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 16px;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#mobile-nav a {
+    padding: 5px 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #555;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+}
+
+#mobile-nav a:hover      { background: #f5f5f5; color: #222; }
+#mobile-nav a.active     { border-color: #111; color: #111; font-weight: 600; }
+
+@media (max-width: 991px) {
+    #page-nav    { display: none; }
+    #mobile-nav  { display: flex; }
 }
 
 
@@ -825,15 +908,8 @@ h6 {
 }
 
 body {
-    /* font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; */
-    /* font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; */
     font-weight: 300;
-    font-family: "Source Sans Pro", Calibri, Candara, Arial, sans-serif;
 }
-
-/* code {
-
-} */
 
 h1,
 h2,
@@ -841,16 +917,25 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Source Sans Pro", Calibri, Candara, Arial, sans-serif;
-    font-weight: 300;
-    line-height: 1.1;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.15;
     color: inherit;
 }
 
+h1 { font-weight: 700; }
+h2 { font-weight: 700; }
+h3 { font-weight: 400; font-style: italic; }
+h4 { font-weight: 700; }
+h5 { font-weight: 400; }
+h6 { font-weight: 400; }
+
 p,
 .caption {
-    font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-    margin-top: 4px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-top: 0;
+    margin-bottom: 0.6rem;
 }
 
 /* From Ref-NeRF */
@@ -1155,7 +1240,7 @@ model-viewer .controls {
     font-weight: bold;
     padding-left: 5px;
     padding-right: 5px;
-    font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .col-1 {

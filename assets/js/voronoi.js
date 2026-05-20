@@ -469,7 +469,9 @@
         render();
         if (autoAnimEnabled) startAuto();
 
-        return { setAutoAnimate, setAutoTau };
+        function getSites() { return sites; }
+
+        return { setAutoAnimate, setAutoTau, getSites };
     }
 
     global.initVoronoiPolarViewer = initVoronoiPolarViewer;
